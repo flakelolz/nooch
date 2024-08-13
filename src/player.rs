@@ -7,11 +7,18 @@ pub enum Player {
 }
 
 pub fn setup(world: &mut World) {
+    // world.entity_from::<InputConfig>();
+    world.set(InputConfig::default());
 
     world
         .entity_named("Player 1")
         .set(Player::One)
-        .set(InputConfig::one())
+        .add::<Input>()
+        .add::<Physics>();
+
+    world
+        .entity_named("Player 2")
+        .set(Player::Two)
         .add::<Input>()
         .add::<Physics>();
 }

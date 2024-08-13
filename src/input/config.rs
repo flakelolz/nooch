@@ -78,23 +78,15 @@ impl Gamepad {
 
 #[derive(Component)]
 pub struct InputConfig {
-    pub kb: Keyboard,
-    pub pad: Gamepad,
+    pub kb: [Keyboard; 2],
+    pub pad: [Gamepad; 2],
 }
 
-impl InputConfig {
-    pub fn one() -> Self {
+impl Default for InputConfig {
+    fn default() -> Self {
         Self {
-            kb: Keyboard::one(),
-            pad: Gamepad::new(),
-        }
-    }
-
-    pub fn two() -> Self {
-        Self {
-            kb: Keyboard::two(),
-            pad: Gamepad::new(),
+            kb: [Keyboard::one(), Keyboard::two()],
+            pad: [Gamepad::new(), Gamepad::new()],
         }
     }
 }
-

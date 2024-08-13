@@ -7,48 +7,61 @@ use crate::prelude::*;
 
 pub fn update_input(world: &mut World, rl: &RaylibHandle) {
     let query = world
-        .query_named::<(&mut Input, &InputConfig, &Player)>("Update Input")
+        .query_named::<(&mut Input, &Player)>("Update Input")
         .set_cached()
         .build();
 
-    query.each(|(input, config, player)| {
-        let port = match player {
-            Player::One => 0,
-            Player::Two => 1,
-        };
+    let config_q = world
+        .query::<&InputConfig>()
+        .set_cached()
+        .singleton()
+        .build();
 
-        **input = 0;
-        if rl.is_key_down(config.kb.up) || rl.is_gamepad_button_down(port, config.pad.up) {
-            *input |= Buttons::Up;
-        }
-        if rl.is_key_down(config.kb.left) || rl.is_gamepad_button_down(port, config.pad.left) {
-            *input |= Buttons::Left;
-        }
-        if rl.is_key_down(config.kb.down) || rl.is_gamepad_button_down(port, config.pad.down) {
-            *input |= Buttons::Down;
-        }
-        if rl.is_key_down(config.kb.right) || rl.is_gamepad_button_down(port, config.pad.right) {
-            *input |= Buttons::Right;
-        }
-        if rl.is_key_down(config.kb.lp) || rl.is_gamepad_button_down(port, config.pad.lp) {
-            *input |= Buttons::Lp;
-        }
-        if rl.is_key_down(config.kb.mp) || rl.is_gamepad_button_down(port, config.pad.mp) {
-            *input |= Buttons::Mp;
-        }
-        if rl.is_key_down(config.kb.hp) || rl.is_gamepad_button_down(port, config.pad.hp) {
-            *input |= Buttons::Hp;
-        }
-        if rl.is_key_down(config.kb.lk) || rl.is_gamepad_button_down(port, config.pad.lk) {
-            *input |= Buttons::Lk;
-        }
-        if rl.is_key_down(config.kb.mk) || rl.is_gamepad_button_down(port, config.pad.mk) {
-            *input |= Buttons::Mk;
-        }
-        if rl.is_key_down(config.kb.hk) || rl.is_gamepad_button_down(port, config.pad.hk) {
-            *input |= Buttons::Hk;
-        }
+    // world.get::<&InputConfig>(|config| {
+    config_q.each(|config| {
+        query.each(|(input, player)| {
+            let port = match player {
+                Player::One => 0,
+                Player::Two => 1,
+            };
+            let keyboard = &config.kb[port];
+            let gamepad = &config.pad[port];
+            let port = port as i32;
+
+            **input = 0;
+            if rl.is_key_down(keyboard.up) || rl.is_gamepad_button_down(port, gamepad.up) {
+                *input |= Buttons::Up;
+            }
+            if rl.is_key_down(keyboard.left) || rl.is_gamepad_button_down(port, gamepad.left) {
+                *input |= Buttons::Left;
+            }
+            if rl.is_key_down(keyboard.down) || rl.is_gamepad_button_down(port, gamepad.down) {
+                *input |= Buttons::Down;
+            }
+            if rl.is_key_down(keyboard.right) || rl.is_gamepad_button_down(port, gamepad.right) {
+                *input |= Buttons::Right;
+            }
+            if rl.is_key_down(keyboard.lp) || rl.is_gamepad_button_down(port, gamepad.lp) {
+                *input |= Buttons::Lp;
+            }
+            if rl.is_key_down(keyboard.mp) || rl.is_gamepad_button_down(port, gamepad.mp) {
+                *input |= Buttons::Mp;
+            }
+            if rl.is_key_down(keyboard.hp) || rl.is_gamepad_button_down(port, gamepad.hp) {
+                *input |= Buttons::Hp;
+            }
+            if rl.is_key_down(keyboard.lk) || rl.is_gamepad_button_down(port, gamepad.lk) {
+                *input |= Buttons::Lk;
+            }
+            if rl.is_key_down(keyboard.mk) || rl.is_gamepad_button_down(port, gamepad.mk) {
+                *input |= Buttons::Mk;
+            }
+            if rl.is_key_down(keyboard.hk) || rl.is_gamepad_button_down(port, gamepad.hk) {
+                *input |= Buttons::Hk;
+            }
+        });
     });
+    // });
 }
 
 #[derive(Component, Default, Debug)]
