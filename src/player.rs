@@ -7,7 +7,6 @@ pub enum Player {
 }
 
 pub fn setup(world: &mut World) {
-    // world.entity_from::<InputConfig>();
     world.set(InputConfig::default());
 
     world

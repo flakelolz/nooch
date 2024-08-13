@@ -2,7 +2,6 @@ use crate::prelude::*;
 
 pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
     let mut rl_imgui = RaylibImguiSupport::setup(rl, thread);
-
     // Create ECS world
     let mut world = World::new();
     // Optional, gather statistics for explorer
@@ -29,7 +28,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             .position([0., 0.], imgui::Condition::FirstUseEver)
             .build(|| {
                 world.lookup("Player 1").get::<&Input>(|input| {
-                    ui.text(format!("Input: {input}"));
+                    ui.text(format!("Input: {input:010b}"));
                 });
                 ui.separator();
                 let mouse_pos = ui.io().mouse_pos;

@@ -17,7 +17,6 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
         .singleton()
         .build();
 
-    // world.get::<&InputConfig>(|config| {
     config_q.each(|config| {
         query.each(|(input, player)| {
             let port = match player {
@@ -28,7 +27,9 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
             let gamepad = &config.pad[port];
             let port = port as i32;
 
-            **input = 0;
+            // Reset input
+            **input = Buttons::None.bits();
+
             if rl.is_key_down(keyboard.up) || rl.is_gamepad_button_down(port, gamepad.up) {
                 *input |= Buttons::Up;
             }
@@ -61,7 +62,6 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
             }
         });
     });
-    // });
 }
 
 #[derive(Component, Default, Debug)]
@@ -108,5 +108,12 @@ impl std::ops::BitOrAssign<Buttons> for Input {
 impl std::fmt::Display for Input {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
+    }
+}
+
+impl std::fmt::Binary for Input {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let val = self.0;
+        std::fmt::Binary::fmt(&val, f) // delegate to u32's implementation
     }
 }
