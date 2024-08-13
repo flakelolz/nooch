@@ -1,12 +1,16 @@
 mod game;
+mod input;
+mod physics;
 mod player;
 
 mod prelude {
+    pub use crate::input::*;
+    pub use crate::physics::*;
     pub use crate::player::*;
     pub use flecs_ecs::prelude::*;
+    pub use glam::IVec2;
     pub use nooch::RaylibImguiSupport;
     pub use raylib::prelude::*;
-    pub use glam::IVec2;
 
     pub use include_dir::{include_dir, Dir};
     pub static ASSETS: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/assets");

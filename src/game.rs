@@ -17,6 +17,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         // Runs the system serving up REST requests
         world.progress();
 
+        update_input(&mut world, rl);
         // Drawing
         // start imgui frame
         let ui = &mut rl_imgui.start_frame(rl);
@@ -24,9 +25,13 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         d.clear_background(Color::BLACK);
 
         ui.window("Debug")
-            .size([220., 50.], imgui::Condition::FirstUseEver)
+            .size([220., 70.], imgui::Condition::FirstUseEver)
             .position([0., 0.], imgui::Condition::FirstUseEver)
             .build(|| {
+                world.lookup("Player 1").get::<&Input>(|input| {
+                    ui.text(format!("Input: {input}"));
+                });
+                ui.separator();
                 let mouse_pos = ui.io().mouse_pos;
                 ui.text(format!(
                     "Mouse Position: ({:.1},{:.1})",
