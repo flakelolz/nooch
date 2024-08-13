@@ -7,7 +7,7 @@
 
 
 # Gameplay
-- [ ] input handling with bitwise operations
+- [x] input handling with bitwise operations
 - [ ] draw character
 - [ ] state machine
 - [ ] input buffer
