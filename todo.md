@@ -10,7 +10,7 @@
 # Gameplay
 - [x] input handling with bitwise operations
 - [x] draw characters
-- [ ] state machine
+- [x] state machine
 - [ ] input buffer
 - [ ] second player
 
