@@ -3,6 +3,7 @@ mod drawing;
 mod game;
 mod input;
 mod physics;
+mod state_machine;
 mod utils;
 mod world;
 
@@ -11,12 +12,15 @@ mod prelude {
     pub use crate::drawing::*;
     pub use crate::input::*;
     pub use crate::physics::*;
+    pub use crate::state_machine::*;
     pub use crate::utils::*;
     pub use crate::world::*;
     pub use flecs_ecs::prelude::*;
     pub use glam::{IVec2, Vec2};
     pub use nooch::RaylibImguiSupport;
     pub use raylib::prelude::*;
+    pub use serde::{Deserialize, Serialize};
+    pub use std::collections::HashMap;
 
     pub use include_dir::{include_dir, Dir};
     pub static ASSETS: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/assets");
@@ -36,6 +40,7 @@ fn main() {
     let args = std::env::args().collect::<Vec<String>>();
     if args.len() > 1 && args[1] == "--update" {
         utils::update_aseprite_data("ken");
+        utils::update_action_durations("ken");
         std::process::exit(0);
     }
 

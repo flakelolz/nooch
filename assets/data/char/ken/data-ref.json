@@ -1,0 +1,3691 @@
+{
+  "name": "Ken",
+  "health": 1000,
+  "forward_walk": 3000,
+  "backward_walk": -3000,
+  "jump_velocity": 9500,
+  "jump_deceleration": -604,
+  "jump_forward": 4000,
+  "jump_backward": -4000,
+  "origin": [
+    0.5,
+    0.835
+  ],
+  "pushbox": {
+    "top": 8000,
+    "bottom": -69000,
+    "left": -23000,
+    "right": 26000
+  },
+  "actions": [
+    {
+      "name": "St Idle",
+      "total": 34,
+      "looping": true,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "St WalkForward",
+      "total": 44,
+      "looping": true,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "St WalkBackward",
+      "total": 44,
+      "looping": true,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "St DashForward",
+      "total": 19,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [],
+            "after_frame": 12,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Group": "Normals"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 16,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ],
+        "potisions": [
+          {
+            "on_frame": 2,
+            "value": [
+              24000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 4,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 5,
+            "value": [
+              7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 7,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 9,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 10,
+            "value": [
+              16000,
+              0
+            ]
+          }
+        ],
+        "proximity": null
+      }
+    },
+    {
+      "name": "St DashBackward",
+      "total": 15,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": {
+        "cancels": null,
+        "potisions": [
+          {
+            "on_frame": 2,
+            "value": [
+              -8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 5,
+            "value": [
+              -34000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              -7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 7,
+            "value": [
+              -4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              -1000,
+              0
+            ]
+          }
+        ],
+        "proximity": null
+      }
+    },
+    {
+      "name": "St LightPunch",
+      "total": 12,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 6,
+          "duration": 2,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Weak",
+            "hitstop": 6,
+            "hitstun": 8,
+            "blockstun": 8,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 19000,
+            "bottom": 5000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Standing": "LightPunch"
+              },
+              {
+                "Crouching": "LightPunch"
+              },
+              {
+                "Crouching": "LightKick"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Standing": "LightPunch"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 6,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cl LightPunch",
+      "total": 15,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 5,
+          "duration": 4,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Weak",
+            "hitstop": 6,
+            "hitstun": 8,
+            "blockstun": 8,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 30000,
+            "bottom": 18000,
+            "left": 30000,
+            "right": 55000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Standing": "LightPunch"
+              },
+              {
+                "Crouching": "LightPunch"
+              },
+              {
+                "Crouching": "LightKick"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Standing": "LightPunch"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 6,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "St MediumPunch",
+      "total": 19,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 6,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 6000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": null,
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 9,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cl MediumPunch",
+      "total": 21,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 6,
+          "duration": 4,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 6500
+          },
+          "value": {
+            "top": -2000,
+            "bottom": -15000,
+            "left": 37000,
+            "right": 58000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 8,
+            "until_frame": 10,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          },
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 8,
+            "until_frame": 11,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 9,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "St HeavyPunch",
+      "total": 31,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 11,
+          "duration": 2,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "FrontSpin",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 24000,
+            "bottom": 7000,
+            "left": 30000,
+            "right": 69000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [],
+            "after_frame": 27,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ],
+        "potisions": [
+          {
+            "on_frame": 2,
+            "value": [
+              7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 5,
+            "value": [
+              3000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 12,
+            "value": [
+              4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 14,
+            "value": [
+              -5000,
+              0
+            ]
+          },
+          {
+            "on_frame": 22,
+            "value": [
+              -2000,
+              0
+            ]
+          },
+          {
+            "on_frame": 27,
+            "value": [
+              -11000,
+              0
+            ]
+          }
+        ],
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cl HeavyPunch",
+      "total": 33,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Rising",
+            "hitstop": 10,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 24000,
+            "bottom": -15000,
+            "left": 30000,
+            "right": 53000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 7,
+            "until_frame": 9,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 24,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "St LightKick",
+      "total": 15,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 5,
+          "duration": 4,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Weak",
+            "hitstop": 6,
+            "hitstun": 14,
+            "blockstun": 12,
+            "knockback": 7000
+          },
+          "value": {
+            "top": -28000,
+            "bottom": -56000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [],
+            "after_frame": 7,
+            "until_frame": 8,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "St MediumKick",
+      "total": 31,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 9,
+          "duration": 4,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "BackSpin",
+            "hitstop": 6,
+            "hitstun": 23,
+            "blockstun": 19,
+            "knockback": 7000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": null,
+        "potisions": [
+          {
+            "on_frame": 1,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              2000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              14000,
+              0
+            ]
+          },
+          {
+            "on_frame": 9,
+            "value": [
+              18000,
+              0
+            ]
+          }
+        ],
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "St HeavyKick",
+      "total": 36,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 12,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Strong",
+            "hitstop": 8,
+            "hitstun": 26,
+            "blockstun": 21,
+            "knockback": 11000
+          },
+          "value": {
+            "top": -4000,
+            "bottom": -24000,
+            "left": 30000,
+            "right": 86000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": null,
+        "potisions": [
+          {
+            "on_frame": 1,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              2000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              14000,
+              0
+            ]
+          },
+          {
+            "on_frame": 10,
+            "value": [
+              12000,
+              0
+            ]
+          },
+          {
+            "on_frame": 12,
+            "value": [
+              4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 22,
+            "value": [
+              1000,
+              0
+            ]
+          },
+          {
+            "on_frame": 25,
+            "value": [
+              7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 33,
+            "value": [
+              5000,
+              0
+            ]
+          }
+        ],
+        "proximity": {
+          "start_frame": 1,
+          "duration": 12,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "St Turn",
+      "total": 9,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [],
+            "after_frame": 1,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": null
+      }
+    },
+    {
+      "name": "Cr Start",
+      "total": 9,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 2,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 2,
+          "duration": 2,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 15000,
+            "bottom": -69500,
+            "left": -30000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 4,
+          "duration": 6,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": -800,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Cr Idle",
+      "total": 32,
+      "looping": true,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Cr End",
+      "total": 9,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 4,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Cr LightPunch",
+      "total": 12,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 5,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Weak",
+            "hitstop": 6,
+            "hitstun": 12,
+            "blockstun": 12,
+            "knockback": 7500
+          },
+          "value": {
+            "top": -16000,
+            "bottom": -28000,
+            "left": 19000,
+            "right": 65000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Group": "Specials"
+              },
+              {
+                "Standing": "LightPunch"
+              },
+              {
+                "Crouching": "LightPunch"
+              },
+              {
+                "Crouching": "LightKick"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Crouching": "LightPunch"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cr MediumPunch",
+      "total": 16,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 6,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": -14000,
+            "bottom": -27000,
+            "left": 25000,
+            "right": 70000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 6,
+            "until_frame": 9,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cr HeavyPunch",
+      "total": 31,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 1,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Rising",
+            "hitstop": 10,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 2000,
+            "bottom": -52000,
+            "left": 30000,
+            "right": 59000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 7,
+            "until_frame": 10,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cr LightKick",
+      "total": 17,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 6,
+          "duration": 3,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Weak",
+            "hitstop": 6,
+            "hitstun": 8,
+            "blockstun": 7,
+            "knockback": 8000
+          },
+          "value": {
+            "top": -54000,
+            "bottom": -69000,
+            "left": 26000,
+            "right": 69000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Ken": "LightPunch"
+              },
+              {
+                "Standing": "LightPunch"
+              },
+              {
+                "Crouching": "LightPunch"
+              },
+              {
+                "Crouching": "LightKick"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 8,
+            "until_frame": null,
+            "states": [
+              {
+                "Crouching": "LightKick"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cr MediumKick",
+      "total": 28,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 9500
+          },
+          "value": {
+            "top": -56000,
+            "bottom": -70000,
+            "left": 41000,
+            "right": 80000
+          }
+        },
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": -58000,
+            "bottom": -70000,
+            "left": 82000,
+            "right": 93000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 7,
+            "until_frame": 12,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          }
+        ],
+        "potisions": [
+          {
+            "on_frame": 1,
+            "value": [
+              13000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              13000,
+              0
+            ]
+          },
+          {
+            "on_frame": 7,
+            "value": [
+              3000,
+              0
+            ]
+          },
+          {
+            "on_frame": 16,
+            "value": [
+              -3000,
+              0
+            ]
+          },
+          {
+            "on_frame": 24,
+            "value": [
+              -13000,
+              0
+            ]
+          },
+          {
+            "on_frame": 28,
+            "value": [
+              -13000,
+              0
+            ]
+          }
+        ],
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cr HeavyKick",
+      "total": 37,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 0,
+            "bottom": -70000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 3,
+          "duration": 1,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 5000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        },
+        {
+          "start_frame": 5,
+          "duration": 1,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 5000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        },
+        {
+          "start_frame": 7,
+          "duration": 1,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 5000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        },
+        {
+          "start_frame": 9,
+          "duration": 1,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 5000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        },
+        {
+          "start_frame": 11,
+          "duration": 1,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 5000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 3,
+            "until_frame": 4,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          },
+          {
+            "on": [
+              "Hit",
+              "Block"
+            ],
+            "after_frame": 11,
+            "until_frame": 12,
+            "states": [
+              {
+                "Group": "Specials"
+              }
+            ]
+          }
+        ],
+        "potisions": [
+          {
+            "on_frame": 1,
+            "value": [
+              13000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              16000,
+              0
+            ]
+          },
+          {
+            "on_frame": 5,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 7,
+            "value": [
+              2000,
+              0
+            ]
+          },
+          {
+            "on_frame": 12,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 21,
+            "value": [
+              -2000,
+              0
+            ]
+          },
+          {
+            "on_frame": 25,
+            "value": [
+              -4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 29,
+            "value": [
+              -11000,
+              0
+            ]
+          },
+          {
+            "on_frame": 33,
+            "value": [
+              -13000,
+              0
+            ]
+          },
+          {
+            "on_frame": 37,
+            "value": [
+              -13000,
+              0
+            ]
+          }
+        ],
+        "proximity": {
+          "start_frame": 1,
+          "duration": 7,
+          "value": {
+            "top": 20000,
+            "bottom": -9000,
+            "left": 30000,
+            "right": 150000
+          }
+        }
+      }
+    },
+    {
+      "name": "Cr Turn",
+      "total": 11,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [],
+            "after_frame": 1,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Normals"
+              },
+              {
+                "Group": "Jumps"
+              },
+              {
+                "Group": "Dashes"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": null
+      }
+    },
+    {
+      "name": "Jmp Start",
+      "total": 4,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Jmp Neutral",
+      "total": 35,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -20000,
+            "left": -23000,
+            "right": 26000
+          }
+        }
+      ],
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -30000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Jmp Forward",
+      "total": 34,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -20000,
+            "left": -23000,
+            "right": 26000
+          }
+        }
+      ],
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -30000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Jmp Backward",
+      "total": 34,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -20000,
+            "left": -23000,
+            "right": 26000
+          }
+        }
+      ],
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Jmp End",
+      "total": 14,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": {
+        "cancels": [
+          {
+            "on": [],
+            "after_frame": 1,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Group": "Normals"
+              },
+              {
+                "Group": "Jumps"
+              }
+            ]
+          },
+          {
+            "on": [],
+            "after_frame": 2,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ],
+        "potisions": null,
+        "proximity": null
+      }
+    },
+    {
+      "name": "Jmp LightPunch",
+      "total": 38,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -22000,
+            "left": -26000,
+            "right": 25000
+          }
+        }
+      ],
+      "hurtboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Jmp MediumPunch",
+      "total": 20,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -22000,
+            "left": -26000,
+            "right": 25000
+          }
+        }
+      ],
+      "hurtboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Jmp HeavyPunch",
+      "total": 21,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -22000,
+            "left": -26000,
+            "right": 25000
+          }
+        }
+      ],
+      "hurtboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Jmp LightKick",
+      "total": 20,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -22000,
+            "left": -26000,
+            "right": 25000
+          }
+        }
+      ],
+      "hurtboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Jmp MediumKick",
+      "total": 19,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -22000,
+            "left": -26000,
+            "right": 25000
+          }
+        }
+      ],
+      "hurtboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 0,
+            "bottom": -13000,
+            "left": 15000,
+            "right": 66000
+          }
+        },
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": -13000,
+            "bottom": -26000,
+            "left": -25000,
+            "right": 15000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Jmp HeavyKick",
+      "total": 18,
+      "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "value": {
+            "top": 20000,
+            "bottom": -22000,
+            "left": -26000,
+            "right": 25000
+          }
+        }
+      ],
+      "hurtboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 7,
+          "duration": 5,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 15000,
+            "bottom": -1000,
+            "left": 30000,
+            "right": 75000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Jmp AttackEnd",
+      "total": 8,
+      "looping": true,
+      "pushboxes": null,
+      "hurtboxes": null,
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn UpperWeak",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn UpperMid",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn UpperStrong",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn UpperRising",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn FrontSpin",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn BackSpin",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn LowerWeak",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn LowerMid",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn LowerStrong",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn LowerRising",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 38000,
+            "bottom": 18000,
+            "left": -7000,
+            "right": 18000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 29000,
+            "bottom": 9000,
+            "left": -29000,
+            "right": 30000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": 10000,
+            "bottom": -26000,
+            "left": -27000,
+            "right": 25000
+          }
+        },
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Lower",
+          "invul": "None",
+          "value": {
+            "top": -26000,
+            "bottom": -69000,
+            "left": -31000,
+            "right": 30000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn CrouchWeak",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn CrouchMid",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn CrouchStrong",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn GrdStandPre",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn GrdStandEnd",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn GrdCrouchPre",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn GrdCrouchEnd",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Ken ShoryukenL",
+      "total": 36,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 9000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 3,
+          "duration": 2,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Rising",
+            "hitstop": 6,
+            "hitstun": 25,
+            "blockstun": 15,
+            "knockback": 8000
+          },
+          "value": {
+            "top": 2000,
+            "bottom": -51000,
+            "left": 30000,
+            "right": 66000
+          }
+        }
+      ],
+      "modifiers": null
+    },
+    {
+      "name": "Ken Hadouken",
+      "total": 42,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Obj Fireball",
+      "total": 63,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": [
+        {
+          "start_frame": 0,
+          "duration": 100,
+          "height": "Upper",
+          "invul": "None",
+          "value": {
+            "top": 35000,
+            "bottom": -69000,
+            "left": -30000,
+            "right": 25000
+          }
+        }
+      ],
+      "hitboxes": [
+        {
+          "start_frame": 1,
+          "duration": 100,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Mid",
+            "hitstop": 8,
+            "hitstun": 17,
+            "blockstun": 12,
+            "knockback": 6500
+          },
+          "value": {
+            "top": 10000,
+            "bottom": -10000,
+            "left": -10000,
+            "right": 25000
+          }
+        }
+      ],
+      "modifiers": null
+    }
+  ]
+}

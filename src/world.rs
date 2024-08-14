@@ -15,10 +15,20 @@ impl From<Name> for &str {
     }
 }
 
-#[derive(Component, Clone, Copy, Debug)]
+#[derive(Component, Default, Clone, Copy, Debug)]
 pub enum Player {
+    #[default]
     One,
     Two,
+}
+
+impl std::fmt::Display for Player {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Player::One => write!(f, "P1"),
+            Player::Two => write!(f, "P2"),
+        }
+    }
 }
 
 pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
@@ -29,26 +39,29 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
 
     // Player 1
     let name = Name::Ken;
+    let player = Player::One;
     world
         .entity_named("Player 1")
-        .set(Player::One)
+        .set(name)
+        .set(player)
         .add::<Input>()
         .set(Physics::new((200 * 1000, 0), false))
-        .set(name)
-        .set(AnimationData::new(name))
-        .set(Animator::new("St Idle".into(), 10, Vec2::new(0.5, 0.835)));
+        .set(StateMachine::new(player))
+        .set(ActionData::new(name))
+        .set(Animator::new("St Idle".into(), 10, Vec2::new(0.5, 0.835)))
+        .set(AnimationData::new(name));
 
     // Player 2
+    let name = Name::Ken;
+    let player = Player::Two;
     world
         .entity_named("Player 2")
-        .set(Player::Two)
+        .set(player)
         .add::<Input>()
         .set(Physics::new((400 * 1000, 0), true))
         .set(name)
-        .set(AnimationData::new(name))
-        .set(Animator::new(
-            "St MediumPunch".into(),
-            10,
-            Vec2::new(0.5, 0.835),
-        ));
+        .set(StateMachine::new(player))
+        .set(ActionData::new(name))
+        .set(Animator::new("St Idle".into(), 10, Vec2::new(0.5, 0.835)))
+        .set(AnimationData::new(name));
 }

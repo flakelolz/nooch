@@ -64,7 +64,7 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
     });
 }
 
-#[derive(Component, Default, Debug)]
+#[derive(Component, Default, Debug, Clone, Copy)]
 pub struct Input(u32);
 impl Input {
     pub fn new() -> Self {
