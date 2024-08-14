@@ -112,7 +112,7 @@ pub fn actor_animation(d: &mut impl RaylibDraw, world: &World) {
             y: frame.y,
             w: frame.w,
             h: frame.h,
-            flip: physics.flipped,
+            flip: physics.facing_left,
             w_scale: animator.w_scale,
             h_scale: animator.h_scale,
             origin: animator.origin,

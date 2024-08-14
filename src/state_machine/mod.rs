@@ -11,6 +11,7 @@ use crate::prelude::*;
 pub struct StateMachine {
     current: Box<dyn State>,
     context: Context,
+    pub modifiers: Modifier,
 }
 
 impl Default for StateMachine {
@@ -18,6 +19,7 @@ impl Default for StateMachine {
         Self {
             current: Box::new(standing::Idle),
             context: Context::default(),
+            modifiers: Modifier::default(),
         }
     }
 }
@@ -27,8 +29,15 @@ impl StateMachine {
         Self {
             current: Box::new(standing::Idle),
             context: Context::new(player),
+            modifiers: Modifier::default(),
         }
     }
+}
+
+#[derive(Default)]
+pub struct Modifier {
+    pub index: usize,
+    pub commands: Option<Modifiers>,
 }
 
 pub trait State {
@@ -73,6 +82,7 @@ pub fn update_state(world: &mut World) {
     });
 
     handle_transitions(world);
+    handle_modifiers(world);
 
     // Update the original input and physics after being set on the context
     let context_q = world

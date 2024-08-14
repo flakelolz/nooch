@@ -48,7 +48,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .set(Physics::new((200 * 1000, 0), false))
         .set(StateMachine::new(player))
         .set(ActionData::new(name))
-        .set(Animator::new("St Idle".into(), 10, Vec2::new(0.5, 0.835)))
+        .set(Animator::new("St Idle".into(), 11, Vec2::new(0.5, 0.835)))
         .set(AnimationData::new(name));
 
     // Player 2

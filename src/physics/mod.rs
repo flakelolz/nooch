@@ -5,7 +5,7 @@ pub struct Physics {
     pub position: IVec2,
     pub velocity: IVec2,
     pub acceleration: IVec2,
-    pub flipped: bool,
+    pub facing_left: bool,
 }
 
 impl Physics {
@@ -14,8 +14,16 @@ impl Physics {
             position: IVec2::new(x, y),
             velocity: IVec2::ZERO,
             acceleration: IVec2::ZERO,
-            flipped,
+            facing_left: flipped,
         }
+    }
+
+    pub fn set_forward_position(&mut self, pos: i32) {
+        self.position.x += if self.facing_left { -pos } else { pos };
+    }
+
+    pub fn set_forward_velocity(&mut self, speed: i32) {
+        self.velocity.x = if self.facing_left { -speed } else { speed };
     }
 }
 

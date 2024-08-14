@@ -15,10 +15,26 @@ impl Context {
         Self {
             player,
             next: None,
-            input: Input::default(),
-            physics: Physics::default(),
             elapsed: 1,
             total: 1,
+            ..Default::default()
         }
     }
+}
+
+pub fn handle_modifiers(world: &mut World) {
+    let query = world.query::<&mut StateMachine>().set_cached().build();
+    query.each(|state| {
+        if let Some(command) = &state.modifiers.commands {
+            if let Some(positions) = &command.positions {
+                if let Some(position) = positions.get(state.modifiers.index) {
+                    if position.on_frame == state.context.elapsed {
+                        state.context.physics.set_forward_position(position.value.x);
+                        state.context.physics.position.y = position.value.y;
+                        state.modifiers.index += 1;
+                    }
+                }
+            }
+        }
+    });
 }

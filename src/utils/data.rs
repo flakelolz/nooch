@@ -16,7 +16,7 @@ impl ActionData {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize)]
 pub struct ActorData {
     pub name: String,
     // pub health: i32,
@@ -39,5 +39,19 @@ pub struct Action {
     // pub pushboxes: Option<Vec<Pushbox>>,
     // pub hurtboxes: Option<Vec<Hurtbox>>,
     // pub hitboxes: Option<Vec<Hitbox>>,
-    // pub modifiers: Option<Modifiers>,
+    pub modifiers: Option<Modifiers>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Modifiers {
+    pub positions: Option<Vec<PositionModifier>>,
+    // pub cancels: Option<Vec<CancelModifier>>,
+    // pub proximity: Option<ProximityBox>,
+    // pub meter: Option<MeterModifier>,
+}
+
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize)]
+pub struct PositionModifier {
+    pub on_frame: u32,
+    pub value: IVec2,
 }

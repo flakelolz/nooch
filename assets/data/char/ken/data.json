@@ -4,22 +4,98 @@
     {
       "name": "St Idle",
       "total": 34,
-      "looping": true
+      "looping": true,
+      "modifiers": null
     },
     {
       "name": "St WalkForward",
       "total": 44,
-      "looping": true
+      "looping": true,
+      "modifiers": null
     },
     {
       "name": "St WalkBackward",
       "total": 44,
-      "looping": true
+      "looping": true,
+      "modifiers": null
     },
     {
       "name": "St MediumPunch",
       "total": 19,
-      "looping": true
+      "looping": true,
+      "modifiers": null
+    },
+    {
+      "name": "St HeavyKick",
+      "total": 36,
+      "looping": true,
+      "modifiers": {
+        "positions": [
+          {
+            "on_frame": 1,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              2000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              6000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              14000,
+              0
+            ]
+          },
+          {
+            "on_frame": 10,
+            "value": [
+              12000,
+              0
+            ]
+          },
+          {
+            "on_frame": 12,
+            "value": [
+              4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 22,
+            "value": [
+              1000,
+              0
+            ]
+          },
+          {
+            "on_frame": 25,
+            "value": [
+              7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 33,
+            "value": [
+              5000,
+              0
+            ]
+          }
+        ]
+      }
     }
   ]
 }
