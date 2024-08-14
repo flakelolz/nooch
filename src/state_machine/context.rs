@@ -23,7 +23,10 @@ impl Context {
 }
 
 pub fn handle_modifiers(world: &mut World) {
-    let query = world.query::<&mut StateMachine>().set_cached().build();
+    let query = world
+        .query_named::<&mut StateMachine>("Handle modifiers")
+        .set_cached()
+        .build();
     query.each(|state| {
         if let Some(command) = &state.modifiers.commands {
             if let Some(positions) = &command.positions {

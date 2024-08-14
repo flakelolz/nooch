@@ -8,9 +8,9 @@ pub fn handle_transitions(world: &mut World) {
     query.each(|(state, data, animator)| {
         if let Some(mut next) = state.ctx.next.take() {
             // State transition
-            state.current.exit(&mut state.ctx);
+            state.current.on_exit(&mut state.ctx);
             state.ctx.elapsed = 1;
-            next.enter(&mut state.ctx);
+            next.on_enter(&mut state.ctx);
             state.current = next;
 
             if let Some(action) = data.get(state.current.name()) {

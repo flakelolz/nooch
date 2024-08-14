@@ -6,15 +6,15 @@ pub use self::config::*;
 use crate::prelude::*;
 
 pub fn update_input(world: &mut World, rl: &RaylibHandle) {
+    let config_q = world
+        .query_named::<&InputConfig>("Get Input Config")
+        .set_cached()
+        .singleton()
+        .build();
+
     let query = world
         .query_named::<(&mut Input, &Player)>("Update Input")
         .set_cached()
-        .build();
-
-    let config_q = world
-        .query::<&InputConfig>()
-        .set_cached()
-        .singleton()
         .build();
 
     config_q.each(|config| {

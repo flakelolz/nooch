@@ -42,15 +42,15 @@ pub struct Modifier {
 
 pub trait State {
     fn name(&self) -> &'static str;
-    fn enter(&mut self, ctx: &mut Context);
-    fn update(&mut self, ctx: &mut Context);
-    fn exit(&mut self, ctx: &mut Context);
+    fn on_enter(&mut self, ctx: &mut Context);
+    fn on_update(&mut self, ctx: &mut Context);
+    fn on_exit(&mut self, ctx: &mut Context);
 }
 
 pub fn update_state(world: &mut World) {
     // Update copies of input and physics on the context
     let context_q = world
-        .query::<(&mut StateMachine, &Input, &Physics)>()
+        .query_named::<(&mut StateMachine, &Input, &Physics)>("Update Context")
         .set_cached()
         .build();
     context_q.each(|(state, input, physics)| {
@@ -78,7 +78,7 @@ pub fn update_state(world: &mut World) {
             }
         }
 
-        state.current.update(&mut state.ctx);
+        state.current.on_update(&mut state.ctx);
     });
 
     handle_transitions(world);
@@ -86,7 +86,7 @@ pub fn update_state(world: &mut World) {
 
     // Update the original input and physics after being set on the context
     let context_q = world
-        .query::<(&StateMachine, &mut Input, &mut Physics)>()
+        .query_named::<(&StateMachine, &mut Input, &mut Physics)>("Update from Context")
         .set_cached()
         .build();
     context_q.each(|(state, input, physics)| {
