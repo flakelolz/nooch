@@ -29,8 +29,8 @@ mod prelude {
     pub const HEIGHT: i32 = 360;
     pub const FWIDTH: f32 = WIDTH as f32;
     pub const FHEIGHT: f32 = HEIGHT as f32;
-    pub const WIDTH_3S: i32 = 416;
-    pub const HEIGHT_3S: i32 = 234;
+    pub const WIDTH_PX: i32 = 416;
+    pub const HEIGHT_PX: i32 = 234;
     pub const GROUND_OFFSET: i32 = 200;
 }
 

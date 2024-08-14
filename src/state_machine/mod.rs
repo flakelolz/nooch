@@ -10,7 +10,7 @@ use crate::prelude::*;
 #[derive(Component)]
 pub struct StateMachine {
     current: Box<dyn State>,
-    context: Context,
+    ctx: Context,
     pub modifiers: Modifier,
 }
 
@@ -18,7 +18,7 @@ impl Default for StateMachine {
     fn default() -> Self {
         Self {
             current: Box::new(standing::Idle),
-            context: Context::default(),
+            ctx: Context::default(),
             modifiers: Modifier::default(),
         }
     }
@@ -28,7 +28,7 @@ impl StateMachine {
     pub fn new(player: Player) -> Self {
         Self {
             current: Box::new(standing::Idle),
-            context: Context::new(player),
+            ctx: Context::new(player),
             modifiers: Modifier::default(),
         }
     }
@@ -54,8 +54,8 @@ pub fn update_state(world: &mut World) {
         .set_cached()
         .build();
     context_q.each(|(state, input, physics)| {
-        state.context.input = *input;
-        state.context.physics = *physics;
+        state.ctx.input = *input;
+        state.ctx.physics = *physics;
     });
 
     // Update state machine
@@ -66,19 +66,19 @@ pub fn update_state(world: &mut World) {
     query.each(|(state, data)| {
         match data.get(state.current.name()) {
             Some(action) => {
-                state.context.elapsed += 1;
+                state.ctx.elapsed += 1;
 
-                if state.context.elapsed > action.total && action.looping {
-                    state.context.elapsed = 1;
+                if state.ctx.elapsed > action.total && action.looping {
+                    state.ctx.elapsed = 1;
                 }
             }
             None => {
                 eprintln!("Action not found!!!");
-                state.context.next = Some(Box::new(standing::Idle));
+                state.ctx.next = Some(Box::new(standing::Idle));
             }
         }
 
-        state.current.update(&mut state.context);
+        state.current.update(&mut state.ctx);
     });
 
     handle_transitions(world);
@@ -90,7 +90,7 @@ pub fn update_state(world: &mut World) {
         .set_cached()
         .build();
     context_q.each(|(state, input, physics)| {
-        *input = state.context.input;
-        *physics = state.context.physics;
+        *input = state.ctx.input;
+        *physics = state.ctx.physics;
     });
 }

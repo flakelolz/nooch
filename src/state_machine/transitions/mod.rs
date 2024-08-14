@@ -6,15 +6,15 @@ pub fn handle_transitions(world: &mut World) {
         .set_cached()
         .build();
     query.each(|(state, data, animator)| {
-        if let Some(mut next) = state.context.next.take() {
+        if let Some(mut next) = state.ctx.next.take() {
             // State transition
-            state.current.exit(&mut state.context);
-            state.context.elapsed = 1;
-            next.enter(&mut state.context);
+            state.current.exit(&mut state.ctx);
+            state.ctx.elapsed = 1;
+            next.enter(&mut state.ctx);
             state.current = next;
 
             if let Some(action) = data.get(state.current.name()) {
-                state.context.total = action.total;
+                state.ctx.total = action.total;
 
                 // Setup action modifiers if there are any
                 match &action.modifiers {

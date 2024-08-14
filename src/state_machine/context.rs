@@ -28,9 +28,9 @@ pub fn handle_modifiers(world: &mut World) {
         if let Some(command) = &state.modifiers.commands {
             if let Some(positions) = &command.positions {
                 if let Some(position) = positions.get(state.modifiers.index) {
-                    if position.on_frame == state.context.elapsed {
-                        state.context.physics.set_forward_position(position.value.x);
-                        state.context.physics.position.y = position.value.y;
+                    if position.on_frame == state.ctx.elapsed {
+                        state.ctx.physics.set_forward_position(position.value.x);
+                        state.ctx.physics.position.y = position.value.y;
                         state.modifiers.index += 1;
                     }
                 }
