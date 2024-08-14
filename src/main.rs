@@ -43,7 +43,13 @@ fn main() {
     rl.set_target_fps(60);
 
     let font = rl
-        .load_font_ex(&thread, "assets/fonts/Kenney Mini.ttf", 512, None)
+        .load_font_from_memory(
+            &thread,
+            ".ttf",
+            get_file("fonts/Kenney Mini.ttf").unwrap(),
+            512,
+            None,
+        )
         .expect("Failed to load font");
 
     rl.gui_set_font(&font);
