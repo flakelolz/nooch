@@ -3,16 +3,16 @@ mod drawing;
 mod game;
 mod input;
 mod physics;
-mod player;
 mod utils;
+mod world;
 
 mod prelude {
     pub use crate::assets::*;
     pub use crate::drawing::*;
     pub use crate::input::*;
     pub use crate::physics::*;
-    pub use crate::player::*;
     pub use crate::utils::*;
+    pub use crate::world::*;
     pub use flecs_ecs::prelude::*;
     pub use glam::{IVec2, Vec2};
     pub use nooch::RaylibImguiSupport;
@@ -33,6 +33,12 @@ mod prelude {
 use prelude::*;
 
 fn main() {
+    let args = std::env::args().collect::<Vec<String>>();
+    if args.len() > 1 && args[1] == "--update" {
+        utils::update_aseprite_data("ken");
+        std::process::exit(0);
+    }
+
     let (mut rl, thread) = raylib::init().size(WIDTH, HEIGHT).title("Neuch").build();
     rl.set_target_fps(60);
 

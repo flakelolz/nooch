@@ -17,6 +17,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         world.progress();
 
         update_input(&mut world, rl);
+
         // Drawing
         // start imgui frame
         let ui = &mut rl_imgui.start_frame(rl);
