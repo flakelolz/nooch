@@ -1,14 +1,20 @@
+mod assets;
+mod drawing;
 mod game;
 mod input;
 mod physics;
 mod player;
+mod utils;
 
 mod prelude {
+    pub use crate::assets::*;
+    pub use crate::drawing::*;
     pub use crate::input::*;
     pub use crate::physics::*;
     pub use crate::player::*;
+    pub use crate::utils::*;
     pub use flecs_ecs::prelude::*;
-    pub use glam::IVec2;
+    pub use glam::{IVec2, Vec2};
     pub use nooch::RaylibImguiSupport;
     pub use raylib::prelude::*;
 

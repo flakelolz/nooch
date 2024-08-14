@@ -13,8 +13,10 @@ path = "src/main.rs"
 [dependencies]
 aseprite = "0.1.3"
 copypasta = "0.10.1"
-flecs_ecs = { version = "0.1.3", features = ["flecs_app", "flecs_rest"] }
-glam = { version = "0.28.0", features = ["serde"] }
+flecs_ecs = { version = "0.1.3", features = ["flecs_app", "flecs_rest", "flecs_meta"] }
+# flecs_ecs = {git = "https://github.com/Indra-db/Flecs-Rust", branch = "meta-V2", version = "0.1.3", features = ["flecs_app", "flecs_rest", "flecs_meta"] }
+glam = { git = "https://github.com/flakelolz/glam-rs", version = "0.28.0", features = [ "serde" ] }
+# glam = { version = "0.28.0", features = ["serde"] }
 imgui = "0.12.0"
 include_dir = "0.7.4"
 raylib = "5.0.1"

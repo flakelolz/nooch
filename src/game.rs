@@ -10,7 +10,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
     world.set(flecs::rest::Rest::default());
 
     // Setup entities for gameplay
-    setup(&mut world);
+    setup(&mut world, rl, thread);
 
     while !rl.window_should_close() {
         // Runs the system serving up REST requests
@@ -21,11 +21,12 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         // start imgui frame
         let ui = &mut rl_imgui.start_frame(rl);
         let mut d = rl.begin_drawing(thread);
+        actor_animation(&mut d, &world);
         d.clear_background(Color::BLACK);
 
         ui.window("Debug")
             .size([220., 70.], imgui::Condition::FirstUseEver)
-            .position([0., 0.], imgui::Condition::FirstUseEver)
+            .position([1., 1.], imgui::Condition::FirstUseEver)
             .build(|| {
                 world.lookup("Player 1").get::<&Input>(|input| {
                     ui.text(format!("Input: {input:010b}"));
