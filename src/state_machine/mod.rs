@@ -73,4 +73,14 @@ pub fn update_state(world: &mut World) {
     });
 
     handle_transitions(world);
+
+    // Update the original input and physics after being set on the context
+    let context_q = world
+        .query::<(&StateMachine, &mut Input, &mut Physics)>()
+        .set_cached()
+        .build();
+    context_q.each(|(state, input, physics)| {
+        *input = state.context.input;
+        *physics = state.context.physics;
+    });
 }

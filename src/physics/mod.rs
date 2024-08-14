@@ -18,3 +18,14 @@ impl Physics {
         }
     }
 }
+
+pub fn update_physics(world: &mut World) {
+    let query = world
+        .query_named::<&mut Physics>("Update physics")
+        .set_cached()
+        .build();
+    query.each(|physics| {
+        physics.position += physics.velocity;
+        physics.velocity += physics.acceleration;
+    });
+}

@@ -9,6 +9,7 @@ impl State for Idle {
         println!("{} -> St Idle enter", context.player);
     }
     fn update(&mut self, context: &mut Context) {
+        context.physics.velocity.x = 0;
         if context.input.pressed(&Buttons::Mp) {
             context.next = Some(Box::new(standing::MediumPunch));
             return;
@@ -37,6 +38,7 @@ impl State for WalkForward {
         println!("{} -> St WalkForward enter", context.player);
     }
     fn update(&mut self, context: &mut Context) {
+        context.physics.velocity.x = 3000;
         if !context.input.pressed(&Buttons::Right) {
             context.next = Some(Box::new(Idle));
         }
@@ -55,6 +57,7 @@ impl State for WalkBackward {
         println!("{} -> St WalkBackward enter", context.player);
     }
     fn update(&mut self, context: &mut Context) {
+        context.physics.velocity.x = -3000;
         if !context.input.pressed(&Buttons::Left) {
             context.next = Some(Box::new(Idle));
         }
