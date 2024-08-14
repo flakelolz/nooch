@@ -37,13 +37,7 @@ mod prelude {
 use prelude::*;
 
 fn main() {
-    let args = std::env::args().collect::<Vec<String>>();
-    if args.len() > 1 && args[1] == "--update" {
-        utils::update_aseprite_data("ken");
-        utils::update_action_durations("ken");
-        std::process::exit(0);
-    }
-
+    handle_arguments();
     let (mut rl, thread) = raylib::init().size(WIDTH, HEIGHT).title("Neuch").build();
     rl.set_target_fps(60);
 

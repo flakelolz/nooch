@@ -112,3 +112,22 @@ pub fn update_aseprite_data(actor: &str) {
             .expect("failed to execute process")
     };
 }
+
+pub fn handle_arguments() {
+    let args = std::env::args().collect::<Vec<String>>();
+    if args.len() > 1 && args[1] == "--data" {
+        update_action_durations("ken");
+        std::process::exit(0);
+    }
+
+    if args.len() > 1 && args[1] == "--ase" {
+        update_aseprite_data("ken");
+        std::process::exit(0);
+    }
+
+    if args.len() > 1 && args[1] == "--update" {
+        update_aseprite_data("ken");
+        update_action_durations("ken");
+        std::process::exit(0);
+    }
+}
