@@ -44,12 +44,12 @@ impl RaylibImguiSupport {
 
         self.context.new_frame()
     }
-
-    pub fn end_frame(&mut self, rl: &mut raylib::drawing::RaylibDrawHandle) {
+    // pub fn end_frame(&mut self, d: &mut raylib::drawing::RaylibDrawHandle) {
+    pub fn end_frame(&mut self, d: &mut raylib::drawing::RaylibMode2D<raylib::drawing::RaylibDrawHandle>) {
         let [fb_x, fb_y] = self.context.io_mut().display_framebuffer_scale;
         let draw_data = self.context.render();
 
-        self.renderer.render(rl, draw_data, [fb_x, fb_y]);
+        self.renderer.render(d, draw_data, [fb_x, fb_y]);
     }
 
     pub fn io(&mut self) -> &mut Io {

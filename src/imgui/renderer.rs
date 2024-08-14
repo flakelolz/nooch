@@ -34,7 +34,8 @@ impl RaylibRenderer {
 
     pub fn render(
         &mut self,
-        rl: &mut RaylibDrawHandle,
+        // d: &mut RaylibDrawHandle,
+        d: &mut RaylibMode2D<RaylibDrawHandle>,
         draw_data: &imgui::DrawData,
         framebuffer_scale: [f32; 2],
     ) {
@@ -49,7 +50,7 @@ impl RaylibRenderer {
                     imgui::DrawCmd::Elements { count, cmd_params } => {
                         let [x, y, z, w] = cmd_params.clip_rect;
                         self.enable_scissor(
-                            rl,
+                            d,
                             x - draw_data.display_pos[0],
                             y - draw_data.display_pos[1],
                             z - (x - draw_data.display_pos[0]),
@@ -72,7 +73,7 @@ impl RaylibRenderer {
                         let clip_rect = unsafe { *raw_cmd }.ClipRect;
 
                         self.enable_scissor(
-                            rl,
+                            d,
                             clip_rect.x - draw_data.display_pos[0],
                             clip_rect.y - draw_data.display_pos[1],
                             clip_rect.z - (clip_rect.x - draw_data.display_pos[0]),
@@ -96,7 +97,8 @@ impl RaylibRenderer {
 
     fn enable_scissor(
         &self,
-        rl: &mut RaylibDrawHandle,
+        // d: &mut RaylibDrawHandle,
+        d: &mut RaylibMode2D<RaylibDrawHandle>,
         x: f32,
         y: f32,
         width: f32,
@@ -110,7 +112,8 @@ impl RaylibRenderer {
         let [fb_x, fb_y] = framebuffer_scale;
 
         let scissor_x = (x * fb_x) as i32;
-        let scissor_y = ((rl.get_screen_height() as f32 - (y + height)) * fb_y) as i32;
+        let screen_height = d.get_screen_height() as f32;
+        let scissor_y = ((screen_height - (y + height)) * fb_y) as i32;
         let scissor_width = (width * fb_x) as i32;
         let scissor_height = (height * fb_y) as i32;
         unsafe {
