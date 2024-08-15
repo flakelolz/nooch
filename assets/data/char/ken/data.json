@@ -22,13 +22,13 @@
     {
       "name": "St MediumPunch",
       "total": 19,
-      "looping": true,
+      "looping": false,
       "modifiers": null
     },
     {
       "name": "St HeavyKick",
       "total": 36,
-      "looping": true,
+      "looping": false,
       "modifiers": {
         "positions": [
           {
