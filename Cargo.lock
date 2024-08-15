@@ -124,9 +124,12 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.1.10"
+version = "1.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e9e8aabfac534be767c909e0690571677d49f41bd8465ae876fe043d52ba5292"
+checksum = "5fb8dd288a69fc53a1996d7ecfbf4a20d59065bff137ce7e56bbd620de191189"
+dependencies = [
+ "shlex",
+]
 
 [[package]]
 name = "cexpr"
@@ -295,8 +298,20 @@ checksum = "40445da19883917cbbb7f717f6140a2d1f851bba3f76c4c9cc321292b3b1351a"
 dependencies = [
  "bitflags 2.6.0",
  "compact_str",
- "flecs_ecs_derive",
- "flecs_ecs_sys",
+ "flecs_ecs_derive 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "flecs_ecs_sys 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "fxhash",
+]
+
+[[package]]
+name = "flecs_ecs"
+version = "0.1.3"
+source = "git+https://github.com/Indra-db/Flecs-Rust?branch=meta-V2#6b265eccfa105948d43be1a30047db6b683586c1"
+dependencies = [
+ "bitflags 2.6.0",
+ "compact_str",
+ "flecs_ecs_derive 0.1.0 (git+https://github.com/Indra-db/Flecs-Rust?branch=meta-V2)",
+ "flecs_ecs_sys 0.1.2 (git+https://github.com/Indra-db/Flecs-Rust?branch=meta-V2)",
  "fxhash",
 ]
 
@@ -312,10 +327,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "flecs_ecs_derive"
+version = "0.1.0"
+source = "git+https://github.com/Indra-db/Flecs-Rust?branch=meta-V2#6b265eccfa105948d43be1a30047db6b683586c1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.74",
+]
+
+[[package]]
 name = "flecs_ecs_sys"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9aa3506032735c66dd0a51e6eafea1f442e0b56c2c567c1e207d83a235670875"
+dependencies = [
+ "bindgen",
+ "cc",
+ "libc",
+ "regex",
+]
+
+[[package]]
+name = "flecs_ecs_sys"
+version = "0.1.2"
+source = "git+https://github.com/Indra-db/Flecs-Rust?branch=meta-V2#6b265eccfa105948d43be1a30047db6b683586c1"
 dependencies = [
  "bindgen",
  "cc",
@@ -351,9 +387,9 @@ dependencies = [
 [[package]]
 name = "glam"
 version = "0.28.0"
-source = "git+https://github.com/flakelolz/glam-rs#f5efc1d76a6906195cc7990c70afccde81f7fa2b"
+source = "git+https://github.com/flakelolz/glam-rs#d9315da29677f32fb344cb4ff6dc496a762d7783"
 dependencies = [
- "flecs_ecs",
+ "flecs_ecs 0.1.3 (git+https://github.com/Indra-db/Flecs-Rust?branch=meta-V2)",
  "serde",
 ]
 
@@ -573,7 +609,7 @@ version = "0.1.0"
 dependencies = [
  "aseprite",
  "copypasta",
- "flecs_ecs",
+ "flecs_ecs 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "glam",
  "imgui",
  "include_dir",
@@ -1329,9 +1365,9 @@ checksum = "ec107c4503ea0b4a98ef47356329af139c0a4f7750e621cf2973cd3385ebcb3d"
 
 [[package]]
 name = "xcursor"
-version = "0.3.7"
+version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f513f231f0810b04d988f0df4fb16ef0b6b25d23248f2c4b56b074e6b1b0ffe4"
+checksum = "0ef33da6b1660b4ddbfb3aef0ade110c8b8a781a3b6382fa5f2b5b040fd55f61"
 
 [[package]]
 name = "xkeysym"

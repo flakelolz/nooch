@@ -1,4 +1,5 @@
 mod assets;
+mod debug;
 mod drawing;
 mod game;
 mod input;
@@ -9,6 +10,7 @@ mod world;
 
 mod prelude {
     pub use crate::assets::*;
+    pub use crate::debug::*;
     pub use crate::drawing::*;
     pub use crate::input::*;
     pub use crate::physics::*;

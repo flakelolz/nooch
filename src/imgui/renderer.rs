@@ -31,11 +31,11 @@ impl RaylibRenderer {
             _font_texture: texture,
         }
     }
-
     pub fn render(
         &mut self,
-        // d: &mut RaylibDrawHandle,
-        d: &mut RaylibMode2D<RaylibDrawHandle>,
+        d: &mut RaylibDrawHandle,
+        // d: &mut RaylibMode2D<RaylibDrawHandle>,
+        // d: &mut RaylibTextureMode<RaylibDrawHandle>,
         draw_data: &imgui::DrawData,
         framebuffer_scale: [f32; 2],
     ) {
@@ -97,8 +97,9 @@ impl RaylibRenderer {
 
     fn enable_scissor(
         &self,
-        // d: &mut RaylibDrawHandle,
-        d: &mut RaylibMode2D<RaylibDrawHandle>,
+        d: &mut RaylibDrawHandle,
+        // d: &mut RaylibMode2D<RaylibDrawHandle>,
+        // d: &mut RaylibTextureMode<RaylibDrawHandle>,
         x: f32,
         y: f32,
         width: f32,

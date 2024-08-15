@@ -11,7 +11,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
 
     let (mut target_px, mut target_ui) = create_render_targets(rl, thread);
     // Camera
-    let camera = Camera2D {
+    let mut camera = Camera2D {
         target: rvec2(0., 0.),
         offset: rvec2(0., 0.),
         rotation: 0.,
@@ -21,6 +21,8 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
     setup(&mut world, rl, thread);
     // Debug pause
     let mut paused = false;
+    let mut configs = Configs::default();
+    configs.display.set_720(rl, &mut camera);
 
     while !rl.window_should_close() {
         // Runs the system serving up REST requests
@@ -45,18 +47,14 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             update_state(&mut world);
         }
 
-        // Calculate window
-        let width = rl.get_screen_width();
-        let height = rl.get_screen_height();
-        let scale = (width / WIDTH).min(height / HEIGHT) as f32;
-
-        // Mouse scale
-        rl.set_mouse_scale(1.0 / scale, 1.0 / scale);
-        rl.set_mouse_offset(rvec2(
-            -(rl.get_screen_width() as f32 - (FWIDTH * scale)) * 0.5,
-            -(rl.get_screen_height() as f32 - (FHEIGHT * scale)) * 0.5,
-        ));
-
+        // let width = rl.get_screen_width();
+        // let height = rl.get_screen_height();
+        // let scale = (width / WIDTH).min(height / HEIGHT) as f32;
+        // rl.set_mouse_scale(1.0 / scale, 1.0 / scale);
+        // rl.set_mouse_offset(rvec2(
+        //     -(rl.get_screen_width() as f32 - (FWIDTH * scale)) * 0.5,
+        //     -(rl.get_screen_height() as f32 - (FHEIGHT * scale)) * 0.5,
+        // ));
         // start imgui frame
         let ui = &mut rl_imgui.start_frame(rl);
 
@@ -80,29 +78,18 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             if !paused || advance {
                 d.clear_background(Color::BLANK);
                 // show_frame_count(&world, &mut d, &debug);
-                // show_state(&world, &mut d, &debug);
+                show_state(&world, &mut d);
                 // show_info(&world, &mut d, &debug);
                 // show_inputs(&world, &mut d, &debug);
             }
         }
-
-        ui.window("Debug")
-            .size([220., 70.], imgui::Condition::FirstUseEver)
-            .position([1., 1.], imgui::Condition::FirstUseEver)
-            .build(|| {
-                world.lookup("Player 1").get::<&Input>(|input| {
-                    ui.text(format!("Input: {input:010b}"));
-                });
-                ui.separator();
-                let mouse_pos = ui.io().mouse_pos;
-                ui.text(format!(
-                    "Mouse Position: ({:.1},{:.1})",
-                    mouse_pos[0], mouse_pos[1]
-                ));
-            });
-        let mut d = d.begin_mode2D(camera);
-        rendering(&mut target_px, &mut target_ui, &mut d);
+        {
+            let mut d = d.begin_mode2D(camera);
+            rendering(&mut target_px, &mut target_ui, &mut d);
+            show_position(&world, &mut d);
+        }
         // render imgui frame
+        debug(&world, ui, &mut d);
         rl_imgui.end_frame(&mut d);
     }
 }

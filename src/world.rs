@@ -36,6 +36,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     // Singletons
     world.set(InputConfig::default());
     world.set(Assets::new(rl, thread));
+    world.set(DebugUI::default());
 
     // Player 1
     let name = Name::Ken;
@@ -45,7 +46,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .set(name)
         .set(player)
         .add::<Input>()
-        .set(Physics::new((200 * 1000, 0), false))
+        .set(Physics::new((112 * 1000, 0), false))
         .set(StateMachine::new(player))
         .set(ActionData::new(name))
         .set(Animator::new("St Idle".into(), 11, Vec2::new(0.5, 0.835)))
@@ -58,7 +59,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .entity_named("Player 2")
         .set(player)
         .add::<Input>()
-        .set(Physics::new((400 * 1000, 0), true))
+        .set(Physics::new((304 * 1000, 0), true))
         .set(name)
         .set(StateMachine::new(player))
         .set(ActionData::new(name))
