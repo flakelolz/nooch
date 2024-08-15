@@ -1,9 +1,8 @@
 # Setup
 - [x] setup dear imgui
-- [ ] sprite and UI render targets
-- [ ] increase screen size
-- [ ] game scales with screen size
-- [ ] correct mouse position on resize
+- [x] sprite and UI render targets
+- [x] increase screen size
+- [x] game scales with screen size
 - [ ] setup flecs explorer with reflection
 
 
