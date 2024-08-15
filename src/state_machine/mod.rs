@@ -9,8 +9,8 @@ use crate::prelude::*;
 
 #[derive(Component)]
 pub struct StateMachine {
-    current: Box<dyn State>,
-    ctx: Context,
+    pub current: Box<dyn State>,
+    pub ctx: Context,
     pub modifiers: Modifier,
 }
 
@@ -66,6 +66,7 @@ pub fn update_state(world: &mut World) {
     query.each(|(state, data)| {
         match data.get(state.current.name()) {
             Some(action) => {
+                state.ctx.total = action.total;
                 state.ctx.elapsed += 1;
 
                 if state.ctx.elapsed > action.total && action.looping {

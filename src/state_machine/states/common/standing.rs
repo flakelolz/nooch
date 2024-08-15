@@ -81,7 +81,7 @@ impl State for MediumPunch {
         println!("{} -> St MediumPunch enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed >= ctx.total {
+        if ctx.elapsed > ctx.total {
             ctx.next = Some(Box::new(Idle));
         }
     }
@@ -99,7 +99,7 @@ impl State for HeavyKick {
         println!("{} -> St HeavyKick enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed >= ctx.total {
+        if ctx.elapsed > ctx.total {
             ctx.next = Some(Box::new(Idle));
         }
     }
