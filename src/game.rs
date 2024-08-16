@@ -25,9 +25,6 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
     configs.display.set_720(rl, &mut camera);
 
     while !rl.window_should_close() {
-        // Runs the system serving up REST requests
-        world.progress();
-
         let mut advance = false;
         if rl.is_key_pressed(KeyboardKey::KEY_ENTER)
             || rl.is_gamepad_button_pressed(0, GamepadButton::GAMEPAD_BUTTON_MIDDLE_RIGHT)
@@ -43,18 +40,11 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         update_input(&mut world, rl);
 
         if !paused || advance {
+            update_buffer(&mut world);
             update_physics(&mut world);
             update_state(&mut world);
         }
 
-        // let width = rl.get_screen_width();
-        // let height = rl.get_screen_height();
-        // let scale = (width / WIDTH).min(height / HEIGHT) as f32;
-        // rl.set_mouse_scale(1.0 / scale, 1.0 / scale);
-        // rl.set_mouse_offset(rvec2(
-        //     -(rl.get_screen_width() as f32 - (FWIDTH * scale)) * 0.5,
-        //     -(rl.get_screen_height() as f32 - (FHEIGHT * scale)) * 0.5,
-        // ));
         // start imgui frame
         let ui = &mut rl_imgui.start_frame(rl);
 
@@ -91,5 +81,8 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         // render imgui frame
         debug(&world, ui, &mut d);
         rl_imgui.end_frame(&mut d);
+
+        // Runs the system serving up REST requests
+        world.progress();
     }
 }

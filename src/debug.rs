@@ -6,7 +6,7 @@ const TEXT_SIZE: f32 = 10.0;
 #[derive(Component)]
 pub struct DebugUI {
     pub editor: bool,
-    pub information: bool,
+    pub info: bool,
     pub position: bool,
     pub state: bool,
     pub inputs: bool,
@@ -14,14 +14,15 @@ pub struct DebugUI {
     pub hurtboxes: bool,
     pub pushboxes: bool,
     pub proximity: bool,
+    pub buffer: bool,
     pub all: bool,
 }
 
 impl Default for DebugUI {
     fn default() -> Self {
         Self {
+            info: true,
             editor: false,
-            information: true,
             position: true,
             state: true,
             inputs: true,
@@ -29,6 +30,7 @@ impl Default for DebugUI {
             hurtboxes: true,
             pushboxes: true,
             proximity: false,
+            buffer: true,
             all: true,
         }
     }
@@ -38,8 +40,8 @@ impl DebugUI {
     pub fn toggle(&mut self, rl: &mut RaylibHandle) {
         if rl.is_key_pressed(KeyboardKey::KEY_F1) {
             self.editor = !self.editor;
-            if self.information {
-                self.information = false;
+            if self.info {
+                self.info = false;
             }
             println!("Editor: {}", self.editor);
         }
@@ -68,8 +70,8 @@ impl DebugUI {
             println!("Position: {}", self.position);
         }
         if rl.is_key_pressed(KeyboardKey::KEY_F8) {
-            self.information = !self.information;
-            println!("Information: {}", self.information);
+            self.info = !self.info;
+            println!("Information: {}", self.info);
         }
         if rl.is_key_pressed(KeyboardKey::KEY_F9) {
             self.inputs = !self.inputs;
@@ -88,7 +90,7 @@ impl DebugUI {
 
     fn all_false(&mut self) {
         *self = Self {
-            information: false,
+            info: false,
             position: false,
             state: false,
             inputs: false,
@@ -97,13 +99,14 @@ impl DebugUI {
             pushboxes: false,
             proximity: false,
             editor: false,
+            buffer: false,
             all: false,
         };
     }
 
     fn all_true(&mut self) {
         *self = Self {
-            information: true,
+            info: true,
             position: true,
             state: true,
             inputs: true,
@@ -112,6 +115,7 @@ impl DebugUI {
             pushboxes: true,
             proximity: true,
             editor: true,
+            buffer: true,
             all: true,
         };
     }
@@ -119,27 +123,44 @@ impl DebugUI {
 
 pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
     let query = world.query::<&mut DebugUI>().singleton().build();
+    let size_x = 130.;
+    let size_y = 160.;
+    let screen_x = d.get_screen_width();
+    let screen_y = d.get_screen_height();
+
     query.each(|debug| {
         ui.window("Debug")
             .collapsed(true, imgui::Condition::FirstUseEver)
-            .size([130., 130.], imgui::Condition::Appearing)
+            .size([size_x, size_y], imgui::Condition::Appearing)
             .position([1., 1.], imgui::Condition::FirstUseEver)
             .movable(false)
             .bg_alpha(0.5)
             .build(|| {
                 world.lookup("Player 1").get::<&Input>(|input| {
-                    ui.text(format!("{input:010b}"));
+                    ui.text(format!("{input:012b}"));
                 });
+                if debug.buffer {
+                    ui.window("Buffer")
+                        .position([-2., screen_y as f32 - 60.], imgui::Condition::FirstUseEver)
+                        .no_decoration()
+                        .always_auto_resize(true)
+                        .build(|| {
+                            world.lookup("Player 1").get::<&InputBuffer>(|buffer| {
+                                ui.text(format!("{}", buffer.held));
+                                ui.text(format!("{}", buffer));
+                                ui.text(format!("{}", Wrapper(buffer.buffer)));
+                            });
+                        });
+                }
                 ui.separator();
                 ui.checkbox("Position", &mut debug.position);
                 ui.checkbox("State", &mut debug.state);
+                ui.checkbox("Buffer", &mut debug.buffer);
                 ui.separator();
                 let mouse_pos = ui.io().mouse_pos;
                 let [x, y] = mouse_pos;
                 ui.text(format!("{:.1},{:.1}", x, y));
                 let mouse = d.get_mouse_position();
-                let screen_x = d.get_screen_width();
-                let screen_y = d.get_screen_height();
                 let (x, y) = screen_to_ui(mouse.x, mouse.y, screen_x, screen_y);
                 ui.text(format!("{:.1},{:.1}", x, y));
             });

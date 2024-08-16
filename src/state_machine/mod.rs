@@ -50,11 +50,11 @@ pub trait State {
 pub fn update_state(world: &mut World) {
     // Update copies of input and physics on the context
     let context_q = world
-        .query_named::<(&mut StateMachine, &Input, &Physics)>("Update Context")
+        .query_named::<(&mut StateMachine, &InputBuffer, &Physics)>("Update Context")
         .set_cached()
         .build();
-    context_q.each(|(state, input, physics)| {
-        state.ctx.input = *input;
+    context_q.each(|(state, buffer, physics)| {
+        state.ctx.buffer = *buffer;
         state.ctx.physics = *physics;
     });
 
@@ -87,11 +87,11 @@ pub fn update_state(world: &mut World) {
 
     // Update the original input and physics after being set on the context
     let context_q = world
-        .query_named::<(&StateMachine, &mut Input, &mut Physics)>("Update from Context")
+        .query_named::<(&StateMachine, &mut InputBuffer, &mut Physics)>("Update from Context")
         .set_cached()
         .build();
-    context_q.each(|(state, input, physics)| {
-        *input = state.ctx.input;
+    context_q.each(|(state, buffer, physics)| {
+        *buffer = state.ctx.buffer;
         *physics = state.ctx.physics;
     });
 }

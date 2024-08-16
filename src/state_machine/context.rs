@@ -6,7 +6,7 @@ pub struct Context {
     pub next: Option<Box<dyn State>>,
     pub elapsed: u32,
     pub total: u32,
-    pub input: Input,
+    pub buffer: InputBuffer,
     pub physics: Physics,
 }
 

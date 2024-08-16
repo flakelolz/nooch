@@ -34,7 +34,7 @@ impl std::fmt::Display for Player {
 pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     world.set_target_fps(60.0);
     // Singletons
-    world.set(InputConfig::default());
+    world.add::<InputConfig>();
     world.set(Assets::new(rl, thread));
     world.set(DebugUI::default());
 
@@ -46,6 +46,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .set(name)
         .set(player)
         .add::<Input>()
+        .add::<InputBuffer>()
         .set(Physics::new((112 * 1000, 0), false))
         .set(StateMachine::new(player))
         .set(ActionData::new(name))
@@ -59,6 +60,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .entity_named("Player 2")
         .set(player)
         .add::<Input>()
+        .add::<InputBuffer>()
         .set(Physics::new((304 * 1000, 0), true))
         .set(name)
         .set(StateMachine::new(player))

@@ -1,9 +1,24 @@
+mod buffer;
 mod buttons;
 mod config;
+mod motions;
 
+pub use self::buffer::*;
 pub use self::buttons::*;
 pub use self::config::*;
+pub use self::motions::*;
 use crate::prelude::*;
+
+pub fn update_buffer(world: &mut World) {
+    let query = world
+        .query_named::<(&Input, &mut InputBuffer)>("Update Buffer")
+        .set_cached()
+        .build();
+
+    query.each(|(input, buffer)| {
+        buffer.update_buffer(input);
+    })
+}
 
 pub fn update_input(world: &mut World, rl: &RaylibHandle) {
     let config_q = world
@@ -28,19 +43,37 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
             let port = port as i32;
 
             // Reset input
-            **input = Buttons::None.bits();
+            **input = Buttons::None.num();
+            let left =
+                rl.is_key_down(keyboard.left) || rl.is_gamepad_button_down(port, gamepad.left);
+            let right =
+                rl.is_key_down(keyboard.right) || rl.is_gamepad_button_down(port, gamepad.right);
+            let up = rl.is_key_down(keyboard.up) || rl.is_gamepad_button_down(port, gamepad.up);
+            let down =
+                rl.is_key_down(keyboard.down) || rl.is_gamepad_button_down(port, gamepad.down);
 
-            if rl.is_key_down(keyboard.up) || rl.is_gamepad_button_down(port, gamepad.up) {
-                *input |= Buttons::Up;
+            if up {
+                *input |= Buttons::U;
             }
-            if rl.is_key_down(keyboard.left) || rl.is_gamepad_button_down(port, gamepad.left) {
-                *input |= Buttons::Left;
+            if down {
+                *input |= Buttons::D;
             }
-            if rl.is_key_down(keyboard.down) || rl.is_gamepad_button_down(port, gamepad.down) {
-                *input |= Buttons::Down;
+            if left {
+                *input |= Buttons::L;
             }
-            if rl.is_key_down(keyboard.right) || rl.is_gamepad_button_down(port, gamepad.right) {
-                *input |= Buttons::Right;
+            if right {
+                *input |= Buttons::R;
+            }
+            if !up && !down && !left && !right {
+                *input |= Buttons::N;
+            }
+            // Horizontal SOCD
+            if left && right {
+                *input ^= Buttons::L;
+                *input ^= Buttons::R;
+            }
+            if up && down {
+                *input ^= Buttons::D;
             }
             if rl.is_key_down(keyboard.lp) || rl.is_gamepad_button_down(port, gamepad.lp) {
                 *input |= Buttons::Lp;
@@ -62,21 +95,32 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
             }
         });
     });
+
+    // Apply facing direction to the input itself
+    let facing_q = world.query::<(&mut Input, &mut Physics)>().build();
+    facing_q.each(|(input, physics)| {
+        if physics.facing_left {
+            *input |= Buttons::FacingLeft;
+        }
+        if physics.facing_opponent {
+            *input |= Buttons::FacingOpponent;
+        }
+    });
 }
 
-#[derive(Component, Default, Debug, Clone, Copy)]
+#[derive(Component, Default, Debug, Clone, Copy, PartialEq)]
 pub struct Input(u32);
 impl Input {
     pub fn new() -> Self {
         Self(0)
     }
 
-    pub fn pressed(&self, button: &Buttons) -> bool {
-        self.0 & *button == *button
+    pub fn pressed(&self, button: Buttons) -> bool {
+        self.0 & button == button
     }
 
-    pub fn released(&self, button: &Buttons) -> bool {
-        self.0 & *button == 0
+    pub fn facing_left(&self) -> bool {
+        self.0 & Buttons::FacingLeft == Buttons::FacingLeft
     }
 }
 
@@ -93,6 +137,13 @@ impl std::ops::DerefMut for Input {
     }
 }
 
+impl std::ops::BitAnd<Buttons> for Input {
+    type Output = u32;
+    fn bitand(self, rhs: Buttons) -> u32 {
+        self.0 & rhs.num()
+    }
+}
+
 impl std::ops::BitOrAssign<u32> for Input {
     fn bitor_assign(&mut self, rhs: u32) {
         self.0 |= rhs;
@@ -101,7 +152,31 @@ impl std::ops::BitOrAssign<u32> for Input {
 
 impl std::ops::BitOrAssign<Buttons> for Input {
     fn bitor_assign(&mut self, rhs: Buttons) {
-        self.0 |= rhs.bits();
+        self.0 |= rhs.num();
+    }
+}
+
+impl std::ops::BitAndAssign<u32> for Input {
+    fn bitand_assign(&mut self, rhs: u32) {
+        self.0 &= rhs;
+    }
+}
+
+impl std::ops::BitAndAssign<Buttons> for Input {
+    fn bitand_assign(&mut self, rhs: Buttons) {
+        self.0 &= rhs.num();
+    }
+}
+
+impl std::ops::BitXorAssign<u32> for Input {
+    fn bitxor_assign(&mut self, rhs: u32) {
+        self.0 ^= rhs;
+    }
+}
+
+impl std::ops::BitXorAssign<Buttons> for Input {
+    fn bitxor_assign(&mut self, rhs: Buttons) {
+        self.0 ^= rhs.num();
     }
 }
 
