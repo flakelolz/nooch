@@ -40,7 +40,7 @@ use prelude::*;
 
 fn main() {
     handle_arguments();
-    let (mut rl, thread) = raylib::init().size(WIDTH, HEIGHT).title("Neuch").build();
+    let (mut rl, thread) = raylib::init().size(WIDTH, HEIGHT).title("Nooch").build();
     rl.set_target_fps(60);
 
     let font = rl
