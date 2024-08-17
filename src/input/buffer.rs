@@ -35,48 +35,53 @@ impl InputBuffer {
         self.held.increase(*self.current());
     }
 
-    /// Checks the current input
+    /// Checks the current input.
     pub fn current(&self) -> &Input {
         &self.buffer[self.index]
     }
 
-    /// Checks the previous input
+    /// Checks the previous input.
     pub fn previous(&self) -> &Input {
         &self.buffer[(self.buffer.len() + self.index - 1) % self.buffer.len()]
     }
 
-    /// Check if the input is currently pressed
+    /// Check if the input is currently pressed.
     pub fn pressed(&self, button: Buttons) -> bool {
-        self.current().pressed(button)
+        let current = self.current();
+        self.check_input_loose(&button, current)
     }
 
-    /// Check if the input was just pressed
+    /// Check if the input was just pressed.
     pub fn just_pressed(&self, button: Buttons) -> bool {
-        self.current().pressed(button) && !self.previous().pressed(button)
+        let current = self.current();
+        let previous = self.previous();
+        self.check_input_loose(&button, current) && !self.check_input_loose(&button, previous)
     }
 
     pub fn released(&self, button: Buttons) -> bool {
-        !self.current().pressed(button) && self.previous().pressed(button)
+        let current = self.current();
+        let previous = self.previous();
+        !self.check_input_loose(&button, current) && self.check_input_loose(&button, previous)
     }
 
-    /// Check if the input was pressed on a specific frame
+    /// Check if the input was pressed on a specific frame.
     fn _pressed_on_frame(&self, button: Buttons, frame: usize) -> bool {
         let buffer_index = frame % self.buffer.len();
-        let input = self.buffer[buffer_index];
-        input.pressed(button)
+        let current = self.buffer[buffer_index];
+        self.check_input_loose(&button, &current)
     }
 
-    /// Checks if the input was initially pressed on a specific frame
+    /// Checks if the input was initially pressed on a specific frame.
     fn just_pressed_on_frame(&self, button: Buttons, frame: usize) -> bool {
         let buffer_index = frame % self.buffer.len();
         let last_index = (self.buffer.len() + frame - 1) % self.buffer.len();
 
         let current = self.buffer[buffer_index];
         let previous = self.buffer[last_index];
-        current.pressed(button) && !previous.pressed(button)
+        self.check_input_loose(&button, &current) && !self.check_input_loose(&button, &previous)
     }
 
-    /// Check if an input was performed within a certain duration on the past frames
+    /// Check if an input was performed within a certain duration on the past frames.
     pub fn buffered(&self, button: Buttons, duration: usize) -> bool {
         for i in 0..duration + 1 {
             if self.just_pressed_on_frame(button, self.buffer.len() + self.index - i) {
@@ -86,7 +91,7 @@ impl InputBuffer {
         false
     }
 
-    /// Checks the current forward position based on facing direction
+    /// Checks the current forward position based on facing direction.
     pub fn forward(&self) -> bool {
         if self.current().facing_left() {
             self.pressed(Buttons::L)
@@ -95,7 +100,7 @@ impl InputBuffer {
         }
     }
 
-    /// Checks the current backward position based on facing direction
+    /// Checks the current backward position based on facing direction.
     pub fn backward(&self) -> bool {
         if self.current().facing_left() {
             self.pressed(Buttons::R)
@@ -104,22 +109,27 @@ impl InputBuffer {
         }
     }
 
+    /// Checks if down is pressed.
     pub fn down(&self) -> bool {
         self.pressed(Buttons::D)
     }
 
+    /// Checks if up is pressed.
     pub fn up(&self) -> bool {
         self.pressed(Buttons::U)
     }
 
+    /// Checks if up and forward are pressed.
     pub fn up_forward(&self) -> bool {
         self.up() && self.forward()
     }
 
+    /// Checks if up and backward are pressed.
     pub fn up_backward(&self) -> bool {
         self.up() && self.backward()
     }
 
+    /// Gets a mut reference to the current input.
     pub fn current_mut(&mut self) -> &mut Input {
         &mut self.buffer[self.index]
     }

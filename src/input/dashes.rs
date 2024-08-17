@@ -148,7 +148,7 @@ impl InputBuffer {
         }
     }
 
-    /// Checks if a button has been pressed for motion inputs, not caring about colliding inputs
+    /// Checks if a button has been pressed for motion inputs, not caring about colliding inputs.
     pub fn check_input_loose(&self, button: &Buttons, current: &Input) -> bool {
         let forward;
         let backward;
@@ -171,6 +171,12 @@ impl InputBuffer {
         let up = current.pressed(Buttons::U);
         let down = current.pressed(Buttons::D);
         let neutral = current.pressed(Buttons::N);
+        let lp = current.pressed(Buttons::Lp);
+        let mp = current.pressed(Buttons::Mp);
+        let hp = current.pressed(Buttons::Hp);
+        let lk = current.pressed(Buttons::Lk);
+        let mk = current.pressed(Buttons::Mk);
+        let hk = current.pressed(Buttons::Hk);
         match button {
             Buttons::N => neutral,
             Buttons::U => up,
@@ -181,12 +187,15 @@ impl InputBuffer {
             Buttons::DL => down && backward,
             Buttons::UR => up && forward,
             Buttons::UL => up && backward,
-            Buttons::Lp => current.pressed(Buttons::Lp),
-            Buttons::Mp => current.pressed(Buttons::Mp),
-            Buttons::Hp => current.pressed(Buttons::Hp),
-            Buttons::Lk => current.pressed(Buttons::Lk),
-            Buttons::Mk => current.pressed(Buttons::Mk),
-            Buttons::Hk => current.pressed(Buttons::Hk),
+            Buttons::Lp => lp,
+            Buttons::Mp => mp,
+            Buttons::Hp => hp,
+            Buttons::Lk => lk,
+            Buttons::Mk => mk,
+            Buttons::Hk => hk,
+            Buttons::Punches => lp || mp || hp,
+            Buttons::Kicks => lk || mk || hk,
+            Buttons::Attacks => lp || lk || mp || mk || hp || hk,
             _ => false,
         }
     }

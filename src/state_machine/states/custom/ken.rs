@@ -44,24 +44,16 @@ impl Ken {
             }
             Ken::Specials => {
                 // Priority Hadouken with half-circle motion
-                // {
-                //     let lp = Inputs::LightPunch;
-                //     let mp = Inputs::MediumPunch;
-                //     let hp = Inputs::HeavyPunch;
-                //     let hcf = [4, 1, 2, 3, 6];
-                //     if (buffer.was_motion_executed_exact(&hcf, lp)
-                //         || buffer.was_motion_executed_exact(&hcf, mp)
-                //         || buffer.was_motion_executed_exact(&hcf, hp))
-                //         && (buffer.buffered(lp, buffer.cancels, &physics.facing_left)
-                //             || buffer.buffered(mp, buffer.cancels, &physics.facing_left)
-                //             || buffer.buffered(hp, buffer.cancels, &physics.facing_left))
-                //         && !physics.airborne
-                //     {
-                //         ctx.next.replace(Box::new(Hadouken));
-                //
-                //         return true;
-                //     }
-                // }
+                {
+                    let hcf = [4, 1, 2, 3, 6];
+                    if ctx.buffer.buffered(Buttons::Kicks, ctx.buffer.cancels)
+                        && ctx.buffer.motion_custom(&hcf, Buttons::Kicks, 9)
+                    {
+                        println!("Priority!!!");
+                        ctx.next.replace(Box::new(ken::Hadouken));
+                        return true;
+                    }
+                }
                 if Specials::Shoryuken.set(ctx) {
                     return true;
                 }
@@ -132,18 +124,10 @@ impl Specials {
     pub fn set(&self, ctx: &mut Context) -> bool {
         match self {
             Specials::Hadouken => {
-                let lp = Buttons::Lp;
-                let mp = Buttons::Mp;
-                let hp = Buttons::Hp;
-                if (ctx.buffer.motion(Motions::Qcf, lp, 9)
-                    || ctx.buffer.motion(Motions::Qcf, mp, 9)
-                    || ctx.buffer.motion(Motions::Qcf, hp, 9))
-                    && (ctx.buffer.buffered(lp, ctx.buffer.cancels)
-                        || ctx.buffer.buffered(mp, ctx.buffer.cancels)
-                        || ctx.buffer.buffered(hp, ctx.buffer.cancels))
-                    && !ctx.physics.airborne
+                if ctx.buffer.buffered(Buttons::Punches, ctx.buffer.cancels)
+                    && ctx.buffer.motion(Motions::Qcf, Buttons::Punches, 9)
                 {
-                    ctx.next.replace(Box::new(Hadouken));
+                    ctx.next.replace(Box::new(ken::Hadouken));
                     return true;
                 }
                 false

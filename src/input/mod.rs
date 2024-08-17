@@ -107,6 +107,7 @@ impl Input {
         Self(0)
     }
 
+    /// Primitive check for pressed button. Use the InputBuffer version instead.
     pub fn pressed(&self, button: Buttons) -> bool {
         self.0 & button == button
     }

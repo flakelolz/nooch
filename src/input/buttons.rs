@@ -37,8 +37,12 @@ pub enum Buttons {
     Mk = 1 << 11,
     /// Heavy kick
     Hk = 1 << 12,
+    /// Any punch
+    Punches = (Self::Lp as isize | Self::Mp as isize | Self::Hp as isize),
+    /// Any kick
+    Kicks = (Self::Lk as isize | Self::Mk as isize | Self::Hk as isize),
     /// Any attack
-    Attack = (Self::Lp as isize
+    Attacks = (Self::Lp as isize
         | Self::Mp as isize
         | Self::Hp as isize
         | Self::Lk as isize
@@ -47,7 +51,7 @@ pub enum Buttons {
     /// Any direction
     Direction = (Self::D as isize | Self::U as isize | Self::R as isize | Self::L as isize),
     /// Any attack or direction
-    Any = (Self::Attack as isize | Self::Direction as isize),
+    Any = (Self::Attacks as isize | Self::Direction as isize),
 }
 
 impl Buttons {
