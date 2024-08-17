@@ -33,7 +33,9 @@ impl std::fmt::Display for Player {
 }
 
 pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
-    world.set_target_fps(60.0);
+    //NOTE: This will also cap the game's framerate if lower than raylib's target_fps, so I want to
+    //make higher, just in case
+    world.set_target_fps(64.0);
     // Singletons
     world.add::<InputConfig>();
     world.set(Assets::new(rl, thread));

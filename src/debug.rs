@@ -1,4 +1,4 @@
-use crate::prelude::*;
+use crate::{physics, prelude::*};
 
 const TEXT_SIZE: f32 = 10.0;
 // const SCREEN_CENTER: i32 = WIDTH / 2;
@@ -165,6 +165,24 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
                 ui.text(format!("{:.1},{:.1}", x, y));
             });
     });
+}
+
+pub fn reset_physics(world: &mut World, rl: &mut RaylibHandle) {
+    if rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE) {
+        let query = world.query::<(&mut Physics, &Player)>().build();
+        query.each(|(physics, player)| match player {
+            Player::One => {
+                *physics = Physics::new((112 * 1000, 0), false);
+            }
+            Player::Two => {
+                *physics = Physics::new((304 * 1000, 0), true);
+            }
+        });
+    }
+}
+
+pub fn show_fps(d: &mut impl RaylibDraw) {
+    d.draw_fps(WIDTH - 30, 5);
 }
 
 pub fn show_position(world: &World, d: &mut impl RaylibDraw) {

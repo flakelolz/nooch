@@ -45,6 +45,8 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             update_state(&mut world);
         }
 
+        reset_physics(&mut world, rl);
+
         // start imgui frame
         let ui = &mut rl_imgui.start_frame(rl);
 
@@ -76,6 +78,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         {
             let mut d = d.begin_mode2D(camera);
             rendering(&mut target_px, &mut target_ui, &mut d);
+            show_fps(&mut d);
             show_position(&world, &mut d);
         }
         // render imgui frame
