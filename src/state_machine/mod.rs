@@ -2,9 +2,7 @@ mod context;
 mod states;
 mod transitions;
 
-use transitions::handle_transitions;
-
-pub use self::{context::*, states::*};
+pub use self::{context::*, states::*, transitions::*};
 use crate::prelude::*;
 
 #[derive(Component)]

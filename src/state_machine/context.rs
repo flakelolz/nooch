@@ -38,6 +38,40 @@ pub fn handle_modifiers(world: &mut World) {
                     }
                 }
             }
+            if let Some(cancels) = &command.cancels {
+                for action in cancels {
+                    if state.ctx.elapsed >= action.after_frame
+                        && state.ctx.elapsed <= action.until_frame.unwrap_or(u32::MAX)
+                    {
+                        for transition in &action.states {
+                            match &action.on {
+                                Some(collisions) => {
+                                    for kind in collisions {
+                                        match kind {
+                                            CollisionType::Whiff => {
+                                                if transition.set(&mut state.ctx) {
+                                                    turn_transition(&mut state.ctx);
+                                                    return;
+                                                }
+                                            }
+                                            CollisionType::Hit => todo!(),
+                                            CollisionType::Block => todo!(),
+                                            CollisionType::Parry => todo!(),
+                                        }
+                                    }
+                                }
+                                None => {
+                                    if transition.set(&mut state.ctx) {
+                                        println!("{} -> {:?}", state.ctx.player, transition);
+                                        turn_transition(&mut state.ctx);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     });
 }

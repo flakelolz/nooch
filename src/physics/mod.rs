@@ -7,6 +7,7 @@ pub struct Physics {
     pub acceleration: IVec2,
     pub facing_left: bool,
     pub facing_opponent: bool,
+    pub airborne: bool,
 }
 
 impl Physics {
@@ -17,6 +18,7 @@ impl Physics {
             acceleration: IVec2::ZERO,
             facing_left: left,
             facing_opponent: true,
+            airborne: false,
         }
     }
 
@@ -50,6 +52,17 @@ pub fn update_physics(world: &mut World) {
         }
     }
 
+    // Apply facing direction to the input itself
+    let facing_q = world.query::<(&mut InputBuffer, &mut Physics)>().build();
+    facing_q.each(|(buffer, physics)| {
+        if physics.facing_left {
+            *buffer.current_mut() |= Buttons::FacingLeft;
+        }
+        if physics.facing_opponent {
+            *buffer.current_mut() |= Buttons::FacingOpponent;
+        }
+    });
+
     let query = world
         .query_named::<&mut Physics>("Update physics")
         .set_cached()
@@ -58,4 +71,17 @@ pub fn update_physics(world: &mut World) {
         physics.position += physics.velocity;
         physics.velocity += physics.acceleration;
     });
+}
+
+/// Conditionally flip the character to face the opponent if not already facing them.
+// NOTE: This change can and will happen in the middle of a state, before the physics update
+pub fn face_opponent(physics: &mut Physics, buffer: &mut InputBuffer) -> bool {
+    if !physics.facing_opponent {
+        physics.facing_left = !physics.facing_left;
+        *buffer.current_mut() ^= Buttons::FacingLeft;
+        physics.facing_opponent = true;
+        *buffer.current_mut() |= Buttons::FacingOpponent;
+        return true;
+    }
+    false
 }

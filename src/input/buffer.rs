@@ -1,5 +1,5 @@
 use super::Input;
-use crate::prelude::*;
+use crate::{physics, prelude::*};
 
 const BUFFER_SIZE: usize = 50;
 
@@ -88,7 +88,6 @@ impl InputBuffer {
 
     /// Checks the current forward position based on facing direction
     pub fn forward(&self) -> bool {
-        // if left {
         if self.current().facing_left() {
             self.pressed(Buttons::L)
         } else {
@@ -98,12 +97,31 @@ impl InputBuffer {
 
     /// Checks the current backward position based on facing direction
     pub fn backward(&self) -> bool {
-        // if left {
         if self.current().facing_left() {
             self.pressed(Buttons::R)
         } else {
             self.pressed(Buttons::L)
         }
+    }
+
+    pub fn down(&self) -> bool {
+        self.pressed(Buttons::D)
+    }
+
+    pub fn up(&self) -> bool {
+        self.pressed(Buttons::U)
+    }
+
+    pub fn up_forward(&self, physics: &Physics) -> bool {
+        self.up() && self.forward()
+    }
+
+    pub fn up_backward(&self, physics: &Physics) -> bool {
+        self.up() && self.backward()
+    }
+
+    pub fn current_mut(&mut self) -> &mut Input {
+        &mut self.buffer[self.index]
     }
 }
 

@@ -1,3 +1,9 @@
+mod crouch;
+mod stand;
+
+pub use self::crouch::*;
+pub use self::stand::*;
+
 use crate::prelude::*;
 
 pub fn handle_transitions(world: &mut World) {

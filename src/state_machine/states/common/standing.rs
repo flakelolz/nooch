@@ -9,45 +9,69 @@ impl State for Idle {
         println!("{} -> St Idle enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
+        // Apply physics
         ctx.physics.velocity.x = 0;
-
-        face_opponent(&mut ctx.physics);
-        if ctx.buffer.held.lk == 30 {
-            ctx.next = Some(Box::new(standing::HeavyKick));
+        // Transitions
+        if turn_transition(ctx) {
             return;
         }
-        if ctx.buffer.buffered(Buttons::Lp, 2) && ctx.buffer.motion(Motions::Dpf, Buttons::Lp, 9) {
-            println!("Dpf");
-            ctx.next = Some(Box::new(standing::MediumPunch));
+        // if jump_transitions(ctx) {
+        //     return;
+        // }
+        // if specials_transitions(ctx) {
+        //     return;
+        // }
+        if normals_transitions(ctx) {
             return;
         }
-        if ctx.buffer.buffered(Buttons::Lp, 2) && ctx.buffer.motion(Motions::Qcf, Buttons::Lp, 9) {
-            println!("Qcf");
-            ctx.next = Some(Box::new(standing::MediumPunch));
+        if crouch_transition(ctx) {
             return;
         }
-
-        if ctx.buffer.just_pressed(Buttons::Hk) {
-            ctx.next = Some(Box::new(standing::HeavyKick));
-            return;
-        }
-
-        if ctx.buffer.just_pressed(Buttons::Mp) {
-            ctx.next = Some(Box::new(standing::MediumPunch));
-            return;
-        }
-
-        if ctx.buffer.forward() {
-            ctx.next = Some(Box::new(standing::WalkForward));
-            return;
-        }
-
-        if ctx.buffer.backward() {
-            ctx.next = Some(Box::new(standing::WalkBackward));
-        }
+        // if dash_transitions(ctx) {
+        //     return;
+        // }
+        walk_transition(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> St Idle exit", ctx.player);
+    }
+}
+
+pub struct Turn;
+impl State for Turn {
+    fn name(&self) -> &'static str {
+        "St Turn"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St Turn enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        // Transitions
+        if ctx.elapsed > ctx.total {
+            // if jump_transitions(ctx) {
+            //     return;
+            // }
+            // if specials_transitions(ctx) {
+            //     return;
+            // }
+            if normals_transitions(ctx) {
+                return;
+            }
+            if crouch_transition(ctx) {
+                return;
+            }
+            // if dash_transitions(ctx) {
+            //     return;
+            // }
+            if walk_transition(ctx) {
+                return;
+            }
+            // Return to idle
+            ctx.next = Some(Box::new(standing::Idle));
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St Turn exit", ctx.player);
     }
 }
 
@@ -58,26 +82,38 @@ impl State for WalkForward {
     }
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> St WalkForward enter", ctx.player);
+        // FIX: Find a way to move on the first frame
+        ctx.physics.set_forward_velocity(3000);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        face_opponent(&mut ctx.physics);
-
-        if ctx.buffer.buffered(Buttons::Lp, 2) && ctx.buffer.motion(Motions::Dpf, Buttons::Lp, 9) {
-            println!("Dpf");
-            ctx.next = Some(Box::new(standing::MediumPunch));
-            return;
-        }
-        if ctx.buffer.buffered(Buttons::Lp, 2) && ctx.buffer.motion(Motions::Qcf, Buttons::Lp, 9) {
-            println!("Qcf");
-            ctx.next = Some(Box::new(standing::MediumPunch));
-            return;
-        }
+        // Special case for walking
         ctx.physics.set_forward_velocity(3000);
+        // Transitions
+        if turn_transition(ctx) {
+            return;
+        }
+        // if jump_transitions(ctx) {
+        //     return;
+        // }
+        // if specials_transitions(ctx) {
+        //     return;
+        // }
+        if normals_transitions(ctx) {
+            return;
+        }
+        if crouch_transition(ctx) {
+            return;
+        }
+        // if dash_transitions(ctx) {
+        //     return;
+        // }
+        // Base case & return to idle
         if !ctx.buffer.forward() {
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
     fn on_exit(&mut self, ctx: &mut Context) {
+        // If velocity was applied earlier in the state, remove it
         ctx.physics.velocity.x = 0;
         println!("{} -> St WalkForward exit", ctx.player);
     }
@@ -90,17 +126,139 @@ impl State for WalkBackward {
     }
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> St WalkBackward enter", ctx.player);
+        ctx.physics.set_backward_velocity(3000);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        face_opponent(&mut ctx.physics);
+        // Special case for walking
         ctx.physics.set_backward_velocity(3000);
+        // Transitions
+        if turn_transition(ctx) {
+            return;
+        }
+        // if jump_transitions(ctx) {
+        //     return;
+        // }
+        // if specials_transitions(ctx) {
+        //     return;
+        // }
+        if normals_transitions(ctx) {
+            return;
+        }
+        if crouch_transition(ctx) {
+            return;
+        }
+        // if dash_transitions(ctx) {
+        //     return;
+        // }
+        // Base case & return to idle
         if !ctx.buffer.backward() {
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
     fn on_exit(&mut self, ctx: &mut Context) {
+        // If velocity was applied earlier in the state, remove it
         ctx.physics.velocity.x = 0;
         println!("{} -> St WalkBackward exit", ctx.player);
+    }
+}
+
+pub struct DashForward;
+impl State for DashForward {
+    fn name(&self) -> &'static str {
+        "St DashForward"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St DashForward enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        // Transitions
+        if ctx.elapsed > ctx.total {
+            if turn_transition(ctx) {
+                return;
+            }
+            // if jump_transitions(ctx) {
+            //     return;
+            // }
+            // if specials_transitions(ctx) {
+            //     return;
+            // }
+            if normals_transitions(ctx) {
+                return;
+            }
+            if crouch_transition(ctx) {
+                return;
+            }
+            // if dash_transitions(ctx) {
+            //     return;
+            // }
+            if walk_transition(ctx) {
+                return;
+            }
+            // Return to idle
+            ctx.next = Some(Box::new(standing::Idle));
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St DashForward exit", ctx.player);
+    }
+}
+
+pub struct DashBackward;
+impl State for DashBackward {
+    fn name(&self) -> &'static str {
+        "St DashBackward"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St DashBackward enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        // Transitions
+        if ctx.elapsed > ctx.total {
+            if turn_transition(ctx) {
+                return;
+            }
+            // if jump_transitions(ctx) {
+            //     return;
+            // }
+            // if specials_transitions(ctx) {
+            //     return;
+            // }
+            if normals_transitions(ctx) {
+                return;
+            }
+            if crouch_transition(ctx) {
+                return;
+            }
+            // if dash_transitions(ctx) {
+            //     return;
+            // }
+            if walk_transition(ctx) {
+                return;
+            }
+            // Return to idle
+            ctx.next = Some(Box::new(standing::Idle));
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St DashBackward exit", ctx.player);
+    }
+}
+
+pub struct LightPunch;
+impl State for LightPunch {
+    fn name(&self) -> &'static str {
+        "St LightPunch"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St LightPunch enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        if ctx.elapsed > ctx.total {
+            common_standing_attack_transitions(ctx);
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St LightPunch exit", ctx.player);
     }
 }
 
@@ -114,16 +272,65 @@ impl State for MediumPunch {
     }
     fn on_update(&mut self, ctx: &mut Context) {
         if ctx.elapsed > ctx.total {
-            face_opponent(&mut ctx.physics);
-            if ctx.buffer.buffered(Buttons::Mp, 1) {
-                ctx.next = Some(Box::new(standing::MediumPunch));
-                return;
-            }
-            ctx.next = Some(Box::new(Idle));
+            common_standing_attack_transitions(ctx);
         }
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> St MediumPunch exit", ctx.player);
+    }
+}
+
+pub struct HeavyPunch;
+impl State for HeavyPunch {
+    fn name(&self) -> &'static str {
+        "St HeavyPunch"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St HeavyPunch enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        if ctx.elapsed > ctx.total {
+            common_standing_attack_transitions(ctx);
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St HeavyPunch exit", ctx.player);
+    }
+}
+
+pub struct LightKick;
+impl State for LightKick {
+    fn name(&self) -> &'static str {
+        "St LightKick"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St LightKick enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        if ctx.elapsed > ctx.total {
+            common_standing_attack_transitions(ctx);
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St LightKick exit", ctx.player);
+    }
+}
+
+pub struct MediumKick;
+impl State for MediumKick {
+    fn name(&self) -> &'static str {
+        "St MediumKick"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> St MediumKick enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        if ctx.elapsed > ctx.total {
+            common_standing_attack_transitions(ctx);
+        }
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> St MediumKick exit", ctx.player);
     }
 }
 
@@ -137,21 +344,10 @@ impl State for HeavyKick {
     }
     fn on_update(&mut self, ctx: &mut Context) {
         if ctx.elapsed > ctx.total {
-            face_opponent(&mut ctx.physics);
-            ctx.next = Some(Box::new(Idle));
+            common_standing_attack_transitions(ctx);
         }
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> St HeavyKick exit", ctx.player);
     }
-}
-
-/// Conditionally flip the character to face the opponent if not already facing them.
-pub fn face_opponent(physics: &mut Physics) -> bool {
-    if !physics.facing_opponent {
-        physics.facing_left = !physics.facing_left;
-        physics.facing_opponent = true;
-        return true;
-    }
-    false
 }

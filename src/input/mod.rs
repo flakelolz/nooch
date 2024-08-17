@@ -6,19 +6,7 @@ mod motions;
 pub use self::buffer::*;
 pub use self::buttons::*;
 pub use self::config::*;
-pub use self::motions::*;
 use crate::prelude::*;
-
-pub fn update_buffer(world: &mut World) {
-    let query = world
-        .query_named::<(&Input, &mut InputBuffer)>("Update Buffer")
-        .set_cached()
-        .build();
-
-    query.each(|(input, buffer)| {
-        buffer.update_buffer(input);
-    })
-}
 
 pub fn update_input(world: &mut World, rl: &RaylibHandle) {
     let config_q = world
@@ -95,17 +83,17 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
             }
         });
     });
+}
 
-    // Apply facing direction to the input itself
-    let facing_q = world.query::<(&mut Input, &mut Physics)>().build();
-    facing_q.each(|(input, physics)| {
-        if physics.facing_left {
-            *input |= Buttons::FacingLeft;
-        }
-        if physics.facing_opponent {
-            *input |= Buttons::FacingOpponent;
-        }
-    });
+pub fn update_buffer(world: &mut World) {
+    let query = world
+        .query_named::<(&Input, &mut InputBuffer)>("Update Buffer")
+        .set_cached()
+        .build();
+
+    query.each(|(input, buffer)| {
+        buffer.update_buffer(input);
+    })
 }
 
 #[derive(Component, Default, Debug, Clone, Copy, PartialEq)]

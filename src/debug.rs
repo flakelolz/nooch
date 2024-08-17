@@ -136,8 +136,8 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
             .movable(false)
             .bg_alpha(0.5)
             .build(|| {
-                world.lookup("Player 1").get::<&Input>(|input| {
-                    ui.text(format!("{input:012b}"));
+                world.lookup("Player 1").get::<&InputBuffer>(|buffer| {
+                    ui.text(format!("{:012b}", buffer.current()));
                 });
                 if debug.buffer {
                     ui.window("Buffer")
