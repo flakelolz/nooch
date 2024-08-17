@@ -7,12 +7,78 @@
 
 
 # Gameplay
+- [x] World
 - [x] input handling with bitwise operations
 - [x] draw characters
+- [x] Read state from data file
 - [x] state machine
 - [x] physics system
 - [x] input buffer
 - [x] second player
+- [x] Character data
+- [x] State transition utilities
+- [x] World to screen utilities
+- [x] Display current State
+- [x] Pause and frame advance
+- [x] Animation system
+- [x] Allow attack to attack transition without an Idle frame in between
+- [x] Incorporate every standing and crouching attack
+- [x] Position modifiers on states
+- [ ] Chain attack modifier
+- [x] Buffer system
+- [x] Flip logic and buffer system when flipping
+- [ ] Fix dash after forward walk
+- [ ] Fix attack input buffer for chain attacks
+- [x] Implement jump states
+- [ ] Dash lockout
+- [ ] Screen size options
+- [x] Implement flipping logic
+- [ ] Collision system
+- [ ] Reaction system
+- [ ] Implement blocking
+- [ ] Implement all hit reaction states
+- [ ] Make an editor for character data
+- [ ] Be able to see changes instantly while paused
+- [x] Change font
+- [ ] Push logic
+- [ ] walls
+- [ ] Apply knock-back to attacker when defender is cornered
+- [ ] Pull character on cross-up hit
+- [ ] Background
+- [ ] Camera
+- [ ] Proximity normals
+- [ ] Target Combo
+- [ ] Special moves
+- [ ] Special cancels
+- [ ] Fix direction of motion when crossing-up the opponent in the air
+- [ ] Implement all knockdown states
 
 
 
+## Dash should fail
+
+- [ ] *4* > *5* > *6* (walk back and forth repeatedly)
+- [ ] *4...* (walking) ->  *5* > *4*
+- [ ] *1...* (crouching) ->  *4* > *5* > *4*;
+- [ ] *5...* (standing) -> *6* > *5* > *2* > *5* > *6*
+- [ ] *5...* (standing) -> *6* > *5* > *3* > *6*
+
+## Dash should work
+
+- [ ] *4...* (walk back) ->  *5* > *4* > *5* > *4*
+- [ ] *1...* (crouching) ->  *5* > *4* > *5* > *4*
+- [ ] *5...* (standing) -> *3* > *5* > *6*
+- [ ] *5...* (standing) -> *1* > *5* > *4*
+- [ ] *5...* (standing) -> *4* > *6* > *5* > *6*
+- [ ] *5...* (standing) -> *6* > *3* > *5* > *6*
+
+
+## Motions
+
+I will most likely need to read them backwards but also have priority between motions
+
+- [ ] *6*... -> *2* > *3* > *6* => DP
+- [ ] *6*... -> *4* > *1* > *2* > *3* > *6* => QCF
+
+This needs to have a bigger input leniency
+- [ ] *6*... -> *2* > *cr mk* > *3* > *lp* > => Cr MK xx DP
