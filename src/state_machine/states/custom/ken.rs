@@ -126,6 +126,7 @@ impl Specials {
             Specials::Hadouken => {
                 if ctx.buffer.buffered(Buttons::Punches, ctx.buffer.cancels)
                     && ctx.buffer.motion(Motions::Qcf, Buttons::Punches, 9)
+                    && !ctx.physics.airborne
                 {
                     ctx.next.replace(Box::new(ken::Hadouken));
                     return true;
