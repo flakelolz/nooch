@@ -36,30 +36,33 @@ impl Physics {
 }
 
 pub fn update_physics(world: &mut World) {
-    let p1 = world.try_lookup("Player 1");
-    let p2 = world.try_lookup("Player 2");
-    if let Some(p1) = p1 {
-        if let Some(p2) = p2 {
-            p1.get::<&mut Physics>(|p1| {
-                p2.get::<&mut Physics>(|p2| {
+    let facing_q = world
+        .query_named::<(&mut Physics, &mut InputBuffer, &Player)>("Update facing direction")
+        .set_cached()
+        .build();
+    facing_q.run(|mut it| {
+        while it.next() {
+            let mut physics = it.field::<Physics>(0).unwrap();
+            let mut buffer = it.field::<InputBuffer>(1).unwrap();
+            let (p1, p2) = physics.split_at_mut(1);
+            if let Some(p1) = p1.get_mut(0) {
+                if let Some(p2) = p2.get_mut(0) {
                     p1.facing_opponent = ((p2.position.x <= p1.position.x) && p1.facing_left)
                         || ((p2.position.x >= p1.position.x) && !p1.facing_left);
 
                     p2.facing_opponent = ((p1.position.x <= p2.position.x) && p2.facing_left)
                         || ((p1.position.x >= p2.position.x) && !p2.facing_left);
-                })
-            })
-        }
-    }
+                }
+            }
 
-    // Apply facing direction to the input itself
-    let facing_q = world.query::<(&mut InputBuffer, &mut Physics)>().build();
-    facing_q.each(|(buffer, physics)| {
-        if physics.facing_left {
-            *buffer.current_mut() |= Buttons::FacingLeft;
-        }
-        if physics.facing_opponent {
-            *buffer.current_mut() |= Buttons::FacingOpponent;
+            for i in 0..buffer.len() {
+                if physics[i].facing_left {
+                    *buffer[i].current_mut() |= Buttons::FacingLeft;
+                }
+                if physics[i].facing_opponent {
+                    *buffer[i].current_mut() |= Buttons::FacingOpponent;
+                }
+            }
         }
     });
 
