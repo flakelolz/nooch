@@ -1,8 +1,10 @@
 mod common;
+mod custom;
 
 use crate::prelude::*;
 
 pub use self::common::*;
+pub use self::custom::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 pub enum States {
@@ -10,7 +12,7 @@ pub enum States {
     Standing(Standing),
     Crouching(Crouching),
     Jumping(Jumping),
-    // Ken(ken::Ken),
+    Ken(ken::Ken),
 }
 
 impl States {
@@ -20,7 +22,7 @@ impl States {
             States::Standing(states) => states.set(ctx),
             States::Crouching(states) => states.set(ctx),
             States::Jumping(states) => states.set(ctx),
-            // States::Ken(states) => states.set(ctx),
+            States::Ken(states) => states.set(ctx),
         }
     }
 }
@@ -73,27 +75,25 @@ impl Group {
                 false
             }
             Group::Specials => {
-                // match ctx.name.as_str() {
-                //     "Ken" => {
-                //         if States::Ken(ken::Ken::Specials).set(buffer, ctx, physics) {
-                //             return true;
-                //         }
-                //     }
-                //     "Ryu" => println!("Ryu"),
-                //     _ => (),
-                // }
+                match ctx.name {
+                    Name::Ken => {
+                        if States::Ken(ken::Ken::Specials).set(ctx) {
+                            return true;
+                        }
+                    }
+                    Name::Ryu => todo!(),
+                }
                 false
             }
             Group::CusNormals => {
-                // match ctx.name.as_str() {
-                //     "Ken" => {
-                //         if States::Ken(ken::Ken::Normals).set(buffer, ctx, physics) {
-                //             return true;
-                //         }
-                //     }
-                //     "Ryu" => println!("Ryu"),
-                //     _ => (),
-                // }
+                match ctx.name {
+                    Name::Ken => {
+                        if States::Ken(ken::Ken::Normals).set(ctx) {
+                            return true;
+                        }
+                    }
+                    Name::Ryu => todo!(),
+                }
                 false
             }
             Group::Normals => {
@@ -472,7 +472,7 @@ impl Jumping {
                 }
             }
             Jumping::HeavyKick => {
-                if ctx.buffer.buffered(Buttons::Mk, ctx.buffer.attack) && ctx.physics.airborne {
+                if ctx.buffer.buffered(Buttons::Hk, ctx.buffer.attack) && ctx.physics.airborne {
                     ctx.next.replace(Box::new(jumping::HeavyKick));
                     return true;
                 }

@@ -23,10 +23,10 @@ impl Default for StateMachine {
 }
 
 impl StateMachine {
-    pub fn new(player: Player) -> Self {
+    pub fn new(player: Player, name: Name) -> Self {
         Self {
             current: Box::new(standing::Idle),
-            ctx: Context::new(player),
+            ctx: Context::new(player, name),
             modifiers: Modifier::default(),
         }
     }
@@ -72,7 +72,7 @@ pub fn update_state(world: &mut World) {
                 }
             }
             None => {
-                eprintln!("Action not found!!!");
+                eprintln!("Action {} not found!!!", state.current.name());
                 state.ctx.next = Some(Box::new(standing::Idle));
             }
         }

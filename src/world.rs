@@ -1,7 +1,8 @@
 use crate::prelude::*;
 
-#[derive(Component, Clone, Copy, Debug)]
+#[derive(Component, Default, Clone, Copy, Debug)]
 pub enum Name {
+    #[default]
     Ken,
     Ryu,
 }
@@ -48,7 +49,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .add::<Input>()
         .add::<InputBuffer>()
         .set(Physics::new((112 * 1000, 0), false))
-        .set(StateMachine::new(player))
+        .set(StateMachine::new(player, name))
         .set(ActionData::new(name))
         .set(Animator::new("St Idle".into(), 11, Vec2::new(0.5, 0.835)))
         .set(AnimationData::new(name));
@@ -63,7 +64,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .add::<InputBuffer>()
         .set(Physics::new((304 * 1000, 0), true))
         .set(name)
-        .set(StateMachine::new(player))
+        .set(StateMachine::new(player, name))
         .set(ActionData::new(name))
         .set(Animator::new("St Idle".into(), 10, Vec2::new(0.5, 0.835)))
         .set(AnimationData::new(name));

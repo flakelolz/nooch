@@ -1,5 +1,16 @@
 use crate::prelude::*;
 
+pub fn common_jumping_attack_transitions(ctx: &mut Context) {
+    if handle_ground_collision(ctx) {
+        return;
+    }
+    // Base case
+    if ctx.elapsed > ctx.total {
+        // Transitions
+        ctx.next = Some(Box::new(jumping::AttackEnd));
+    }
+}
+
 pub fn jump_transitions(ctx: &mut Context) -> bool {
     if ctx.buffer.up() {
         ctx.flags.jump = JumpFlags::Neutral;

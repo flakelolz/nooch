@@ -651,6 +651,24 @@
       "total": 18,
       "looping": false,
       "modifiers": null
+    },
+    {
+      "name": "Jmp AttackEnd",
+      "total": 8,
+      "looping": false,
+      "modifiers": null
+    },
+    {
+      "name": "Ken Hadouken",
+      "total": 42,
+      "looping": false,
+      "modifiers": null
+    },
+    {
+      "name": "Ken ShoryukenL",
+      "total": 36,
+      "looping": false,
+      "modifiers": null
     }
   ]
 }

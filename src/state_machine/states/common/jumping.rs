@@ -175,9 +175,7 @@ impl State for LightPunch {
         println!("{} -> Jmp LightPunch enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
-        }
+        common_jumping_attack_transitions(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp LightPunch exit", ctx.player);
@@ -193,9 +191,7 @@ impl State for MediumPunch {
         println!("{} -> Jmp MediumPunch enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
-        }
+        common_jumping_attack_transitions(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp MediumPunch exit", ctx.player);
@@ -211,9 +207,7 @@ impl State for HeavyPunch {
         println!("{} -> Jmp HeavyPunch enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
-        }
+        common_jumping_attack_transitions(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp HeavyPunch exit", ctx.player);
@@ -229,9 +223,7 @@ impl State for LightKick {
         println!("{} -> Jmp LightKick enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
-        }
+        common_jumping_attack_transitions(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp LightKick exit", ctx.player);
@@ -247,9 +239,7 @@ impl State for MediumKick {
         println!("{} -> Jmp MediumKick enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
-        }
+        common_jumping_attack_transitions(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp MediumKick exit", ctx.player);
@@ -265,11 +255,26 @@ impl State for HeavyKick {
         println!("{} -> Jmp HeavyKick enter", ctx.player);
     }
     fn on_update(&mut self, ctx: &mut Context) {
-        if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
-        }
+        common_jumping_attack_transitions(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp HeavyKick exit", ctx.player);
+    }
+}
+
+pub struct AttackEnd;
+impl State for AttackEnd {
+    fn name(&self) -> &'static str {
+        "Jmp AttackEnd"
+    }
+    fn on_enter(&mut self, ctx: &mut Context) {
+        println!("{} -> Jmp AttackEnd enter", ctx.player);
+    }
+    fn on_update(&mut self, ctx: &mut Context) {
+        // Base case
+        handle_ground_collision(ctx);
+    }
+    fn on_exit(&mut self, ctx: &mut Context) {
+        println!("{} -> Jmp AttackEnd exit", ctx.player);
     }
 }

@@ -3,6 +3,7 @@ use crate::prelude::*;
 #[derive(Default)]
 pub struct Context {
     pub player: Player,
+    pub name: Name,
     pub next: Option<Box<dyn State>>,
     pub elapsed: u32,
     pub total: u32,
@@ -13,9 +14,10 @@ pub struct Context {
 }
 
 impl Context {
-    pub fn new(player: Player) -> Self {
+    pub fn new(player: Player, name: Name) -> Self {
         Self {
             player,
+            name,
             next: None,
             elapsed: 1,
             total: 1,
