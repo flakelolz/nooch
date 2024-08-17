@@ -11,8 +11,8 @@
 - [x] draw characters
 - [x] state machine
 - [x] physics system
-- [ ] input buffer
-- [ ] second player
+- [x] input buffer
+- [x] second player
 
 
 
