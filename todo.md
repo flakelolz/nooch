@@ -27,7 +27,7 @@
 - [ ] Chain attack modifier
 - [x] Buffer system
 - [x] Flip logic and buffer system when flipping
-- [ ] Fix dash after forward walk
+- [x] Dash lockout after walking
 - [ ] Fix attack input buffer for chain attacks
 - [x] Implement jump states
 - [ ] Dash lockout
