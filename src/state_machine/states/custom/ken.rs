@@ -46,8 +46,8 @@ impl Ken {
                 // Priority Hadouken with half-circle motion
                 {
                     let hcf = [4, 1, 2, 3, 6];
-                    if ctx.buffer.buffered(Buttons::Kicks, ctx.buffer.cancels)
-                        && ctx.buffer.motion_custom(&hcf, Buttons::Kicks, 9)
+                    if ctx.buffer.buffered(Buttons::Punches, ctx.buffer.cancels)
+                        && ctx.buffer.motion_custom(&hcf, Buttons::Punches, 9)
                     {
                         println!("Priority!!!");
                         ctx.next.replace(Box::new(ken::Hadouken));
@@ -207,7 +207,7 @@ impl State for Hadouken {
     }
 
     fn on_enter(&mut self, ctx: &mut Context) {
-        println!("Ken Hadouken on_enter");
+        println!("{} -> Ken Hadouken enter", ctx.player);
         // TODO: Set how fast a fireball is going to move based on the button currently pressed
         println!(
             "lp: {}, mp: {}, hp: {}",
@@ -257,7 +257,7 @@ impl State for Hadouken {
     }
 
     fn on_exit(&mut self, ctx: &mut Context) {
-        println!("Ken Hadouken on_exit");
+        println!("{} -> Ken Hadouken exit", ctx.player);
     }
 }
 
@@ -268,7 +268,7 @@ impl State for ShoryukenL {
     }
 
     fn on_enter(&mut self, ctx: &mut Context) {
-        println!("Ken ShoryukenL on_enter");
+        println!("{} -> Ken ShoryukenL enter", ctx.player);
     }
 
     fn on_update(&mut self, ctx: &mut Context) {
@@ -304,6 +304,6 @@ impl State for ShoryukenL {
     }
 
     fn on_exit(&mut self, ctx: &mut Context) {
-        println!("Ken ShoryukenL on_exit");
+        println!("{} -> Ken ShoryukenL exit", ctx.player);
     }
 }

@@ -48,27 +48,27 @@ impl InputBuffer {
     /// Check if the input is currently pressed.
     pub fn pressed(&self, button: Buttons) -> bool {
         let current = self.current();
-        self.check_input_loose(&button, current)
+        self.check_input(&button, current)
     }
 
     /// Check if the input was just pressed.
     pub fn just_pressed(&self, button: Buttons) -> bool {
         let current = self.current();
         let previous = self.previous();
-        self.check_input_loose(&button, current) && !self.check_input_loose(&button, previous)
+        self.check_input(&button, current) && !self.check_input(&button, previous)
     }
 
     pub fn released(&self, button: Buttons) -> bool {
         let current = self.current();
         let previous = self.previous();
-        !self.check_input_loose(&button, current) && self.check_input_loose(&button, previous)
+        !self.check_input(&button, current) && self.check_input(&button, previous)
     }
 
     /// Check if the input was pressed on a specific frame.
     fn _pressed_on_frame(&self, button: Buttons, frame: usize) -> bool {
         let buffer_index = frame % self.buffer.len();
         let current = self.buffer[buffer_index];
-        self.check_input_loose(&button, &current)
+        self.check_input(&button, &current)
     }
 
     /// Checks if the input was initially pressed on a specific frame.
@@ -78,7 +78,7 @@ impl InputBuffer {
 
         let current = self.buffer[buffer_index];
         let previous = self.buffer[last_index];
-        self.check_input_loose(&button, &current) && !self.check_input_loose(&button, &previous)
+        self.check_input(&button, &current) && !self.check_input(&button, &previous)
     }
 
     /// Check if an input was performed within a certain duration on the past frames.
@@ -93,20 +93,12 @@ impl InputBuffer {
 
     /// Checks the current forward position based on facing direction.
     pub fn forward(&self) -> bool {
-        if self.current().facing_left() {
-            self.pressed(Buttons::L)
-        } else {
-            self.pressed(Buttons::R)
-        }
+        self.check_input(&Buttons::R, self.current())
     }
 
     /// Checks the current backward position based on facing direction.
     pub fn backward(&self) -> bool {
-        if self.current().facing_left() {
-            self.pressed(Buttons::R)
-        } else {
-            self.pressed(Buttons::L)
-        }
+        self.check_input(&Buttons::L, self.current())
     }
 
     /// Checks if down is pressed.

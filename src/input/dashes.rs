@@ -28,18 +28,18 @@ impl InputBuffer {
                     let direction = motion[stage];
 
                     // Invalide if there's a down or backward input
-                    if self.check_input(&Buttons::D, &current)
-                        || self.check_input(&Buttons::L, &current)
+                    if self.check_input_strict(&Buttons::D, &current)
+                        || self.check_input_strict(&Buttons::L, &current)
                     {
                         stage = 0;
                     }
 
                     // Invalidate if there's a down forward input before the last forward
-                    if stage == 2 && self.check_input(&Buttons::DR, &current) {
+                    if stage == 2 && self.check_input_strict(&Buttons::DR, &current) {
                         stage = 0;
                     }
 
-                    if self.check_input_loose(&direction, &current) {
+                    if self.check_input(&direction, &current) {
                         stage += 1;
                     }
 
@@ -60,18 +60,18 @@ impl InputBuffer {
                     let direction = motion[stage];
 
                     // Invalide if there's a down or backward input
-                    if self.check_input(&Buttons::D, &current)
-                        || self.check_input(&Buttons::R, &current)
+                    if self.check_input_strict(&Buttons::D, &current)
+                        || self.check_input_strict(&Buttons::R, &current)
                     {
                         stage = 0;
                     }
 
                     // Invalidate if there's a down forward input before the last forward
-                    if stage == 2 && self.check_input(&Buttons::DL, &current) {
+                    if stage == 2 && self.check_input_strict(&Buttons::DL, &current) {
                         stage = 0;
                     }
 
-                    if self.check_input_loose(&direction, &current) {
+                    if self.check_input(&direction, &current) {
                         stage += 1;
                     }
 
@@ -92,18 +92,18 @@ impl InputBuffer {
                     let direction = motion[stage];
 
                     // Invalide if there's a down or backward input
-                    if self.check_input(&Buttons::D, &current)
-                        || self.check_input(&Buttons::L, &current)
+                    if self.check_input_strict(&Buttons::D, &current)
+                        || self.check_input_strict(&Buttons::L, &current)
                     {
                         stage = 0;
                     }
 
                     // Invalidate if there's a down forward input before the last forward
-                    if stage == 3 && self.check_input(&Buttons::DR, &current) {
+                    if stage == 3 && self.check_input_strict(&Buttons::DR, &current) {
                         stage = 0;
                     }
 
-                    if self.check_input_loose(&direction, &current) {
+                    if self.check_input(&direction, &current) {
                         stage += 1;
                     }
 
@@ -124,18 +124,18 @@ impl InputBuffer {
                     let direction = motion[stage];
 
                     // Invalide if there's a down or backward input
-                    if self.check_input(&Buttons::D, &current)
-                        || self.check_input(&Buttons::R, &current)
+                    if self.check_input_strict(&Buttons::D, &current)
+                        || self.check_input_strict(&Buttons::R, &current)
                     {
                         stage = 0;
                     }
 
                     // Invalidate if there's a down forward input before the last forward
-                    if stage == 3 && self.check_input(&Buttons::DL, &current) {
+                    if stage == 3 && self.check_input_strict(&Buttons::DL, &current) {
                         stage = 0;
                     }
 
-                    if self.check_input_loose(&direction, &current) {
+                    if self.check_input(&direction, &current) {
                         stage += 1;
                     }
 
@@ -149,7 +149,7 @@ impl InputBuffer {
     }
 
     /// Checks if a button has been pressed for motion inputs, not caring about colliding inputs.
-    pub fn check_input_loose(&self, button: &Buttons, current: &Input) -> bool {
+    pub fn check_input(&self, button: &Buttons, current: &Input) -> bool {
         let forward;
         let backward;
 

@@ -64,7 +64,7 @@ pub fn translate_dir(dir: u8) -> Buttons {
 
 impl InputBuffer {
     /// Checks if a button has been pressed for motion inputs
-    pub fn check_input(&self, button: &Buttons, current: &Input) -> bool {
+    pub fn check_input_strict(&self, button: &Buttons, current: &Input) -> bool {
         let forward;
         let backward;
 
@@ -141,7 +141,7 @@ impl InputBuffer {
 
                 let mut found = false;
                 for (i, current) in slice.iter().rev().enumerate() {
-                    if self.check_input(btn, current) {
+                    if self.check_input_strict(btn, current) {
                         found = true;
                         // Update buffer slice based on where the input was found
                         r = (self.buffer.len() + r - i) % self.buffer.len();
@@ -193,7 +193,7 @@ impl InputBuffer {
 
             let mut found = false;
             for (i, current) in slice.iter().rev().enumerate() {
-                if self.check_input(btn, current) {
+                if self.check_input_strict(btn, current) {
                     found = true;
                     // Update buffer slice based on where the input was found
                     r = (self.buffer.len() + r - i) % self.buffer.len();
