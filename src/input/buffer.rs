@@ -152,10 +152,15 @@ impl std::fmt::Display for InputBuffer {
 
 #[derive(Default, Debug, Clone, Copy)]
 pub struct Held {
+    pub n: u8,
     pub u: u8,
     pub d: u8,
     pub l: u8,
     pub r: u8,
+    pub ur: u8,
+    pub ul: u8,
+    pub dr: u8,
+    pub dl: u8,
     pub lp: u8,
     pub mp: u8,
     pub hp: u8,
@@ -166,17 +171,32 @@ pub struct Held {
 
 impl Held {
     pub fn increase(&mut self, input: Input) {
-        if input.pressed(Buttons::U) {
+        if input.pressed(Buttons::N) {
+            self.n = self.n.saturating_add(1);
+        }
+        if input.pressed(Buttons::U) && !(input.pressed(Buttons::L) || input.pressed(Buttons::R)) {
             self.u = self.u.saturating_add(1);
         }
-        if input.pressed(Buttons::D) {
+        if input.pressed(Buttons::D) && !(input.pressed(Buttons::L) || input.pressed(Buttons::R)) {
             self.d = self.d.saturating_add(1);
         }
-        if input.pressed(Buttons::L) {
+        if input.pressed(Buttons::L) && !(input.pressed(Buttons::U) || input.pressed(Buttons::D)) {
             self.l = self.l.saturating_add(1);
         }
-        if input.pressed(Buttons::R) {
+        if input.pressed(Buttons::R) && !(input.pressed(Buttons::U) || input.pressed(Buttons::D)) {
             self.r = self.r.saturating_add(1);
+        }
+        if input.pressed(Buttons::UR) {
+            self.ur = self.ur.saturating_add(1);
+        }
+        if input.pressed(Buttons::UL) {
+            self.ul = self.ul.saturating_add(1);
+        }
+        if input.pressed(Buttons::DR) {
+            self.dr = self.dr.saturating_add(1);
+        }
+        if input.pressed(Buttons::DL) {
+            self.dl = self.dl.saturating_add(1);
         }
         if input.pressed(Buttons::Lp) {
             self.lp = self.lp.saturating_add(1);
@@ -198,6 +218,9 @@ impl Held {
         }
     }
     pub fn reset(&mut self, current: Input, previous: Input) {
+        if previous.pressed(Buttons::N) && !current.pressed(Buttons::N) {
+            self.n = 0;
+        }
         if previous.pressed(Buttons::U) && !current.pressed(Buttons::U) {
             self.u = 0;
         }
@@ -209,6 +232,18 @@ impl Held {
         }
         if previous.pressed(Buttons::R) && !current.pressed(Buttons::R) {
             self.r = 0;
+        }
+        if previous.pressed(Buttons::UR) && !current.pressed(Buttons::UR) {
+            self.ur = 0;
+        }
+        if previous.pressed(Buttons::UL) && !current.pressed(Buttons::UL) {
+            self.ul = 0;
+        }
+        if previous.pressed(Buttons::DR) && !current.pressed(Buttons::DR) {
+            self.dr = 0;
+        }
+        if previous.pressed(Buttons::DL) && !current.pressed(Buttons::DL) {
+            self.dl = 0;
         }
         if previous.pressed(Buttons::Lp) && !current.pressed(Buttons::Lp) {
             self.lp = 0;
@@ -235,8 +270,8 @@ impl std::fmt::Display for Held {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "Up:{}  D:{}  L:{}  R:{}  Lp:{}  Mp:{}  Hp:{}  Lk:{}  Mk:{}  Hk:{}",
-            self.u, self.d, self.l, self.r, self.lp, self.mp, self.hp, self.lk, self.mk, self.hk
+            "N: {}  U:{}  D:{}  L:{}  R:{}  UR:{}  UL:{}  DR:{}  DL:{}  Lp:{}  Mp:{}  Hp:{}  Lk:{}  Mk:{}  Hk:{}",
+            self.n, self.u, self.d, self.l, self.r, self.ur, self.ul, self.dr, self. dl, self.lp, self.mp, self.hp, self.lk, self.mk, self.hk
         )
     }
 }

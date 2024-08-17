@@ -77,6 +77,7 @@ pub fn update_state(world: &mut World) {
             }
         }
 
+        state.ctx.locks.dash_lockout(&state.ctx.buffer, 6);
         state.current.on_update(&mut state.ctx);
     });
 

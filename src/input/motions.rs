@@ -128,6 +128,7 @@ impl InputBuffer {
             stage = 0;
 
             for btn in motion {
+                // PERF: Find a better way to do this
                 // Buffer slice of the last n inputs, n = limit
                 let slice = if l > r {
                     // When left is greater than right take whats everything from left pointer to
@@ -181,6 +182,7 @@ impl InputBuffer {
 
         for btn in &translated {
             // Buffer slice of the last n inputs, n = limit
+            // PERF: Find a better way to do this
             let slice = if l > r {
                 // When left is greater than right take whats everything from left pointer to
                 // the end and everything from 0 to right pointer and contactenate them
