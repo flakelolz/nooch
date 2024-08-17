@@ -114,6 +114,10 @@ impl Input {
     pub fn facing_left(&self) -> bool {
         self.0 & Buttons::FacingLeft == Buttons::FacingLeft
     }
+
+    pub fn facint_opponent(&self) -> bool {
+        self.0 & Buttons::FacingOpponent == Buttons::FacingOpponent
+    }
 }
 
 impl std::ops::Deref for Input {

@@ -69,11 +69,19 @@ impl InputBuffer {
         let backward;
 
         if current.facing_left() {
-            forward = current.pressed(Buttons::L);
-            backward = current.pressed(Buttons::R);
-        } else {
+            if current.facint_opponent() {
+                forward = current.pressed(Buttons::L);
+                backward = current.pressed(Buttons::R);
+            } else {
+                forward = current.pressed(Buttons::R);
+                backward = current.pressed(Buttons::L);
+            }
+        } else if current.facint_opponent() {
             forward = current.pressed(Buttons::R);
             backward = current.pressed(Buttons::L);
+        } else {
+            forward = current.pressed(Buttons::L);
+            backward = current.pressed(Buttons::R);
         }
         let up = current.pressed(Buttons::U);
         let down = current.pressed(Buttons::D);
