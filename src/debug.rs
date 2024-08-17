@@ -141,13 +141,12 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
                 });
                 if debug.buffer {
                     ui.window("Buffer")
-                        .position([-2., screen_y as f32 - 60.], imgui::Condition::FirstUseEver)
+                        .position([3., screen_y as f32 - 60.], imgui::Condition::FirstUseEver)
                         .no_decoration()
                         .always_auto_resize(true)
                         .build(|| {
                             world.lookup("Player 1").get::<&InputBuffer>(|buffer| {
                                 ui.text(format!("{}", buffer.held));
-                                ui.text(format!("{}", buffer));
                                 ui.text(format!("{}", Wrapper(buffer.buffer)));
                             });
                         });

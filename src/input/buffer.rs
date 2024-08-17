@@ -131,21 +131,8 @@ pub struct Wrapper(pub [Input; BUFFER_SIZE]);
 impl std::fmt::Display for Wrapper {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for item in self.0.iter() {
-            write!(f, " {}", item)?;
+            write!(f, " {:.2}", item.display())?;
         }
-        Ok(())
-    }
-}
-
-impl std::fmt::Display for InputBuffer {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut array = [" "; BUFFER_SIZE];
-
-        array[self.index] = "I";
-        for item in array {
-            write!(f, " {}", item)?;
-        }
-
         Ok(())
     }
 }
@@ -270,7 +257,7 @@ impl std::fmt::Display for Held {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "N: {}  U:{}  D:{}  L:{}  R:{}  UR:{}  UL:{}  DR:{}  DL:{}  Lp:{}  Mp:{}  Hp:{}  Lk:{}  Mk:{}  Hk:{}",
+            " N:{}  U:{}  D:{}  L:{}  R:{}  UR:{}  UL:{}  DR:{}  DL:{}  Lp:{}  Mp:{}  Hp:{}  Lk:{}  Mk:{}  Hk:{}",
             self.n, self.u, self.d, self.l, self.r, self.ur, self.ul, self.dr, self. dl, self.lp, self.mp, self.hp, self.lk, self.mk, self.hk
         )
     }

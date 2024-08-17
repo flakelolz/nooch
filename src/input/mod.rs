@@ -119,6 +119,67 @@ impl Input {
     pub fn facing_opponent(&self) -> bool {
         self.0 & Buttons::FacingOpponent == Buttons::FacingOpponent
     }
+
+    pub fn display(&self) -> f32 {
+        let mut res = 0.;
+        let i = self.0;
+        let up = i & Buttons::U == Buttons::U;
+        let down = i & Buttons::D == Buttons::D;
+        let left = i & Buttons::L == Buttons::L;
+        let right = i & Buttons::R == Buttons::R;
+        let ul = i & Buttons::UL == Buttons::UL;
+        let ur = i & Buttons::UR == Buttons::UR;
+        let dl = i & Buttons::DL == Buttons::DL;
+        let dr = i & Buttons::DR == Buttons::DR;
+        let neutral = i & Buttons::N == Buttons::N;
+        if dl {
+            res += 1.;
+        }
+        if down && !(left || right) {
+            res += 2.;
+        }
+        if dr {
+            res += 3.;
+        }
+        if left && !(up || down) {
+            res += 4.;
+        }
+        if neutral {
+            res += 5.;
+        }
+        if right && !(up || down) {
+            res += 6.;
+        }
+        if ul {
+            res += 7.;
+        }
+        if up && !(left || right) {
+            res += 8.;
+        }
+        if ur {
+            res += 9.;
+        }
+        if i & Buttons::Lp == Buttons::Lp {
+            res += 0.1;
+        }
+        if i & Buttons::Mp == Buttons::Mp {
+            res += 0.2;
+        }
+        if i & Buttons::Hp == Buttons::Hp {
+            res += 0.4;
+        }
+        if i & Buttons::Lk == Buttons::Lk {
+            res += 0.01;
+        }
+        if i & Buttons::Mk == Buttons::Mk {
+            res += 0.02;
+        }
+        if i & Buttons::Hk == Buttons::Hk {
+            res += 0.04;
+        }
+
+        res
+    }
 }
 
 impl std::ops::Deref for Input {
