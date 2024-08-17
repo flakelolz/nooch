@@ -115,7 +115,7 @@ impl Input {
         self.0 & Buttons::FacingLeft == Buttons::FacingLeft
     }
 
-    pub fn facint_opponent(&self) -> bool {
+    pub fn facing_opponent(&self) -> bool {
         self.0 & Buttons::FacingOpponent == Buttons::FacingOpponent
     }
 }

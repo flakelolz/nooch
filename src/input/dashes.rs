@@ -154,14 +154,14 @@ impl InputBuffer {
         let backward;
 
         if current.facing_left() {
-            if current.facint_opponent() {
+            if current.facing_opponent() {
                 forward = current.pressed(Buttons::L);
                 backward = current.pressed(Buttons::R);
             } else {
                 forward = current.pressed(Buttons::R);
                 backward = current.pressed(Buttons::L);
             }
-        } else if current.facint_opponent() {
+        } else if current.facing_opponent() {
             forward = current.pressed(Buttons::R);
             backward = current.pressed(Buttons::L);
         } else {
