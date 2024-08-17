@@ -1,11 +1,14 @@
 mod buffer;
 mod buttons;
 mod config;
+mod dashes;
 mod motions;
 
 pub use self::buffer::*;
 pub use self::buttons::*;
 pub use self::config::*;
+pub use self::dashes::*;
+pub use self::motions::*;
 use crate::prelude::*;
 
 pub fn update_input(world: &mut World, rl: &RaylibHandle) {
@@ -59,6 +62,7 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
             if left && right {
                 *input ^= Buttons::L;
                 *input ^= Buttons::R;
+                *input ^= Buttons::N;
             }
             if up && down {
                 *input ^= Buttons::D;

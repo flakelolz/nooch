@@ -286,27 +286,17 @@ impl Standing {
                 false
             }
             Standing::DashForward => {
-                // if ctx.buffer.was_dash_executed(
-                //     Dashes::Forward,
-                //     ctx.buffer.dash,
-                //     &physics.facing_left,
-                // ) && ctx.can_dash_f
-                // {
-                //     ctx.next.replace(Box::new(standing::DashForward));
-                //     return true;
-                // }
+                if ctx.buffer.dashed(Dashes::Forward, ctx.buffer.dash) && ctx.locks.dash_f {
+                    ctx.next.replace(Box::new(standing::DashForward));
+                    return true;
+                }
                 false
             }
             Standing::DashBackward => {
-                // if ctx.buffer.was_dash_executed(
-                //     Dashes::Backward,
-                //     ctx.buffer.dash,
-                //     &physics.facing_left,
-                // ) && ctx.can_dash_b
-                // {
-                //     ctx.next.replace(Box::new(standing::DashBackward));
-                //     return true;
-                // }
+                if ctx.buffer.dashed(Dashes::Backward, ctx.buffer.dash) && ctx.locks.dash_b {
+                    ctx.next.replace(Box::new(standing::DashBackward));
+                    return true;
+                }
                 false
             }
             Standing::WalkForward => {

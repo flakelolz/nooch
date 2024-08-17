@@ -12,6 +12,7 @@
       "total": 9,
       "looping": false,
       "modifiers": {
+        "positions": null,
         "cancels": [
           {
             "on": null,
@@ -23,8 +24,7 @@
               }
             ]
           }
-        ],
-        "positions": null
+        ]
       }
     },
     {
@@ -38,6 +38,148 @@
       "total": 44,
       "looping": true,
       "modifiers": null
+    },
+    {
+      "name": "St DashForward",
+      "total": 19,
+      "looping": false,
+      "modifiers": {
+        "positions": [
+          {
+            "on_frame": 2,
+            "value": [
+              24000,
+              0
+            ]
+          },
+          {
+            "on_frame": 3,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 4,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 5,
+            "value": [
+              7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 7,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 9,
+            "value": [
+              8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 10,
+            "value": [
+              16000,
+              0
+            ]
+          }
+        ],
+        "cancels": [
+          {
+            "on": null,
+            "after_frame": 12,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Group": "Normals"
+              }
+            ]
+          },
+          {
+            "on": null,
+            "after_frame": 16,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "St DashBackward",
+      "total": 15,
+      "looping": false,
+      "modifiers": {
+        "positions": [
+          {
+            "on_frame": 2,
+            "value": [
+              -8000,
+              0
+            ]
+          },
+          {
+            "on_frame": 5,
+            "value": [
+              -34000,
+              0
+            ]
+          },
+          {
+            "on_frame": 6,
+            "value": [
+              -7000,
+              0
+            ]
+          },
+          {
+            "on_frame": 7,
+            "value": [
+              -4000,
+              0
+            ]
+          },
+          {
+            "on_frame": 8,
+            "value": [
+              -1000,
+              0
+            ]
+          }
+        ],
+        "cancels": null
+      }
     },
     {
       "name": "St LightPunch",
@@ -56,7 +198,6 @@
       "total": 31,
       "looping": false,
       "modifiers": {
-        "cancels": null,
         "positions": [
           {
             "on_frame": 2,
@@ -107,7 +248,8 @@
               0
             ]
           }
-        ]
+        ],
+        "cancels": null
       }
     },
     {
@@ -121,7 +263,6 @@
       "total": 31,
       "looping": false,
       "modifiers": {
-        "cancels": null,
         "positions": [
           {
             "on_frame": 1,
@@ -158,7 +299,8 @@
               0
             ]
           }
-        ]
+        ],
+        "cancels": null
       }
     },
     {
@@ -166,7 +308,6 @@
       "total": 36,
       "looping": false,
       "modifiers": {
-        "cancels": null,
         "positions": [
           {
             "on_frame": 1,
@@ -231,7 +372,8 @@
               0
             ]
           }
-        ]
+        ],
+        "cancels": null
       }
     },
     {
@@ -287,7 +429,6 @@
       "total": 28,
       "looping": false,
       "modifiers": {
-        "cancels": null,
         "positions": [
           {
             "on_frame": 1,
@@ -331,7 +472,8 @@
               0
             ]
           }
-        ]
+        ],
+        "cancels": null
       }
     },
     {
@@ -339,7 +481,6 @@
       "total": 37,
       "looping": false,
       "modifiers": {
-        "cancels": null,
         "positions": [
           {
             "on_frame": 1,
@@ -411,7 +552,8 @@
               0
             ]
           }
-        ]
+        ],
+        "cancels": null
       }
     },
     {
@@ -443,6 +585,7 @@
       "total": 14,
       "looping": false,
       "modifiers": {
+        "positions": null,
         "cancels": [
           {
             "on": null,
@@ -470,8 +613,7 @@
               }
             ]
           }
-        ],
-        "positions": null
+        ]
       }
     },
     {

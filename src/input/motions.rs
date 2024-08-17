@@ -75,15 +75,19 @@ impl InputBuffer {
             forward = current.pressed(Buttons::R);
             backward = current.pressed(Buttons::L);
         }
+        let up = current.pressed(Buttons::U);
+        let down = current.pressed(Buttons::D);
+        let neutral = current.pressed(Buttons::N);
         match button {
-            Buttons::U => current.pressed(Buttons::U) && !(forward || backward),
-            Buttons::D => current.pressed(Buttons::D) && !(forward || backward),
-            Buttons::L => backward && !(current.pressed(Buttons::U) || current.pressed(Buttons::D)),
-            Buttons::R => forward && !(current.pressed(Buttons::U) || current.pressed(Buttons::D)),
-            Buttons::DR => forward && current.pressed(Buttons::D),
-            Buttons::DL => backward && current.pressed(Buttons::D),
-            Buttons::UR => forward && current.pressed(Buttons::R),
-            Buttons::UL => backward && current.pressed(Buttons::L),
+            Buttons::N => neutral && !(forward || backward || up || down),
+            Buttons::U => up && !(forward || backward),
+            Buttons::D => down && !(forward || backward),
+            Buttons::L => backward && !(up || down),
+            Buttons::R => forward && !(up || down),
+            Buttons::DR => down && forward,
+            Buttons::DL => down && backward,
+            Buttons::UR => up && forward,
+            Buttons::UL => up && backward,
             Buttons::Lp => current.pressed(Buttons::Lp),
             Buttons::Mp => current.pressed(Buttons::Mp),
             Buttons::Hp => current.pressed(Buttons::Hp),

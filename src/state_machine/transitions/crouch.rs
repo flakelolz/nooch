@@ -25,9 +25,9 @@ pub fn common_crouching_attack_transitions(ctx: &mut Context) {
             return;
         }
         if !ctx.buffer.down() {
-            // if dash_transitions(ctx) {
-            //     return;
-            // }
+            if dash_transitions(ctx) {
+                return;
+            }
             if walk_transition(ctx) {
                 return;
             }

@@ -23,9 +23,9 @@ pub fn common_standing_attack_transitions(ctx: &mut Context) {
         if crouch_transition(ctx) {
             return;
         }
-        //     if dash_transitions(context, buffer, physics) {
-        //         return;
-        //     }
+        if dash_transitions(ctx) {
+            return;
+        }
         if walk_transition(ctx) {
             return;
         }
@@ -59,6 +59,13 @@ pub fn turn_transition(ctx: &mut Context) -> bool {
             return true;
         }
         ctx.next = Some(Box::new(standing::Turn));
+        return true;
+    }
+    false
+}
+
+pub fn dash_transitions(ctx: &mut Context) -> bool {
+    if Group::Dashes.set(ctx) {
         return true;
     }
     false

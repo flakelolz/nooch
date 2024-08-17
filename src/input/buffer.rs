@@ -233,7 +233,7 @@ impl std::fmt::Display for Held {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "Up: {} - D: {} - L: {} - R: {} - Lp: {} - Mp: {} - Hp: {} - Lk: {} - Mk: {} - Hk: {}",
+            "Up:{}  D:{}  L:{}  R:{}  Lp:{}  Mp:{}  Hp:{}  Lk:{}  Mk:{}  Hk:{}",
             self.u, self.d, self.l, self.r, self.lp, self.mp, self.hp, self.lk, self.mk, self.hk
         )
     }

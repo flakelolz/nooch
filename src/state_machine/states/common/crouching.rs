@@ -88,9 +88,9 @@ impl State for End {
         if crouch_transition(ctx) {
             return;
         }
-        // if dash_transitions(ctx) {
-        //     return;
-        // }
+        if dash_transitions(ctx) {
+            return;
+        }
         if walk_transition(ctx) {
             return;
         }
@@ -128,9 +128,9 @@ impl State for Turn {
         if crouch_transition(ctx) {
             return;
         }
-        // if dash_transitions(ctx) {
-        //     return;
-        // }
+        if dash_transitions(ctx) {
+            return;
+        }
         if walk_transition(ctx) {
             return;
         }

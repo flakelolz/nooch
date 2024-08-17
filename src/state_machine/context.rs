@@ -9,6 +9,7 @@ pub struct Context {
     pub buffer: InputBuffer,
     pub physics: Physics,
     pub flags: Flags,
+    pub locks: Locks,
 }
 
 impl Context {
@@ -35,6 +36,21 @@ pub enum JumpFlags {
     Neutral,
     Forward,
     Backward,
+}
+
+#[derive(Debug)]
+pub struct Locks {
+    pub dash_f: bool,
+    pub dash_b: bool,
+}
+
+impl Default for Locks {
+    fn default() -> Self {
+        Self {
+            dash_f: true,
+            dash_b: true,
+        }
+    }
 }
 
 pub fn handle_modifiers(world: &mut World) {

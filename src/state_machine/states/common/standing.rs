@@ -27,9 +27,9 @@ impl State for Idle {
         if crouch_transition(ctx) {
             return;
         }
-        // if dash_transitions(ctx) {
-        //     return;
-        // }
+        if dash_transitions(ctx) {
+            return;
+        }
         walk_transition(ctx);
     }
     fn on_exit(&mut self, ctx: &mut Context) {
@@ -60,9 +60,9 @@ impl State for Turn {
             if crouch_transition(ctx) {
                 return;
             }
-            // if dash_transitions(ctx) {
-            //     return;
-            // }
+            if dash_transitions(ctx) {
+                return;
+            }
             if walk_transition(ctx) {
                 return;
             }
@@ -104,9 +104,9 @@ impl State for WalkForward {
         if crouch_transition(ctx) {
             return;
         }
-        // if dash_transitions(ctx) {
-        //     return;
-        // }
+        if dash_transitions(ctx) {
+            return;
+        }
         // Base case & return to idle
         if !ctx.buffer.forward() {
             ctx.next = Some(Box::new(standing::Idle));
@@ -147,9 +147,9 @@ impl State for WalkBackward {
         if crouch_transition(ctx) {
             return;
         }
-        // if dash_transitions(ctx) {
-        //     return;
-        // }
+        if dash_transitions(ctx) {
+            return;
+        }
         // Base case & return to idle
         if !ctx.buffer.backward() {
             ctx.next = Some(Box::new(standing::Idle));
@@ -188,9 +188,9 @@ impl State for DashForward {
             if crouch_transition(ctx) {
                 return;
             }
-            // if dash_transitions(ctx) {
-            //     return;
-            // }
+            if dash_transitions(ctx) {
+                return;
+            }
             if walk_transition(ctx) {
                 return;
             }
@@ -229,9 +229,9 @@ impl State for DashBackward {
             if crouch_transition(ctx) {
                 return;
             }
-            // if dash_transitions(ctx) {
-            //     return;
-            // }
+            if dash_transitions(ctx) {
+                return;
+            }
             if walk_transition(ctx) {
                 return;
             }
