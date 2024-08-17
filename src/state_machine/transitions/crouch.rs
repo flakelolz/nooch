@@ -9,18 +9,18 @@ pub fn crouch_transition(ctx: &mut Context) -> bool {
 
 pub fn common_crouching_attack_transitions(ctx: &mut Context) {
     // Kara-cancel
-    // if context.elapsed == 2 && specials_transitions(context, buffer, physics) {
-    //     return;
-    // }
+    if ctx.elapsed == 2 && specials_transitions(ctx) {
+        return;
+    }
     // Base case
     if ctx.elapsed > ctx.total {
         // Transitions
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }

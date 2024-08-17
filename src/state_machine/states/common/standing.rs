@@ -15,12 +15,12 @@ impl State for Idle {
         if turn_transition(ctx) {
             return;
         }
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
@@ -48,12 +48,12 @@ impl State for Turn {
     fn on_update(&mut self, ctx: &mut Context) {
         // Transitions
         if ctx.elapsed > ctx.total {
-            // if jump_transitions(ctx) {
-            //     return;
-            // }
-            // if specials_transitions(ctx) {
-            //     return;
-            // }
+            if jump_transitions(ctx) {
+                return;
+            }
+            if specials_transitions(ctx) {
+                return;
+            }
             if normals_transitions(ctx) {
                 return;
             }
@@ -92,12 +92,12 @@ impl State for WalkForward {
         if turn_transition(ctx) {
             return;
         }
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
@@ -135,12 +135,12 @@ impl State for WalkBackward {
         if turn_transition(ctx) {
             return;
         }
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
@@ -176,12 +176,12 @@ impl State for DashForward {
             if turn_transition(ctx) {
                 return;
             }
-            // if jump_transitions(ctx) {
-            //     return;
-            // }
-            // if specials_transitions(ctx) {
-            //     return;
-            // }
+            if jump_transitions(ctx) {
+                return;
+            }
+            if specials_transitions(ctx) {
+                return;
+            }
             if normals_transitions(ctx) {
                 return;
             }
@@ -217,12 +217,12 @@ impl State for DashBackward {
             if turn_transition(ctx) {
                 return;
             }
-            // if jump_transitions(ctx) {
-            //     return;
-            // }
-            // if specials_transitions(ctx) {
-            //     return;
-            // }
+            if jump_transitions(ctx) {
+                return;
+            }
+            if specials_transitions(ctx) {
+                return;
+            }
             if normals_transitions(ctx) {
                 return;
             }

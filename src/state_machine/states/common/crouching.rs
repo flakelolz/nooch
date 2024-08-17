@@ -13,15 +13,15 @@ impl State for Start {
         if turn_transition(ctx) {
             return;
         }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
         // Special case for releasing down on crouch start
         if ctx.elapsed > ctx.total && ctx.buffer.down() {
             ctx.next = Some(Box::new(crouching::Idle));
@@ -49,9 +49,9 @@ impl State for Idle {
         if turn_transition(ctx) {
             return;
         }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
@@ -76,12 +76,12 @@ impl State for End {
     fn on_update(&mut self, ctx: &mut Context) {
         // Transitions
         // if context.ctx.reaction.blockstun == 0 {
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
@@ -116,12 +116,12 @@ impl State for Turn {
     fn on_update(&mut self, ctx: &mut Context) {
         // Transitions
         // if context.ctx.reaction.blockstun == 0 {
-        // if jump_transitions(ctx) {
-        //     return;
-        // }
-        // if specials_transitions(ctx) {
-        //     return;
-        // }
+        if jump_transitions(ctx) {
+            return;
+        }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }

@@ -20,7 +20,7 @@ impl Default for InputBuffer {
             buffer: [Input::default(); BUFFER_SIZE],
             held: Held::default(),
             dash: 8,
-            attack: 2,
+            attack: 1,
             cancels: 2,
         }
     }
@@ -112,11 +112,11 @@ impl InputBuffer {
         self.pressed(Buttons::U)
     }
 
-    pub fn up_forward(&self, physics: &Physics) -> bool {
+    pub fn up_forward(&self) -> bool {
         self.up() && self.forward()
     }
 
-    pub fn up_backward(&self, physics: &Physics) -> bool {
+    pub fn up_backward(&self) -> bool {
         self.up() && self.backward()
     }
 

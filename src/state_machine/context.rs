@@ -8,6 +8,7 @@ pub struct Context {
     pub total: u32,
     pub buffer: InputBuffer,
     pub physics: Physics,
+    pub flags: Flags,
 }
 
 impl Context {
@@ -20,6 +21,20 @@ impl Context {
             ..Default::default()
         }
     }
+}
+
+#[derive(Debug, Default)]
+pub struct Flags {
+    pub jump: JumpFlags,
+}
+
+#[derive(Debug, Default, PartialEq)]
+pub enum JumpFlags {
+    #[default]
+    None,
+    Neutral,
+    Forward,
+    Backward,
 }
 
 pub fn handle_modifiers(world: &mut World) {

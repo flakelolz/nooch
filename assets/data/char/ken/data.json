@@ -442,7 +442,37 @@
       "name": "Jmp End",
       "total": 14,
       "looping": false,
-      "modifiers": null
+      "modifiers": {
+        "cancels": [
+          {
+            "on": null,
+            "after_frame": 1,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "Specials"
+              },
+              {
+                "Group": "Normals"
+              },
+              {
+                "Group": "Jumps"
+              }
+            ]
+          },
+          {
+            "on": null,
+            "after_frame": 2,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ],
+        "positions": null
+      }
     },
     {
       "name": "Jmp LightPunch",

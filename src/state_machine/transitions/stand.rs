@@ -2,24 +2,24 @@ use crate::prelude::*;
 
 pub fn common_standing_attack_transitions(ctx: &mut Context) {
     // // Kara-cancel
-    // if context.elapsed == 2 && specials_transitions(context, buffer, physics) {
-    //     return;
-    // }
+    if ctx.elapsed == 2 && specials_transitions(ctx) {
+        return;
+    }
     // // Base case
     if ctx.elapsed > ctx.total {
         // Transitions
         if turn_transition(ctx) {
             return;
         }
-        //     if specials_transitions(context, buffer, physics) {
-        //         return;
-        //     }
+        if specials_transitions(ctx) {
+            return;
+        }
         if normals_transitions(ctx) {
             return;
         }
-        //     if jump_transitions(context, buffer, physics) {
-        //         return;
-        //     }
+        if jump_transitions(ctx) {
+            return;
+        }
         if crouch_transition(ctx) {
             return;
         }
@@ -59,6 +59,13 @@ pub fn turn_transition(ctx: &mut Context) -> bool {
             return true;
         }
         ctx.next = Some(Box::new(standing::Turn));
+        return true;
+    }
+    false
+}
+
+pub fn specials_transitions(ctx: &mut Context) -> bool {
+    if Group::Specials.set(ctx) {
         return true;
     }
     false

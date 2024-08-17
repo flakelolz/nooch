@@ -1,0 +1,34 @@
+use crate::prelude::*;
+
+pub fn jump_transitions(ctx: &mut Context) -> bool {
+    if ctx.buffer.up() {
+        ctx.flags.jump = JumpFlags::Neutral;
+        handle_jump_flags(ctx);
+        ctx.next = Some(Box::new(jumping::Start));
+        return true;
+    }
+    false
+}
+
+pub fn handle_jump_flags(ctx: &mut Context) {
+    if ctx.buffer.up_forward() {
+        ctx.flags.jump = JumpFlags::Forward;
+    }
+    if ctx.buffer.up_backward() {
+        ctx.flags.jump = JumpFlags::Backward;
+    }
+}
+
+pub fn handle_ground_collision(ctx: &mut Context) -> bool {
+    if ctx.physics.position.y <= 0 {
+        ctx.physics.position.y = 0;
+        ctx.physics.velocity = IVec2::ZERO;
+        ctx.physics.acceleration.y = 0;
+        ctx.physics.airborne = false;
+        turn_transition(ctx);
+        ctx.next = Some(Box::new(jumping::End));
+
+        return true;
+    }
+    false
+}

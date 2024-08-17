@@ -422,68 +422,68 @@ impl Jumping {
         match self {
             Jumping::Start => {
                 if ctx.buffer.up() && !ctx.physics.airborne {
-                    // handle_jump_flags(ctx, ctx.buffer, physics);
-                    // ctx.next.replace(Box::new(jumping::Start));
+                    handle_jump_flags(ctx);
+                    ctx.next.replace(Box::new(jumping::Start));
                     return true;
                 }
             }
             Jumping::Neutral => {
                 if ctx.buffer.up() {
-                    // ctx.next.replace(Box::new(jumping::Neutral));
+                    ctx.next.replace(Box::new(jumping::Neutral));
                     return true;
                 }
             }
             Jumping::Forward => {
-                if ctx.buffer.up_forward(&ctx.physics) {
-                    // ctx.next.replace(Box::new(jumping::Forward));
+                if ctx.buffer.up_forward() {
+                    ctx.next.replace(Box::new(jumping::Forward));
                     return true;
                 }
             }
             Jumping::Backward => {
-                if ctx.buffer.up_backward(&ctx.physics) {
-                    // ctx.next.replace(Box::new(jumping::Backward));
+                if ctx.buffer.up_backward() {
+                    ctx.next.replace(Box::new(jumping::Backward));
                     return true;
                 }
             }
             Jumping::End => {
                 if !ctx.buffer.up() && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::End));
+                    ctx.next.replace(Box::new(jumping::End));
                     return true;
                 }
             }
             Jumping::LightPunch => {
                 if ctx.buffer.buffered(Buttons::Lp, ctx.buffer.attack) && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::LightPunch));
+                    ctx.next.replace(Box::new(jumping::LightPunch));
                     return true;
                 }
             }
             Jumping::MediumPunch => {
                 if ctx.buffer.buffered(Buttons::Mp, ctx.buffer.attack) && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::MediumPunch));
+                    ctx.next.replace(Box::new(jumping::MediumPunch));
                     return true;
                 }
             }
             Jumping::HeavyPunch => {
                 if ctx.buffer.buffered(Buttons::Hp, ctx.buffer.attack) && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::HeavyPunch));
+                    ctx.next.replace(Box::new(jumping::HeavyPunch));
                     return true;
                 }
             }
             Jumping::LightKick => {
                 if ctx.buffer.buffered(Buttons::Lk, ctx.buffer.attack) && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::LightKick));
+                    ctx.next.replace(Box::new(jumping::LightKick));
                     return true;
                 }
             }
             Jumping::MediumKick => {
                 if ctx.buffer.buffered(Buttons::Mk, ctx.buffer.attack) && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::MediumKick));
+                    ctx.next.replace(Box::new(jumping::MediumKick));
                     return true;
                 }
             }
             Jumping::HeavyKick => {
                 if ctx.buffer.buffered(Buttons::Mk, ctx.buffer.attack) && ctx.physics.airborne {
-                    // ctx.next.replace(Box::new(jumping::HeavyKick));
+                    ctx.next.replace(Box::new(jumping::HeavyKick));
                     return true;
                 }
             }

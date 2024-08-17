@@ -1,7 +1,9 @@
 mod crouch;
+mod jump;
 mod stand;
 
 pub use self::crouch::*;
+pub use self::jump::*;
 pub use self::stand::*;
 
 use crate::prelude::*;
