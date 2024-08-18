@@ -13,14 +13,12 @@ impl State for Start {
             return;
         }
         // Set jump direction
-        if ctx.flags.jump == JumpFlags::Neutral {
-            handle_jump_flags(ctx);
-        }
+        handle_jump_flags(ctx);
         // Base case
         if ctx.elapsed > ctx.total {
             // Transitions
             match ctx.flags.jump {
-                JumpFlags::None => (),
+                JumpFlags::None => handle_jump_flags(ctx),
                 JumpFlags::Neutral => ctx.next = Some(Box::new(jumping::Neutral)),
                 JumpFlags::Forward => ctx.next = Some(Box::new(jumping::Forward)),
                 JumpFlags::Backward => ctx.next = Some(Box::new(jumping::Backward)),

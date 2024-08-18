@@ -22,6 +22,11 @@ pub fn jump_transitions(ctx: &mut Context) -> bool {
 }
 
 pub fn handle_jump_flags(ctx: &mut Context) {
+    // Only apply neutral jump at the start, when the flag is None
+    if ctx.buffer.up() && ctx.flags.jump == JumpFlags::None {
+        ctx.flags.jump = JumpFlags::Neutral;
+    }
+    // If forward or backward are inputed before jump start finishes, set jump direction
     if ctx.buffer.up_forward() {
         ctx.flags.jump = JumpFlags::Forward;
     }
@@ -37,6 +42,7 @@ pub fn handle_ground_collision(ctx: &mut Context) -> bool {
         ctx.physics.acceleration.y = 0;
         ctx.physics.airborne = false;
         turn_transition(ctx);
+        ctx.flags.jump = JumpFlags::Neutral;
         ctx.next = Some(Box::new(jumping::End));
 
         return true;
