@@ -23,10 +23,10 @@ impl Default for StateMachine {
 }
 
 impl StateMachine {
-    pub fn new(player: Player, name: Name) -> Self {
+    pub fn new(player: Player, name: Name, data: CharacterData) -> Self {
         Self {
             current: Box::new(standing::Idle),
-            ctx: Context::new(player, name),
+            ctx: Context::new(player, name, data),
             modifiers: Modifier::default(),
         }
     }

@@ -33,8 +33,8 @@ impl std::fmt::Display for Player {
 }
 
 pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
-    //NOTE: This will also cap the game's framerate if lower than raylib's target_fps, so I want to
-    //make higher, just in case
+    // NOTE: This will also cap the game's framerate if lower than raylib's target_fps, so I want to
+    // make higher, just in case
     world.set_target_fps(64.0);
     // Singletons
     world.add::<InputConfig>();
@@ -44,6 +44,8 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     // Player 1
     let name = Name::Ken;
     let player = Player::One;
+    let data = load_character_data(name.into());
+    let origin = data.origin;
     world
         .entity_named("Player 1")
         .set(name)
@@ -51,14 +53,16 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .add::<Input>()
         .add::<InputBuffer>()
         .set(Physics::new((112 * 1000, 0), false))
-        .set(StateMachine::new(player, name))
+        .set(StateMachine::new(player, name, data))
         .set(ActionData::new(name))
-        .set(Animator::new("St Idle".into(), 11, Vec2::new(0.5, 0.835)))
+        .set(Animator::new("St Idle".into(), 11, origin))
         .set(AnimationData::new(name));
 
     // Player 2
     let name = Name::Ken;
     let player = Player::Two;
+    let data = load_character_data(name.into());
+    let origin = data.origin;
     world
         .entity_named("Player 2")
         .set(player)
@@ -66,8 +70,8 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .add::<InputBuffer>()
         .set(Physics::new((304 * 1000, 0), true))
         .set(name)
-        .set(StateMachine::new(player, name))
+        .set(StateMachine::new(player, name, data))
         .set(ActionData::new(name))
-        .set(Animator::new("St Idle".into(), 10, Vec2::new(0.5, 0.835)))
+        .set(Animator::new("St Idle".into(), 10, origin))
         .set(AnimationData::new(name));
 }

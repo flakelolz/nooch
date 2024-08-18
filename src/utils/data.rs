@@ -16,20 +16,24 @@ impl ActionData {
     }
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct ActorData {
+#[derive(Default, Serialize, Deserialize)]
+pub struct CharacterData {
     /// Actor's name
     pub name: String,
-    // pub health: i32,
-    // pub forward_walk: i32,
-    // pub backward_walk: i32,
-    // pub jump_velocity: i32,
-    // pub jump_deceleration: i32,
-    // pub jump_forward: i32,
-    // pub jump_backward: i32,
-    // pub origin: Vec2,
-    // pub pushbox: Boxes,
-    /// Used for deserializing ActionData
+    pub health: i32,
+    pub forward_walk: i32,
+    pub backward_walk: i32,
+    pub jump_velocity: i32,
+    pub jump_deceleration: i32,
+    pub jump_forward: i32,
+    pub jump_backward: i32,
+    pub origin: Vec2,
+    pub pushbox: Boxes,
+}
+
+// Only used for deserializing ActionData
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Actions {
     pub actions: Vec<Action>,
 }
 
@@ -73,4 +77,12 @@ pub enum CollisionType {
     Hit,
     Block,
     Parry,
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+pub struct Boxes {
+    pub top: i32,
+    pub bottom: i32,
+    pub left: i32,
+    pub right: i32,
 }

@@ -4,6 +4,7 @@ use crate::prelude::*;
 pub struct Context {
     pub player: Player,
     pub name: Name,
+    pub data: CharacterData,
     pub next: Option<Box<dyn State>>,
     pub elapsed: u32,
     pub total: u32,
@@ -14,10 +15,11 @@ pub struct Context {
 }
 
 impl Context {
-    pub fn new(player: Player, name: Name) -> Self {
+    pub fn new(player: Player, name: Name, data: CharacterData) -> Self {
         Self {
             player,
             name,
+            data,
             next: None,
             elapsed: 1,
             total: 1,

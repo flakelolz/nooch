@@ -4,13 +4,25 @@ use std::{io::Write, process::Command};
 
 use crate::prelude::*;
 
+pub fn load_character_data(actor: &str) -> CharacterData {
+    let file = get_file(&format!("data/char/{}/data.json", actor));
+    let mut char = CharacterData::default();
+    match file {
+        Some(data) => {
+            char = serde_json::from_slice(data).unwrap();
+        }
+        None => eprintln!("ERROR -> load character data: could not find file"),
+    }
+    char
+}
+
 pub fn load_action_data(actor: &str) -> HashMap<String, Action> {
     let file = get_file(&format!("data/char/{}/data.json", actor));
     let mut hashmap: HashMap<String, Action> = HashMap::new();
 
     match file {
         Some(data) => {
-            let character: ActorData = serde_json::from_slice(data).unwrap();
+            let character: Actions = serde_json::from_slice(data).unwrap();
             for action in &character.actions {
                 hashmap.insert(action.name.clone(), action.clone());
             }
@@ -57,7 +69,7 @@ pub fn update_action_durations(actor: &str) {
         .open(path.clone())
         .unwrap();
 
-    let mut data: ActorData = serde_json::from_reader(&file).unwrap();
+    let mut data: Actions = serde_json::from_reader(&file).unwrap();
     let anim = load_animation_data(actor);
 
     println!("Updating {} action data...", actor);

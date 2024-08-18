@@ -1,5 +1,22 @@
 {
   "name": "ken",
+  "health": 1000,
+  "forward_walk": 3000,
+  "backward_walk": 3000,
+  "jump_velocity": 9500,
+  "jump_deceleration": -604,
+  "jump_forward": 4000,
+  "jump_backward": 4000,
+  "origin": [
+    0.5,
+    0.835
+  ],
+  "pushbox": {
+    "top": 8000,
+    "bottom": -69000,
+    "left": -23000,
+    "right": 26000
+  },
   "actions": [
     {
       "name": "St Idle",

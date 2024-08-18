@@ -39,8 +39,8 @@ impl State for Neutral {
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp Neutral enter", ctx.player);
         if ctx.physics.position.y <= 0 {
-            ctx.physics.velocity.y = 9500;
-            ctx.physics.acceleration.y = -604;
+            ctx.physics.velocity.y = ctx.data.jump_velocity;
+            ctx.physics.acceleration.y = ctx.data.jump_deceleration;
             ctx.physics.airborne = true;
         }
     }
@@ -71,9 +71,9 @@ impl State for Forward {
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp Forward enter", ctx.player);
         if ctx.physics.position.y <= 0 {
-            ctx.physics.velocity.y = 9500;
-            ctx.physics.acceleration.y = -604;
-            ctx.physics.set_forward_velocity(4000);
+            ctx.physics.velocity.y = ctx.data.jump_velocity;
+            ctx.physics.acceleration.y = ctx.data.jump_deceleration;
+            ctx.physics.set_forward_velocity(ctx.data.jump_forward);
             ctx.physics.airborne = true;
         }
     }
@@ -104,9 +104,9 @@ impl State for Backward {
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> Jmp Backward enter", ctx.player);
         if ctx.physics.position.y <= 0 {
-            ctx.physics.velocity.y = 9500;
-            ctx.physics.acceleration.y = -604;
-            ctx.physics.set_backward_velocity(4000);
+            ctx.physics.velocity.y = ctx.data.jump_velocity;
+            ctx.physics.acceleration.y = ctx.data.jump_deceleration;
+            ctx.physics.set_backward_velocity(ctx.data.jump_backward);
             ctx.physics.airborne = true;
         }
     }

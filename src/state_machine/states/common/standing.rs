@@ -83,11 +83,11 @@ impl State for WalkForward {
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> St WalkForward enter", ctx.player);
         // FIX: Find a way to move on the first frame
-        ctx.physics.set_forward_velocity(3000);
+        ctx.physics.set_forward_velocity(ctx.data.forward_walk);
     }
     fn on_update(&mut self, ctx: &mut Context) {
         // Special case for walking
-        ctx.physics.set_forward_velocity(3000);
+        ctx.physics.set_forward_velocity(ctx.data.forward_walk);
         // Transitions
         if turn_transition(ctx) {
             return;
@@ -126,11 +126,11 @@ impl State for WalkBackward {
     }
     fn on_enter(&mut self, ctx: &mut Context) {
         println!("{} -> St WalkBackward enter", ctx.player);
-        ctx.physics.set_backward_velocity(3000);
+        ctx.physics.set_backward_velocity(ctx.data.backward_walk);
     }
     fn on_update(&mut self, ctx: &mut Context) {
         // Special case for walking
-        ctx.physics.set_backward_velocity(3000);
+        ctx.physics.set_backward_velocity(ctx.data.backward_walk);
         // Transitions
         if turn_transition(ctx) {
             return;
