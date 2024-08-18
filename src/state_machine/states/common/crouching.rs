@@ -125,19 +125,22 @@ impl State for Turn {
         if normals_transitions(ctx) {
             return;
         }
-        if crouch_transition(ctx) {
-            return;
+        if !ctx.buffer.down() {
+            if dash_transitions(ctx) {
+                return;
+            }
+            if walk_transition(ctx) {
+                return;
+            }
         }
-        if dash_transitions(ctx) {
-            return;
-        }
-        if walk_transition(ctx) {
-            return;
-        }
-        // }
-        // Base case & return to idle
+
         if ctx.elapsed > ctx.total {
-            ctx.next = Some(Box::new(standing::Idle));
+            if !ctx.buffer.down() {
+                // Return to idle
+                ctx.next = Some(Box::new(crouching::End));
+            } else {
+                ctx.next = Some(Box::new(crouching::Idle));
+            }
         }
     }
     fn on_exit(&mut self, ctx: &mut Context) {

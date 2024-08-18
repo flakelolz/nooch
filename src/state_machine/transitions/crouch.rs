@@ -15,6 +15,9 @@ pub fn common_crouching_attack_transitions(ctx: &mut Context) {
     // Base case
     if ctx.elapsed > ctx.total {
         // Transitions
+        if turn_transition(ctx) {
+            return;
+        }
         if jump_transitions(ctx) {
             return;
         }

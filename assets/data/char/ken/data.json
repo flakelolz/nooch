@@ -415,7 +415,21 @@
       "name": "Cr Turn",
       "total": 11,
       "looping": false,
-      "modifiers": null
+      "modifiers": {
+        "positions": null,
+        "cancels": [
+          {
+            "on": null,
+            "after_frame": 1,
+            "until_frame": null,
+            "states": [
+              {
+                "Group": "All"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "name": "Cr LightPunch",
