@@ -1,4 +1,5 @@
 mod assets;
+mod collisions;
 mod debug;
 mod drawing;
 mod game;
@@ -10,6 +11,7 @@ mod world;
 
 mod prelude {
     pub use crate::assets::*;
+    pub use crate::collisions::*;
     pub use crate::debug::*;
     pub use crate::drawing::*;
     pub use crate::input::*;
@@ -34,6 +36,8 @@ mod prelude {
     pub const WIDTH_PX: i32 = 416;
     pub const HEIGHT_PX: i32 = 234;
     pub const GROUND_OFFSET: i32 = 200;
+    pub const LEFT_WALL: i32 = 2000;
+    pub const RIGHT_WALL: i32 = (WIDTH_PX - 2) * 1000;
 }
 
 use prelude::*;
