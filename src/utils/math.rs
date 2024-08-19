@@ -61,3 +61,13 @@ pub fn screen_to_sprite(x: f32, y: f32, w: i32, h: i32) -> (f32, f32) {
         ((old_y / h as f32) * HEIGHT as f32),
     )
 }
+
+pub fn sprite_to_ui_num(x: i32) -> i32 {
+    let x = x as f32;
+    ((x / WIDTH_PX as f32) * WIDTH as f32) as i32
+}
+
+pub fn world_to_sprite_to_ui_num(coord: i32) -> i32 {
+    let num = world_to_screen_num(coord);
+    sprite_to_ui_num(num)
+}

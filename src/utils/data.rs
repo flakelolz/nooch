@@ -18,9 +18,8 @@ impl ActionData {
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct CharacterData {
-    /// Actor's name
     pub name: String,
-    pub health: i32,
+    pub max_health: i32,
     pub forward_walk: i32,
     pub backward_walk: i32,
     pub jump_velocity: i32,
@@ -42,7 +41,7 @@ pub struct Action {
     pub name: String,
     pub total: u32,
     pub looping: bool,
-    // pub pushboxes: Option<Vec<Pushbox>>,
+    pub pushboxes: Option<Vec<Pushbox>>,
     // pub hurtboxes: Option<Vec<Hurtbox>>,
     // pub hitboxes: Option<Vec<Hitbox>>,
     pub modifiers: Option<Modifiers>,
@@ -77,6 +76,13 @@ pub enum CollisionType {
     Hit,
     Block,
     Parry,
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+pub struct Pushbox {
+    pub start_frame: u32,
+    pub duration: u32,
+    pub value: Boxes,
 }
 
 #[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
