@@ -1,7 +1,7 @@
 {
   "name": "ken",
-  "health": 1000,
-  "forward_walk": 3000,
+  "max_health": 1000,
+  "forward_walk": 3500,
   "backward_walk": 3000,
   "jump_velocity": 9500,
   "jump_deceleration": -604,
@@ -13,7 +13,7 @@
   ],
   "pushbox": {
     "top": 8000,
-    "bottom": -69000,
+    "bottom": -70000,
     "left": -23000,
     "right": 26000
   },
@@ -22,12 +22,14 @@
       "name": "St Idle",
       "total": 34,
       "looping": true,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "St Turn",
       "total": 9,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": null,
         "cancels": [
@@ -48,6 +50,7 @@
       "name": "St WalkForward",
       "total": 44,
       "looping": true,
+      "pushboxes": null,
       "modifiers": null
     },
     {
@@ -60,6 +63,7 @@
       "name": "St DashForward",
       "total": 19,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -157,6 +161,7 @@
       "name": "St DashBackward",
       "total": 15,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -202,18 +207,21 @@
       "name": "St LightPunch",
       "total": 12,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "St MediumPunch",
       "total": 19,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "St HeavyPunch",
       "total": 31,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -273,12 +281,14 @@
       "name": "St LightKick",
       "total": 15,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "St MediumKick",
       "total": 31,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -324,6 +334,7 @@
       "name": "St HeavyKick",
       "total": 36,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -397,24 +408,28 @@
       "name": "Cr Start",
       "total": 9,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr Idle",
       "total": 32,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr End",
       "total": 9,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr Turn",
       "total": 11,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": null,
         "cancels": [
@@ -435,30 +450,35 @@
       "name": "Cr LightPunch",
       "total": 12,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr MediumPunch",
       "total": 16,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr HeavyPunch",
       "total": 31,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr LightKick",
       "total": 17,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Cr MediumKick",
       "total": 28,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -511,6 +531,7 @@
       "name": "Cr HeavyKick",
       "total": 37,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -591,30 +612,68 @@
       "name": "Jmp Start",
       "total": 4,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp Neutral",
       "total": 35,
       "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 35,
+          "value": {
+            "top": 20000,
+            "bottom": -20000,
+            "left": -23000,
+            "right": 26000
+          }
+        }
+      ],
       "modifiers": null
     },
     {
       "name": "Jmp Forward",
       "total": 34,
       "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 34,
+          "value": {
+            "top": 20000,
+            "bottom": -20000,
+            "left": -23000,
+            "right": 26000
+          }
+        }
+      ],
       "modifiers": null
     },
     {
       "name": "Jmp Backward",
       "total": 34,
       "looping": false,
+      "pushboxes": [
+        {
+          "start_frame": 0,
+          "duration": 34,
+          "value": {
+            "top": 20000,
+            "bottom": -20000,
+            "left": -23000,
+            "right": 26000
+          }
+        }
+      ],
       "modifiers": null
     },
     {
       "name": "Jmp End",
       "total": 14,
       "looping": false,
+      "pushboxes": null,
       "modifiers": {
         "positions": null,
         "cancels": [
@@ -651,54 +710,63 @@
       "name": "Jmp LightPunch",
       "total": 38,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp MediumPunch",
       "total": 20,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp HeavyPunch",
       "total": 21,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp LightKick",
       "total": 20,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp MediumKick",
       "total": 19,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp HeavyKick",
       "total": 18,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Jmp AttackEnd",
       "total": 8,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Ken Hadouken",
       "total": 42,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     },
     {
       "name": "Ken ShoryukenL",
       "total": 36,
       "looping": false,
+      "pushboxes": null,
       "modifiers": null
     }
   ]
