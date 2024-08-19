@@ -43,6 +43,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             update_buffer(&mut world);
             update_physics(&mut world);
             update_state(&mut world);
+            collisions(&mut world);
         }
 
         reset_physics(&mut world, rl);
@@ -70,7 +71,6 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             if !paused || advance {
                 d.clear_background(Color::BLANK);
                 // show_frame_count(&world, &mut d, &debug);
-                show_state(&world, &mut d);
                 // show_info(&world, &mut d, &debug);
                 // show_inputs(&world, &mut d, &debug);
             }
@@ -78,6 +78,8 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         {
             let mut d = d.begin_mode2D(camera);
             rendering(&mut target_px, &mut target_ui, &mut d);
+            show_pushboxes(&world, &mut d);
+            show_state(&world, &mut d);
             show_fps(&mut d);
             show_position(&world, &mut d);
         }

@@ -124,13 +124,17 @@ impl DebugUI {
 pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
     let query = world.query::<&mut DebugUI>().singleton().build();
     let size_x = 130.;
-    let size_y = 160.;
+    let size_y = 182.;
     let screen_x = d.get_screen_width();
     let screen_y = d.get_screen_height();
 
     query.each(|debug| {
+        if d.is_key_pressed(KeyboardKey::KEY_F1) {
+            debug.info = !debug.info;
+        }
+
         ui.window("Debug")
-            .collapsed(true, imgui::Condition::FirstUseEver)
+            .collapsed(debug.info, imgui::Condition::Always)
             .size([size_x, size_y], imgui::Condition::Appearing)
             .position([1., 1.], imgui::Condition::FirstUseEver)
             .movable(false)
@@ -139,6 +143,19 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
                 world.lookup("Player 1").get::<&InputBuffer>(|buffer| {
                     ui.text(format!("{:012b}", buffer.current()));
                 });
+                ui.separator();
+                ui.checkbox("Position", &mut debug.position);
+                ui.checkbox("State", &mut debug.state);
+                ui.checkbox("Pushbox", &mut debug.pushboxes);
+                ui.checkbox("Buffer", &mut debug.buffer);
+                ui.separator();
+                let mouse_pos = ui.io().mouse_pos;
+                let [x, y] = mouse_pos;
+                ui.text(format!("{:.1},{:.1}", x, y));
+                let mouse = d.get_mouse_position();
+                let (x, y) = screen_to_ui(mouse.x, mouse.y, screen_x, screen_y);
+                ui.text(format!("{:.1},{:.1}", x, y));
+
                 if debug.buffer {
                     ui.window("Buffer")
                         .position([3., screen_y as f32 - 60.], imgui::Condition::FirstUseEver)
@@ -151,33 +168,74 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
                             });
                         });
                 }
-                ui.separator();
-                ui.checkbox("Position", &mut debug.position);
-                ui.checkbox("State", &mut debug.state);
-                ui.checkbox("Buffer", &mut debug.buffer);
-                ui.separator();
-                let mouse_pos = ui.io().mouse_pos;
-                let [x, y] = mouse_pos;
-                ui.text(format!("{:.1},{:.1}", x, y));
-                let mouse = d.get_mouse_position();
-                let (x, y) = screen_to_ui(mouse.x, mouse.y, screen_x, screen_y);
-                ui.text(format!("{:.1},{:.1}", x, y));
             });
     });
 }
 
 pub fn reset_physics(world: &mut World, rl: &mut RaylibHandle) {
-    if rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE) {
-        let query = world.query::<(&mut Physics, &Player)>().build();
-        query.each(|(physics, player)| match player {
-            Player::One => {
-                *physics = Physics::new((112 * 1000, 0), false);
+    let query = world.query::<(&mut Physics, &Player)>().build();
+    query.each(|(physics, player)| {
+        if rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE) {
+            match player {
+                Player::One => {
+                    *physics = Physics::new((112 * 1000, 0), false);
+                }
+                Player::Two => {
+                    *physics = Physics::new((304 * 1000, 0), true);
+                }
             }
-            Player::Two => {
-                *physics = Physics::new((304 * 1000, 0), true);
+        }
+        if rl.is_key_pressed(KeyboardKey::KEY_F5) {
+            physics.facing_left = !physics.facing_left;
+        }
+    });
+}
+
+pub fn show_pushboxes(world: &World, d: &mut impl RaylibDraw) {
+    let debug_q = world.query::<&DebugUI>().singleton().build();
+    let query = world
+        .query::<(&ActionData, &Physics, &StateMachine)>()
+        .build();
+    debug_q.each(|debug| {
+        if !debug.pushboxes {
+            return;
+        }
+        query.each(|(data, physics, state)| {
+            if let Some(action) = data.get(state.current.name()) {
+                let color = if physics.airborne {
+                    Color::LIME
+                } else {
+                    Color::MAGENTA
+                };
+
+                if let Some(pushboxes) = &action.pushboxes {
+                    for pushbox in pushboxes.iter() {
+                        if pushbox.is_active(state.ctx.elapsed) {
+                            let p = pushbox.translated(physics.position, physics.facing_left);
+                            let left = world_to_sprite_to_ui_num(p.value.left);
+                            let top = -world_to_sprite_to_ui_num(p.value.top) + GROUND_OFFSET;
+                            let width = world_to_sprite_to_ui_num(p.value.right - p.value.left);
+                            let height = world_to_sprite_to_ui_num(p.value.top - p.value.bottom);
+                            d.draw_rectangle_lines(left, top, width, height, color);
+                        }
+                    }
+                } else {
+                    // Default pushbox
+                    let offset = physics.position;
+                    let translated = if physics.facing_left {
+                        state.ctx.data.pushbox.translate_flipped(offset)
+                    } else {
+                        state.ctx.data.pushbox.translate(offset)
+                    };
+                    let left = world_to_sprite_to_ui_num(translated.left);
+                    let top = -world_to_sprite_to_ui_num(translated.top) + GROUND_OFFSET;
+                    let width = world_to_sprite_to_ui_num(translated.right - translated.left);
+                    let height = world_to_sprite_to_ui_num(translated.top - translated.bottom);
+                    d.draw_rectangle_lines(left, top, width, height, color);
+                }
             }
-        });
-    }
+        })
+    });
 }
 
 pub fn show_fps(d: &mut impl RaylibDraw) {
