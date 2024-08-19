@@ -127,18 +127,18 @@ impl Input {
         let down = i & Buttons::D == Buttons::D;
         let left = i & Buttons::L == Buttons::L;
         let right = i & Buttons::R == Buttons::R;
-        let ul = i & Buttons::UL == Buttons::UL;
-        let ur = i & Buttons::UR == Buttons::UR;
-        let dl = i & Buttons::DL == Buttons::DL;
-        let dr = i & Buttons::DR == Buttons::DR;
+        let up_left = i & Buttons::UL == Buttons::UL;
+        let up_right = i & Buttons::UR == Buttons::UR;
+        let down_left = i & Buttons::DL == Buttons::DL;
+        let down_right = i & Buttons::DR == Buttons::DR;
         let neutral = i & Buttons::N == Buttons::N;
-        if dl {
+        if down_left {
             res += 1.;
         }
         if down && !(left || right) {
             res += 2.;
         }
-        if dr {
+        if down_right {
             res += 3.;
         }
         if left && !(up || down) {
@@ -150,13 +150,13 @@ impl Input {
         if right && !(up || down) {
             res += 6.;
         }
-        if ul {
+        if up_left {
             res += 7.;
         }
         if up && !(left || right) {
             res += 8.;
         }
-        if ur {
+        if up_right {
             res += 9.;
         }
         if i & Buttons::Lp == Buttons::Lp {
