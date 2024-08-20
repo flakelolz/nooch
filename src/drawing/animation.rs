@@ -144,7 +144,10 @@ pub fn actor_animation(d: &mut impl RaylibDraw, world: &World) {
 
 fn draw_actor(d: &mut impl RaylibDraw, mut commands: Vec<Draw>, world: &World) {
     world.get::<&Assets>(|assets| {
-        let name = commands[0].name;
+        let Some(first) = commands.first() else {
+            return;
+        };
+        let name = first.name;
         let Some(texture) = assets.get(name) else {
             return;
         };
