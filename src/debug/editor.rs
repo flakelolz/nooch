@@ -92,6 +92,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 hurtboxes.len() as i32 - 1,
                                             )
                                             .build(&mut editor.hurt_index);
+
                                             let hurtbox =
                                                 &mut hurtboxes[editor.hurt_index as usize];
                                             ui.input_scalar(
@@ -118,7 +119,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 .speed(1000.)
                                                 .build(ui, &mut hurtbox.value.bottom);
 
-                                            if ui.button_with_size("Reset", [100., 20.]) {
+                                            if ui.button("Reset") {
                                                 if let Some(action) = &editor.actions {
                                                     let old = action.get(
                                                         editor.names[editor.index as usize]
@@ -133,7 +134,25 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                     }
                                                 }
                                             }
+
+                                            if ui.button("Add") {
+                                                hurtboxes.push(Hurtbox::default());
+                                            }
+                                            if ui.button("Remove") {
+                                                if hurtboxes.len() > 1 {
+                                                    hurtboxes.remove(editor.hurt_index as usize);
+                                                    if editor.hurt_index >= hurtboxes.len() as i32 {
+                                                        editor.hurt_index =
+                                                            hurtboxes.len() as i32 - 1
+                                                    }
+                                                } else {
+                                                    current.hurtboxes = None;
+                                                }
+                                            }
+                                        } else if ui.button("Create new") {
+                                            current.hurtboxes = Some(vec![Hurtbox::default()]);
                                         }
+
                                         token.end();
                                     }
                                     let token = ui.tab_item("Hitbox");
@@ -141,6 +160,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                         if let Some(hitboxes) = &mut current.hitboxes {
                                             ui.slider_config("Index", 0, hitboxes.len() as i32 - 1)
                                                 .build(&mut editor.hit_index);
+
                                             let hitbox = &mut hitboxes[editor.hit_index as usize];
                                             ui.input_scalar("Start frame", &mut hitbox.start_frame)
                                                 .step(1)
@@ -177,6 +197,22 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                     }
                                                 }
                                             }
+
+                                            if ui.button("Add") {
+                                                hitboxes.push(Hitbox::default());
+                                            }
+                                            if ui.button("Remove") {
+                                                if hitboxes.len() > 1 {
+                                                    hitboxes.remove(editor.hit_index as usize);
+                                                    if editor.hit_index >= hitboxes.len() as i32 {
+                                                        editor.hit_index = hitboxes.len() as i32 - 1
+                                                    }
+                                                } else {
+                                                    current.hitboxes = None;
+                                                }
+                                            }
+                                        } else if ui.button("Create new") {
+                                            current.hitboxes = Some(vec![Hitbox::default()]);
                                         }
                                         token.end();
                                     }
@@ -220,7 +256,6 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                         editor.names[editor.index as usize]
                                                             .as_str(),
                                                     );
-                                                    let default = state.ctx.data.pushbox;
                                                     if let Some(old) = old {
                                                         if let Some(pushboxes) = &old.pushboxes {
                                                             pushbox.value = pushboxes
@@ -228,6 +263,21 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                                 .value;
                                                         }
                                                     }
+                                                }
+                                            }
+
+                                            if ui.button("Add") {
+                                                pushboxes.push(Pushbox::default());
+                                            }
+                                            if ui.button("Remove") {
+                                                if pushboxes.len() > 1 {
+                                                    pushboxes.remove(editor.push_index as usize);
+                                                    if editor.push_index >= pushboxes.len() as i32 {
+                                                        editor.push_index =
+                                                            pushboxes.len() as i32 - 1
+                                                    }
+                                                } else {
+                                                    current.pushboxes = None;
                                                 }
                                             }
                                         } else {
@@ -252,6 +302,10 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             if ui.button_with_size("Reset", [100., 20.]) {
                                                 state.ctx.data.pushbox =
                                                     editor.default_pushbox.unwrap();
+                                            }
+
+                                            if ui.button("Create new") {
+                                                current.pushboxes = Some(vec![Pushbox::default()]);
                                             }
                                         }
                                         token.end();
