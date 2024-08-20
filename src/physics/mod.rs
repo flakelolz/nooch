@@ -5,11 +5,14 @@ pub struct Physics {
     pub position: IVec2,
     pub velocity: IVec2,
     pub acceleration: IVec2,
-    pub width: u32,
     pub facing_left: bool,
     pub facing_opponent: bool,
     // pub cornered: bool,
     pub airborne: bool,
+    /// Pushbox left
+    pub left: i32,
+    /// Pushbox right
+    pub right: i32,
 }
 
 impl Physics {
@@ -42,24 +45,29 @@ impl Physics {
 
     /// Tries to add x to the position. Returns true if it was successful.
     pub fn try_add_x_position(&mut self, add: i32) -> bool {
+        if add == 0 {
+            return true;
+        }
         let amount = self.position.x + add;
         let middle = (RIGHT_WALL - LEFT_WALL) / 2;
+        let left = self.position.x - self.left;
+        let right = -(self.position.x - self.right);
 
         if self.position.x <= middle {
             // Add position as long as the addition is within the left wall
-            if amount - (self.width as i32 / 2) > LEFT_WALL {
+            if amount - left > LEFT_WALL {
                 self.position.x = amount;
                 true
             } else {
-                self.position.x = LEFT_WALL + self.width as i32 / 2;
+                self.position.x = LEFT_WALL + left;
                 false
             }
         // Add position as long as the addition is within the right wall
-        } else if amount + (self.width as i32 / 2) < RIGHT_WALL {
+        } else if amount + right < RIGHT_WALL {
             self.position.x = amount;
             true
         } else {
-            self.position.x = RIGHT_WALL - self.width as i32 / 2;
+            self.position.x = RIGHT_WALL - right;
             false
         }
     }
@@ -67,13 +75,15 @@ impl Physics {
     pub fn can_add_x_position(&mut self, add: i32) -> bool {
         let amount = self.position.x + add;
         let middle = (RIGHT_WALL - LEFT_WALL) / 2;
+        let left = self.position.x - self.left;
+        let right = -(self.position.x - self.right);
 
         if self.position.x <= middle {
             // Add position as long as the addition is within the left wall
-            amount - (self.width as i32 / 2) > LEFT_WALL
+            amount - left > LEFT_WALL
         // Add position as long as the addition is within the right wall
         } else {
-            amount + (self.width as i32 / 2) < RIGHT_WALL
+            amount + right < RIGHT_WALL
         }
     }
 }

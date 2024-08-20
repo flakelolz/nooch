@@ -40,6 +40,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     world.add::<InputConfig>();
     world.set(Assets::new(rl, thread));
     world.set(DebugUI::default());
+    world.add::<Collisions>();
 
     // Player 1
     let name = Name::Ken;

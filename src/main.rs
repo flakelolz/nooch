@@ -36,8 +36,8 @@ mod prelude {
     pub const WIDTH_PX: i32 = 416;
     pub const HEIGHT_PX: i32 = 234;
     pub const GROUND_OFFSET: i32 = 200;
-    pub const LEFT_WALL: i32 = 2000;
-    pub const RIGHT_WALL: i32 = (WIDTH_PX - 2) * 1000;
+    pub const LEFT_WALL: i32 = 5000;
+    pub const RIGHT_WALL: i32 = (WIDTH_PX * 1000) - LEFT_WALL;
 }
 
 use prelude::*;

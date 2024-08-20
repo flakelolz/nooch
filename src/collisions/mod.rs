@@ -38,7 +38,9 @@ pub fn collisions(world: &mut World) {
                     for pushbox in pushboxes.iter() {
                         let pushbox = pushbox.translated(offset, physics.facing_left);
                         if pushbox.is_active(state.ctx.elapsed) {
-                            physics.width = (pushbox.value.right - pushbox.value.left) as u32;
+                            // For calculating corner bounds
+                            physics.left = pushbox.value.left;
+                            physics.right = pushbox.value.right;
                             collisions.pushboxes.push((entity.id(), pushbox));
                         }
                     }
@@ -48,7 +50,10 @@ pub fn collisions(world: &mut World) {
                     } else {
                         state.ctx.data.pushbox.translate(offset)
                     };
-                    physics.width = (pushbox.right - pushbox.left) as u32;
+
+                    // For calculating corner bounds
+                    physics.left = pushbox.left;
+                    physics.right = pushbox.right;
                     collisions.pushboxes.push((
                         entity.id(),
                         Pushbox {
@@ -114,7 +119,7 @@ impl Boxes {
     pub fn translate(&self, offset: IVec2) -> Self {
         Self {
             left: self.left + offset.x,
-            right: self.right + offset.x,
+            right: self.right + offset.x + 1000,
             top: self.top + offset.y,
             bottom: self.bottom + offset.y,
         }
