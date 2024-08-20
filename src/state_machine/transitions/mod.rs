@@ -9,7 +9,6 @@ pub use self::stand::*;
 use crate::prelude::*;
 
 pub fn handle_transitions(world: &mut World) {
-
     let query = world
         .query_named::<(&mut StateMachine, &mut Animator)>("Setup animation")
         .set_cached()
@@ -37,7 +36,7 @@ pub fn handle_transitions(world: &mut World) {
             if let Some(action) = data.get(state.current.name()) {
                 state.ctx.total = action.total;
 
-                // Setup action modifiers if there are any
+                // Setup action modifiers
                 match &action.modifiers {
                     Some(_) => {
                         state.modifiers.index = 0;

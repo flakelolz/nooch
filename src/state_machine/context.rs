@@ -96,7 +96,7 @@ impl Locks {
 
 pub fn handle_modifiers(world: &mut World) {
     let query = world
-        .query_named::<&mut StateMachine>("Handle modifiers")
+        .query_named::<&mut StateMachine>("Handle state modifiers")
         .set_cached()
         .build();
     query.each(|state| {
