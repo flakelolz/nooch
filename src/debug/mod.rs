@@ -1,4 +1,7 @@
-use crate::{physics, prelude::*};
+pub mod editor;
+
+pub use self::editor::*;
+use crate::prelude::*;
 
 const TEXT_SIZE: f32 = 10.0;
 // const SCREEN_CENTER: i32 = WIDTH / 2;
@@ -15,6 +18,7 @@ pub struct DebugUI {
     pub pushboxes: bool,
     pub proximity: bool,
     pub buffer: bool,
+    pub demo: bool,
     pub all: bool,
 }
 
@@ -22,7 +26,7 @@ impl Default for DebugUI {
     fn default() -> Self {
         Self {
             info: true,
-            editor: false,
+            editor: true,
             position: true,
             state: true,
             inputs: true,
@@ -31,6 +35,7 @@ impl Default for DebugUI {
             pushboxes: true,
             proximity: false,
             buffer: true,
+            demo: false,
             all: true,
         }
     }
@@ -100,6 +105,7 @@ impl DebugUI {
             proximity: false,
             editor: false,
             buffer: false,
+            demo: false,
             all: false,
         };
     }
@@ -116,25 +122,22 @@ impl DebugUI {
             proximity: true,
             editor: true,
             buffer: true,
+            demo: true,
             all: true,
         };
     }
 }
 
 pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
-    let query = world.query::<&mut DebugUI>().singleton().build();
     let size_x = 130.;
     let size_y = 182.;
     let screen_x = d.get_screen_width();
     let screen_y = d.get_screen_height();
 
+    let query = world.query::<&mut DebugUI>().singleton().build();
     query.each(|debug| {
-        if d.is_key_pressed(KeyboardKey::KEY_F1) {
-            debug.info = !debug.info;
-        }
-
         ui.window("Debug")
-            .collapsed(debug.info, imgui::Condition::Always)
+            .collapsed(true, imgui::Condition::FirstUseEver)
             .size([size_x, size_y], imgui::Condition::Appearing)
             .position([1., 1.], imgui::Condition::FirstUseEver)
             .movable(false)
@@ -189,6 +192,62 @@ pub fn reset_physics(world: &mut World, rl: &mut RaylibHandle) {
             physics.facing_left = !physics.facing_left;
         }
     });
+}
+
+pub fn show_hitboxes(world: &World, d: &mut impl RaylibDraw) {
+    let debug_q = world.query::<&DebugUI>().singleton().build();
+    let query = world
+        .query::<(&ActionData, &Physics, &StateMachine)>()
+        .build();
+    debug_q.each(|debug| {
+        if !debug.hitboxes {
+            return;
+        }
+        query.each(|(data, physics, state)| {
+            if let Some(action) = data.get(state.current.name()) {
+                if let Some(hitboxes) = &action.hitboxes {
+                    for hitbox in hitboxes.iter() {
+                        if hitbox.is_active(state.ctx.elapsed) {
+                            let p = hitbox.translated(physics.position, physics.facing_left);
+                            let left = world_to_sprite_to_ui_num(p.value.left);
+                            let top = -world_to_sprite_to_ui_num(p.value.top) + GROUND_OFFSET;
+                            let width = world_to_sprite_to_ui_num(p.value.right - p.value.left);
+                            let height = world_to_sprite_to_ui_num(p.value.top - p.value.bottom);
+                            d.draw_rectangle_lines(left, top, width, height, Color::RED);
+                        }
+                    }
+                }
+            }
+        })
+    })
+}
+
+pub fn show_hurtboxes(world: &World, d: &mut impl RaylibDraw) {
+    let debug_q = world.query::<&DebugUI>().singleton().build();
+    let query = world
+        .query::<(&ActionData, &Physics, &StateMachine)>()
+        .build();
+    debug_q.each(|debug| {
+        if !debug.hurtboxes {
+            return;
+        }
+        query.each(|(data, physics, state)| {
+            if let Some(action) = data.get(state.current.name()) {
+                if let Some(hurtboxes) = &action.hurtboxes {
+                    for hurtbox in hurtboxes.iter() {
+                        if hurtbox.is_active(state.ctx.elapsed) {
+                            let p = hurtbox.translated(physics.position, physics.facing_left);
+                            let left = world_to_sprite_to_ui_num(p.value.left);
+                            let top = -world_to_sprite_to_ui_num(p.value.top) + GROUND_OFFSET;
+                            let width = world_to_sprite_to_ui_num(p.value.right - p.value.left);
+                            let height = world_to_sprite_to_ui_num(p.value.top - p.value.bottom);
+                            d.draw_rectangle_lines(left, top, width, height, Color::BLUE);
+                        }
+                    }
+                }
+            }
+        })
+    })
 }
 
 pub fn show_pushboxes(world: &World, d: &mut impl RaylibDraw) {

@@ -1,12 +1,18 @@
 use crate::prelude::*;
 
-#[derive(Component, Serialize, Deserialize)]
-pub struct ActionData(HashMap<String, Action>);
+#[derive(Component, Debug, Serialize, Deserialize)]
+pub struct ActionData(IndexMap<String, Action>);
 
 impl std::ops::Deref for ActionData {
-    type Target = HashMap<String, Action>;
+    type Target = IndexMap<String, Action>;
     fn deref(&self) -> &Self::Target {
         &self.0
+    }
+}
+
+impl std::ops::DerefMut for ActionData {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
     }
 }
 
@@ -14,9 +20,13 @@ impl ActionData {
     pub fn new(actor: Name) -> Self {
         Self(load_action_data(actor.into()))
     }
+
+    pub fn to_vec(&self) -> Vec<Action> {
+        self.0.values().cloned().collect()
+    }
 }
 
-#[derive(Default, Serialize, Deserialize)]
+#[derive(Default, Debug, Serialize, Deserialize)]
 pub struct CharacterData {
     pub name: String,
     pub max_health: i32,
@@ -42,8 +52,8 @@ pub struct Action {
     pub total: u32,
     pub looping: bool,
     pub pushboxes: Option<Vec<Pushbox>>,
-    // pub hurtboxes: Option<Vec<Hurtbox>>,
-    // pub hitboxes: Option<Vec<Hitbox>>,
+    pub hurtboxes: Option<Vec<Hurtbox>>,
+    pub hitboxes: Option<Vec<Hitbox>>,
     pub modifiers: Option<Modifiers>,
 }
 
@@ -83,6 +93,73 @@ pub struct Pushbox {
     pub start_frame: u32,
     pub duration: u32,
     pub value: Boxes,
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+pub struct Hurtbox {
+    pub start_frame: u32,
+    pub duration: u32,
+    pub height: Height,
+    pub invul: Invulnerability,
+    pub value: Boxes,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Deserialize, Serialize)]
+pub enum Height {
+    #[default]
+    Upper,
+    Lower,
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+pub enum Invulnerability {
+    #[default]
+    None,
+    Ground,
+    Air,
+    Throw,
+    Projectile,
+    All,
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+pub struct Hitbox {
+    pub start_frame: u32,
+    pub duration: u32,
+    pub properties: HitProperties,
+    pub value: Boxes,
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, PartialEq)]
+pub struct HitProperties {
+    pub hit_type: HitType,
+    pub strength: Strength,
+    pub hitstop: u32,
+    pub hitstun: u32,
+    pub blockstun: u32,
+    pub knockback: i32,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Deserialize, Serialize)]
+pub enum HitType {
+    #[default]
+    Ground,
+    Air,
+    Throw,
+    Projectile,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Deserialize, Serialize)]
+pub enum Strength {
+    #[default]
+    Weak,
+    Mid,
+    Strong,
+    Rising,
+    FrontSpin,
+    BackSpin,
+    // Knockdown,
+    // Launch,
 }
 
 #[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]

@@ -6,7 +6,7 @@ pub struct Collisions {
     // pub count: usize,
     // pub proximity: Vec<(Entity, ProximityBox)>,
     // pub hitboxes: Vec<(Entity, Hitbox)>,
-    // pub hurtboxes: Vec<(Entity, Hurtbox)>,
+    pub hurtboxes: Vec<(Entity, Hurtbox)>,
     pub pushboxes: Vec<(Entity, Pushbox)>,
 }
 
@@ -14,6 +14,7 @@ impl Default for Collisions {
     fn default() -> Self {
         Self {
             pushboxes: Vec::with_capacity(10),
+            hurtboxes: Vec::with_capacity(10),
         }
     }
 }
@@ -34,6 +35,15 @@ pub fn collisions(world: &mut World) {
             let offset = physics.position;
 
             if let Some(action) = data.get(state.current.name()) {
+                if let Some(hurtboxes) = &action.hurtboxes {
+                    for hurtbox in hurtboxes.iter() {
+                        let hurtbox = hurtbox.translated(offset, physics.facing_left);
+                        if hurtbox.is_active(state.ctx.elapsed) {
+                            collisions.hurtboxes.push((entity.id(), hurtbox));
+                        }
+                    }
+                }
+
                 if let Some(pushboxes) = &action.pushboxes {
                     for pushbox in pushboxes.iter() {
                         let pushbox = pushbox.translated(offset, physics.facing_left);
@@ -98,6 +108,40 @@ pub fn collisions(world: &mut World) {
     });
 }
 
+impl Hitbox {
+    pub fn is_active(&self, frame: u32) -> bool {
+        (frame >= self.start_frame) && (frame < (self.start_frame + self.duration))
+    }
+
+    pub fn translated(&self, offset: IVec2, flipped: bool) -> Self {
+        Self {
+            value: if flipped {
+                self.value.translate_flipped(offset)
+            } else {
+                self.value.translate(offset)
+            },
+            ..*self
+        }
+    }
+}
+
+impl Hurtbox {
+    pub fn is_active(&self, frame: u32) -> bool {
+        (frame >= self.start_frame) && (frame < (self.start_frame + self.duration))
+    }
+
+    pub fn translated(&self, offset: IVec2, flipped: bool) -> Self {
+        Self {
+            value: if flipped {
+                self.value.translate_flipped(offset)
+            } else {
+                self.value.translate(offset)
+            },
+            ..*self
+        }
+    }
+}
+
 impl Pushbox {
     pub fn is_active(&self, frame: u32) -> bool {
         (frame >= self.start_frame) && (frame < (self.start_frame + self.duration))
@@ -139,17 +183,3 @@ impl Boxes {
 fn boxes_overlap(a: &Boxes, b: &Boxes) -> bool {
     !((a.left > b.right) || (b.left > a.right) || (a.bottom > b.top) || (b.bottom > a.top))
 }
-
-// fn cornered(pushbox: &Pushbox, physics: &mut Physics) {
-//     let left = pushbox.value.left;
-//     let right = pushbox.value.right;
-//
-//     physics.cornered = false;
-//     if physics.facing_left {
-//         if right >= RIGHT_WALL - 1000 {
-//             physics.cornered = true;
-//         }
-//     } else if left <= 2500 {
-//         physics.cornered = true;
-//     }
-// }

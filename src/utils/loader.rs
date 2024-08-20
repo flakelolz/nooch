@@ -16,9 +16,9 @@ pub fn load_character_data(actor: &str) -> CharacterData {
     char
 }
 
-pub fn load_action_data(actor: &str) -> HashMap<String, Action> {
+pub fn load_action_data(actor: &str) -> IndexMap<String, Action> {
     let file = get_file(&format!("data/char/{}/data.json", actor));
-    let mut hashmap: HashMap<String, Action> = HashMap::new();
+    let mut hashmap: IndexMap<String, Action> = IndexMap::new();
 
     match file {
         Some(data) => {
@@ -33,9 +33,9 @@ pub fn load_action_data(actor: &str) -> HashMap<String, Action> {
     hashmap
 }
 
-pub fn load_animation_data(actor: &str) -> HashMap<String, Vec<Keyframe>> {
+pub fn load_animation_data(actor: &str) -> IndexMap<String, Vec<Keyframe>> {
     let file = get_file(&format!("data/char/{}/{}.json", actor, actor));
-    let mut hashmap: HashMap<String, Vec<Keyframe>> = HashMap::new();
+    let mut hashmap: IndexMap<String, Vec<Keyframe>> = IndexMap::new();
 
     match file {
         Some(data) => {

@@ -7,7 +7,6 @@ pub struct Physics {
     pub acceleration: IVec2,
     pub facing_left: bool,
     pub facing_opponent: bool,
-    // pub cornered: bool,
     pub airborne: bool,
     /// Pushbox left
     pub left: i32,

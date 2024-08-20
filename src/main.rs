@@ -21,10 +21,10 @@ mod prelude {
     pub use crate::world::*;
     pub use flecs_ecs::prelude::*;
     pub use glam::{IVec2, Vec2};
+    pub use indexmap::IndexMap;
     pub use nooch::RaylibImguiSupport;
     pub use raylib::prelude::*;
     pub use serde::{Deserialize, Serialize};
-    pub use std::collections::HashMap;
 
     pub use include_dir::{include_dir, Dir};
     pub static ASSETS: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/assets");

@@ -5,7 +5,7 @@ pub struct AnimationData {
     /// Actor's name
     name: Name,
     /// Keyframe data
-    data: std::collections::HashMap<String, Vec<Keyframe>>,
+    data: IndexMap<String, Vec<Keyframe>>,
 }
 
 impl AnimationData {

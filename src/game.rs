@@ -78,13 +78,16 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
         {
             let mut d = d.begin_mode2D(camera);
             rendering(&mut target_px, &mut target_ui, &mut d);
+            show_hitboxes(&world, &mut d);
             show_pushboxes(&world, &mut d);
+            show_hurtboxes(&world, &mut d);
             show_state(&world, &mut d);
             show_fps(&mut d);
             show_position(&world, &mut d);
         }
         // render imgui frame
         debug(&world, ui, &mut d);
+        editor(&mut world, ui, &mut d);
         rl_imgui.end_frame(&mut d);
 
         // Runs the system serving up REST requests

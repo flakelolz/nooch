@@ -39,14 +39,17 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     // Singletons
     world.add::<InputConfig>();
     world.set(Assets::new(rl, thread));
-    world.set(DebugUI::default());
+    world.add::<DebugUI>();
     world.add::<Collisions>();
 
     // Player 1
     let name = Name::Ken;
     let player = Player::One;
-    let data = load_character_data(name.into());
-    let origin = data.origin;
+    let character_data = load_character_data(name.into());
+    let action_data = ActionData::new(name);
+    let origin = character_data.origin;
+    let action_names = action_data.keys().cloned().collect::<Vec<_>>();
+    world.set(EditorData::new(action_names));
     world
         .entity_named("Player 1")
         .set(name)
@@ -54,8 +57,8 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .add::<Input>()
         .add::<InputBuffer>()
         .set(Physics::new((112 * 1000, 0), false))
-        .set(StateMachine::new(player, name, data))
-        .set(ActionData::new(name))
+        .set(StateMachine::new(player, name, character_data))
+        .set(action_data)
         .set(Animator::new("St Idle".into(), 11, origin))
         .set(AnimationData::new(name));
 
