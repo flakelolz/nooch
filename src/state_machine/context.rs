@@ -28,6 +28,24 @@ impl Context {
     }
 }
 
+#[derive(Default, Debug, Clone, Copy)]
+pub struct Reaction {
+    /// Attacker's attack has made contact with hurtbox
+    pub has_hit: bool,
+    /// Attacker's attack was blocked
+    pub blocked: bool,
+    /// Attacker's attack can be canceled out of
+    pub can_cancel: bool,
+    /// Everyone's hitstop
+    pub hitstop: u32,
+    /// Everyone's hitstun
+    pub hitstun: u32,
+    /// Everyone's blockstun
+    pub blockstun: u32,
+    /// Everyone's knockback
+    pub knockback: i32,
+}
+
 #[derive(Debug, Default)]
 pub struct Flags {
     pub jump: JumpFlags,

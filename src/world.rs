@@ -41,6 +41,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     world.set(Assets::new(rl, thread));
     world.add::<DebugUI>();
     world.add::<Collisions>();
+    world.add::<HitEvents>();
 
     // Player 1
     let name = Name::Ken;

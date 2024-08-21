@@ -31,6 +31,7 @@ pub fn handle_transitions(world: &mut World) {
             state.current.on_exit(&mut state.ctx);
             state.current = next;
             state.ctx.elapsed = 1;
+            state.ctx.reaction.has_hit = false;
             state.current.on_enter(&mut state.ctx);
 
             if let Some(action) = data.get(state.current.name()) {

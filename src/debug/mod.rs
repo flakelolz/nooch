@@ -26,7 +26,7 @@ impl Default for DebugUI {
     fn default() -> Self {
         Self {
             info: true,
-            editor: true,
+            editor: false,
             position: true,
             state: true,
             inputs: true,

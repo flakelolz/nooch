@@ -21,6 +21,33 @@ impl Default for Collisions {
     }
 }
 
+#[derive(Component, Default)]
+pub struct HitEvents(pub Vec<HitEvent>);
+
+impl std::ops::Deref for HitEvents {
+    type Target = Vec<HitEvent>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for HitEvents {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub struct HitEvent {
+    pub attacker: Entity,
+    pub defender: Entity,
+    /// Height of the hurtbox that was hit, to know which animation to transition to
+    pub height: Height,
+    pub properties: HitProperties,
+    // Proximity block boxes
+    // pub proximity: Option<(ProximityBox, u32)>,
+}
+
 pub fn collisions(world: &mut World) {
     let collision_q = world
         .query_named::<&mut Collisions>("Get Collision Manager")
@@ -36,6 +63,7 @@ pub fn collisions(world: &mut World) {
         query.each_entity(|entity, (data, physics, state)| {
             let offset = physics.position;
 
+            // Read active boxes
             if let Some(action) = data.get(state.current.name()) {
                 if let Some(hurtboxes) = &action.hurtboxes {
                     for hurtbox in hurtboxes.iter() {
@@ -106,6 +134,53 @@ pub fn collisions(world: &mut World) {
             }
         });
 
+        // Register hit collisions
+        let events_q = world.query::<&mut HitEvents>().singleton().build();
+        for (attacker, hitbox) in collisions.hitboxes.iter() {
+            for (defender, hurtbox) in collisions.hurtboxes.iter() {
+                if attacker != defender && boxes_overlap(&hitbox.value, &hurtbox.value) {
+                    attacker
+                        .entity_view(&*world)
+                        .get::<(&mut StateMachine)>(|state| {
+                            // If the action has any cancels, set the cancel flag
+                            // if let Some(instructions) = &state.context.modifiers.instructions {
+                            // if instructions.cancels.is_some() {
+                            // state.context.ctx.reaction.can_cancel = true;
+                            // Extend the cancel window to account for hitstop
+                            // buffer.cancels =
+                            // buffer.attack + hitbox.properties.hitstop as usize;
+                            // }
+                            // }
+                            // Don't hit with the same attack more than once
+                            let has_hit = &mut state.ctx.reaction.has_hit;
+                            if *has_hit {
+                                return;
+                            }
+                            *has_hit = true;
+                            println!("Attacker: {} Defender: {}", attacker, defender);
+
+                            events_q.each(|hit_events| {
+                                hit_events.push(HitEvent {
+                                    attacker: *attacker,
+                                    defender: *defender,
+                                    height: hurtbox.height,
+                                    properties: HitProperties {
+                                        hit_type: hitbox.properties.hit_type,
+                                        strength: hitbox.properties.strength,
+                                        hitstop: hitbox.properties.hitstop,
+                                        hitstun: hitbox.properties.hitstun,
+                                        blockstun: hitbox.properties.blockstun,
+                                        knockback: hitbox.properties.knockback,
+                                    },
+                                    // proximity: None,
+                                });
+                            });
+                        });
+                }
+            }
+        }
+
+        // Register and handle push collisions
         let mut overlap;
         for (attacker, a_pushbox) in collisions.pushboxes.iter() {
             for (defender, b_pushbox) in collisions.pushboxes.iter() {
@@ -134,6 +209,8 @@ pub fn collisions(world: &mut World) {
             }
         }
 
+        collisions.hitboxes.clear();
+        collisions.hurtboxes.clear();
         collisions.pushboxes.clear();
     });
 }
