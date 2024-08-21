@@ -53,7 +53,11 @@
 - [ ] Fix direction of motion when crossing-up the opponent in the air
 - [ ] Implement all knockdown states
 
+# Coding
 
+- [ ] Maybe change data from JSON to RON files
+- [ ] Change keys for ActionData and AnimationData hashmaps to use an enum instead of a String
+- [ ] Logging crate
 
 ## Dash should fail
 
