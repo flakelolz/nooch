@@ -3,9 +3,9 @@ use crate::prelude::*;
 #[derive(Component, Clone)]
 pub struct Collisions {
     /// For checking if there's a gap between two hitboxes and allow multi-hit attacks
-    // pub count: usize,
+    pub count: usize,
     // pub proximity: Vec<(Entity, ProximityBox)>,
-    // pub hitboxes: Vec<(Entity, Hitbox)>,
+    pub hitboxes: Vec<(Entity, Hitbox)>,
     pub hurtboxes: Vec<(Entity, Hurtbox)>,
     pub pushboxes: Vec<(Entity, Pushbox)>,
 }
@@ -13,6 +13,8 @@ pub struct Collisions {
 impl Default for Collisions {
     fn default() -> Self {
         Self {
+            count: 0,
+            hitboxes: Vec::with_capacity(20),
             pushboxes: Vec::with_capacity(10),
             hurtboxes: Vec::with_capacity(10),
         }
@@ -44,6 +46,34 @@ pub fn collisions(world: &mut World) {
                     }
                 }
 
+                if let Some(hitboxes) = &action.hitboxes {
+                    for hitbox in hitboxes.iter() {
+                        let hitbox = hitbox.translated(offset, physics.facing_left);
+                        if hitbox.is_active(state.ctx.elapsed) {
+                            collisions.hitboxes.push((entity.id(), hitbox));
+                        }
+                    }
+
+                    {
+                        let first = action.hitboxes.as_ref().unwrap().first().unwrap();
+                        let last = action.hitboxes.as_ref().unwrap().last().unwrap();
+
+                        // If there's a gap between hitboxes, it means that the action is multi-hit and needs to be
+                        // able to hit again
+                        if state.ctx.elapsed >= first.start_frame
+                            && state.ctx.elapsed <= last.start_frame
+                        // && state.ctx.reaction.hitstop == 0
+                        {
+                            if let Some(hitbox) = hitboxes.get(collisions.count) {
+                                if !hitbox.is_active(state.ctx.elapsed) {
+                                    // state.ctx.reaction.has_hit = false;
+                                } else {
+                                    collisions.count += 1;
+                                }
+                            }
+                        }
+                    }
+                }
                 if let Some(pushboxes) = &action.pushboxes {
                     for pushbox in pushboxes.iter() {
                         let pushbox = pushbox.translated(offset, physics.facing_left);
