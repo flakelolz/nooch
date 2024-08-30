@@ -7,12 +7,12 @@ use crate::prelude::*;
 #[derive(Component, Default)]
 pub struct EditorData {
     /// Action index
-    pub index: i32,
+    pub index: usize,
     /// List of action names
     pub names: Vec<String>,
-    pub push_index: i32,
-    pub hurt_index: i32,
-    pub hit_index: i32,
+    pub push_index: usize,
+    pub hurt_index: usize,
+    pub hit_index: usize,
     pub default_pushbox: Option<Boxes>,
     pub actions: Option<IndexMap<String, Action>>,
 }
@@ -60,20 +60,20 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     editor.actions.replace(actions.clone());
                                 }
                                 let current_state =
-                                    actions.get_mut(editor.names[editor.index as usize].as_str());
+                                    actions.get_mut(editor.names[editor.index].as_str());
                                 let Some(current) = current_state else {
                                     return;
                                 };
-                                let combo = ui
-                                    .begin_combo(" ", editor.names[editor.index as usize].as_str());
+                                let combo =
+                                    ui.begin_combo(" ", editor.names[editor.index].as_str());
                                 if let Some(token) = combo {
                                     for (i, name) in editor.names.iter().enumerate() {
                                         if ui
                                             .selectable_config(name.as_str())
-                                            .selected(editor.index == i as i32)
+                                            .selected(editor.index == i)
                                             .build()
                                         {
-                                            editor.index = i as i32;
+                                            editor.index = i;
                                         }
                                     }
                                     token.end();
@@ -86,15 +86,10 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     let token = ui.tab_item("Hurtboxes");
                                     if let Some(token) = token {
                                         if let Some(hurtboxes) = &mut current.hurtboxes {
-                                            ui.slider_config(
-                                                "Index",
-                                                0,
-                                                hurtboxes.len() as i32 - 1,
-                                            )
-                                            .build(&mut editor.hurt_index);
+                                            ui.slider_config("Index", 0, hurtboxes.len() - 1)
+                                                .build(&mut editor.hurt_index);
 
-                                            let hurtbox =
-                                                &mut hurtboxes[editor.hurt_index as usize];
+                                            let hurtbox = &mut hurtboxes[editor.hurt_index];
                                             ui.input_scalar(
                                                 "Start frame",
                                                 &mut hurtbox.start_frame,
@@ -121,15 +116,12 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
 
                                             if ui.button("Reset") {
                                                 if let Some(action) = &editor.actions {
-                                                    let old = action.get(
-                                                        editor.names[editor.index as usize]
-                                                            .as_str(),
-                                                    );
+                                                    let old = action
+                                                        .get(editor.names[editor.index].as_str());
                                                     if let Some(old) = old {
                                                         if let Some(hurtboxes) = &old.hurtboxes {
-                                                            hurtbox.value = hurtboxes
-                                                                [editor.hurt_index as usize]
-                                                                .value;
+                                                            hurtbox.value =
+                                                                hurtboxes[editor.hurt_index].value;
                                                         }
                                                     }
                                                 }
@@ -140,10 +132,9 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             }
                                             if ui.button("Remove") {
                                                 if hurtboxes.len() > 1 {
-                                                    hurtboxes.remove(editor.hurt_index as usize);
-                                                    if editor.hurt_index >= hurtboxes.len() as i32 {
-                                                        editor.hurt_index =
-                                                            hurtboxes.len() as i32 - 1
+                                                    hurtboxes.remove(editor.hurt_index);
+                                                    if editor.hurt_index >= hurtboxes.len() {
+                                                        editor.hurt_index = hurtboxes.len() - 1
                                                     }
                                                 } else {
                                                     current.hurtboxes = None;
@@ -158,10 +149,10 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     let token = ui.tab_item("Hitbox");
                                     if let Some(token) = token {
                                         if let Some(hitboxes) = &mut current.hitboxes {
-                                            ui.slider_config("Index", 0, hitboxes.len() as i32 - 1)
+                                            ui.slider_config("Index", 0, hitboxes.len() - 1)
                                                 .build(&mut editor.hit_index);
 
-                                            let hitbox = &mut hitboxes[editor.hit_index as usize];
+                                            let hitbox = &mut hitboxes[editor.hit_index];
                                             ui.input_scalar("Start frame", &mut hitbox.start_frame)
                                                 .step(1)
                                                 .build();
@@ -169,6 +160,21 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             ui.input_scalar("Duration", &mut hitbox.duration)
                                                 .step(1)
                                                 .build();
+                                            imgui::Drag::new("Knockback")
+                                                .speed(100.)
+                                                .build(ui, &mut hitbox.properties.knockback);
+
+                                            // let mut bounds = [hitbox.value.left, hitbox.value.right, hitbox.value.top, hitbox.value.bottom];
+                                            // let _ = imgui::InputInt4::new(ui, "Box", &mut bounds).build();
+                                            // imgui::Drag::new("Box").speed(1000.).build_array(
+                                            //     ui,
+                                            //     &mut [
+                                            //         hitbox.value.left,
+                                            //         hitbox.value.right,
+                                            //         hitbox.value.top,
+                                            //         hitbox.value.bottom,
+                                            //     ],
+                                            // );
 
                                             imgui::Drag::new("Left")
                                                 .speed(1000.)
@@ -184,15 +190,12 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 .build(ui, &mut hitbox.value.bottom);
                                             if ui.button_with_size("Reset", [100., 20.]) {
                                                 if let Some(action) = &editor.actions {
-                                                    let old = action.get(
-                                                        editor.names[editor.index as usize]
-                                                            .as_str(),
-                                                    );
+                                                    let old = action
+                                                        .get(editor.names[editor.index].as_str());
                                                     if let Some(old) = old {
                                                         if let Some(hitboxes) = &old.hitboxes {
-                                                            hitbox.value = hitboxes
-                                                                [editor.hit_index as usize]
-                                                                .value;
+                                                            hitbox.value =
+                                                                hitboxes[editor.hit_index].value;
                                                         }
                                                     }
                                                 }
@@ -203,9 +206,9 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             }
                                             if ui.button("Remove") {
                                                 if hitboxes.len() > 1 {
-                                                    hitboxes.remove(editor.hit_index as usize);
-                                                    if editor.hit_index >= hitboxes.len() as i32 {
-                                                        editor.hit_index = hitboxes.len() as i32 - 1
+                                                    hitboxes.remove(editor.hit_index);
+                                                    if editor.hit_index >= hitboxes.len() {
+                                                        editor.hit_index = hitboxes.len() - 1
                                                     }
                                                 } else {
                                                     current.hitboxes = None;
@@ -219,14 +222,9 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     let token = ui.tab_item("Pushbox");
                                     if let Some(token) = token {
                                         if let Some(pushboxes) = &mut current.pushboxes {
-                                            ui.slider_config(
-                                                "Index",
-                                                0,
-                                                pushboxes.len() as i32 - 1,
-                                            )
-                                            .build(&mut editor.push_index);
-                                            let pushbox =
-                                                &mut pushboxes[editor.push_index as usize];
+                                            ui.slider_config("Index", 0, pushboxes.len() - 1)
+                                                .build(&mut editor.push_index);
+                                            let pushbox = &mut pushboxes[editor.push_index];
                                             ui.input_scalar(
                                                 "Start frame",
                                                 &mut pushbox.start_frame,
@@ -252,15 +250,12 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 .build(ui, &mut pushbox.value.bottom);
                                             if ui.button_with_size("Reset", [100., 20.]) {
                                                 if let Some(action) = &editor.actions {
-                                                    let old = action.get(
-                                                        editor.names[editor.index as usize]
-                                                            .as_str(),
-                                                    );
+                                                    let old = action
+                                                        .get(editor.names[editor.index].as_str());
                                                     if let Some(old) = old {
                                                         if let Some(pushboxes) = &old.pushboxes {
-                                                            pushbox.value = pushboxes
-                                                                [editor.push_index as usize]
-                                                                .value;
+                                                            pushbox.value =
+                                                                pushboxes[editor.push_index].value;
                                                         }
                                                     }
                                                 }
@@ -271,10 +266,9 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             }
                                             if ui.button("Remove") {
                                                 if pushboxes.len() > 1 {
-                                                    pushboxes.remove(editor.push_index as usize);
-                                                    if editor.push_index >= pushboxes.len() as i32 {
-                                                        editor.push_index =
-                                                            pushboxes.len() as i32 - 1
+                                                    pushboxes.remove(editor.push_index);
+                                                    if editor.push_index >= pushboxes.len() {
+                                                        editor.push_index = pushboxes.len() - 1
                                                     }
                                                 } else {
                                                     current.pushboxes = None;
