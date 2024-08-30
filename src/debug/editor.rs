@@ -101,18 +101,19 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 .step(1)
                                                 .build();
 
-                                            imgui::Drag::new("Left")
+                                            let mut bounds = [
+                                                hurtbox.value.left,
+                                                hurtbox.value.right,
+                                                hurtbox.value.top,
+                                                hurtbox.value.bottom,
+                                            ];
+                                            imgui::Drag::new("L  R  T  B")
                                                 .speed(1000.)
-                                                .build(ui, &mut hurtbox.value.left);
-                                            imgui::Drag::new("Right")
-                                                .speed(1000.)
-                                                .build(ui, &mut hurtbox.value.right);
-                                            imgui::Drag::new("Top")
-                                                .speed(1000.)
-                                                .build(ui, &mut hurtbox.value.top);
-                                            imgui::Drag::new("Bottom")
-                                                .speed(1000.)
-                                                .build(ui, &mut hurtbox.value.bottom);
+                                                .build_array(ui, &mut bounds);
+                                            hurtbox.value.left = bounds[0];
+                                            hurtbox.value.right = bounds[1];
+                                            hurtbox.value.top = bounds[2];
+                                            hurtbox.value.bottom = bounds[3];
 
                                             if ui.button("Reset") {
                                                 if let Some(action) = &editor.actions {
@@ -164,30 +165,20 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 .speed(100.)
                                                 .build(ui, &mut hitbox.properties.knockback);
 
-                                            // let mut bounds = [hitbox.value.left, hitbox.value.right, hitbox.value.top, hitbox.value.bottom];
-                                            // let _ = imgui::InputInt4::new(ui, "Box", &mut bounds).build();
-                                            // imgui::Drag::new("Box").speed(1000.).build_array(
-                                            //     ui,
-                                            //     &mut [
-                                            //         hitbox.value.left,
-                                            //         hitbox.value.right,
-                                            //         hitbox.value.top,
-                                            //         hitbox.value.bottom,
-                                            //     ],
-                                            // );
+                                            let mut bounds = [
+                                                hitbox.value.left,
+                                                hitbox.value.right,
+                                                hitbox.value.top,
+                                                hitbox.value.bottom,
+                                            ];
+                                            imgui::Drag::new("L  R  T  B")
+                                                .speed(1000.)
+                                                .build_array(ui, &mut bounds);
+                                            hitbox.value.left = bounds[0];
+                                            hitbox.value.right = bounds[1];
+                                            hitbox.value.top = bounds[2];
+                                            hitbox.value.bottom = bounds[3];
 
-                                            imgui::Drag::new("Left")
-                                                .speed(1000.)
-                                                .build(ui, &mut hitbox.value.left);
-                                            imgui::Drag::new("Right")
-                                                .speed(1000.)
-                                                .build(ui, &mut hitbox.value.right);
-                                            imgui::Drag::new("Top")
-                                                .speed(1000.)
-                                                .build(ui, &mut hitbox.value.top);
-                                            imgui::Drag::new("Bottom")
-                                                .speed(1000.)
-                                                .build(ui, &mut hitbox.value.bottom);
                                             if ui.button_with_size("Reset", [100., 20.]) {
                                                 if let Some(action) = &editor.actions {
                                                     let old = action
@@ -236,18 +227,21 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                                 .step(1)
                                                 .build();
 
-                                            imgui::Drag::new("Left")
+
+                                            let mut bounds = [
+                                                pushbox.value.left,
+                                                pushbox.value.right,
+                                                pushbox.value.top,
+                                                pushbox.value.bottom,
+                                            ];
+                                            imgui::Drag::new("L  R  T  B")
                                                 .speed(1000.)
-                                                .build(ui, &mut pushbox.value.left);
-                                            imgui::Drag::new("Right")
-                                                .speed(1000.)
-                                                .build(ui, &mut pushbox.value.right);
-                                            imgui::Drag::new("Top")
-                                                .speed(1000.)
-                                                .build(ui, &mut pushbox.value.top);
-                                            imgui::Drag::new("Bottom")
-                                                .speed(1000.)
-                                                .build(ui, &mut pushbox.value.bottom);
+                                                .build_array(ui, &mut bounds);
+                                            pushbox.value.left = bounds[0];
+                                            pushbox.value.right = bounds[1];
+                                            pushbox.value.top = bounds[2];
+                                            pushbox.value.bottom = bounds[3];
+
                                             if ui.button_with_size("Reset", [100., 20.]) {
                                                 if let Some(action) = &editor.actions {
                                                     let old = action
@@ -281,18 +275,20 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             }
 
                                             let pushbox = &mut state.ctx.data.pushbox;
-                                            imgui::Drag::new("Left")
+                                            let mut bounds = [
+                                                pushbox.left,
+                                                pushbox.right,
+                                                pushbox.top,
+                                                pushbox.bottom,
+                                            ];
+                                            imgui::Drag::new("L  R  T  B")
                                                 .speed(1000.)
-                                                .build(ui, &mut pushbox.left);
-                                            imgui::Drag::new("Right")
-                                                .speed(1000.)
-                                                .build(ui, &mut pushbox.right);
-                                            imgui::Drag::new("Top")
-                                                .speed(1000.)
-                                                .build(ui, &mut pushbox.top);
-                                            imgui::Drag::new("Bottom")
-                                                .speed(1000.)
-                                                .build(ui, &mut pushbox.bottom);
+                                                .build_array(ui, &mut bounds);
+                                            pushbox.left = bounds[0];
+                                            pushbox.right = bounds[1];
+                                            pushbox.top = bounds[2];
+                                            pushbox.bottom = bounds[3];
+
                                             if ui.button_with_size("Reset", [100., 20.]) {
                                                 state.ctx.data.pushbox =
                                                     editor.default_pushbox.unwrap();
