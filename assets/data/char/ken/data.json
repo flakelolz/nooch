@@ -271,7 +271,26 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
-      "hitboxes": null,
+      "hitboxes": [
+        {
+          "start_frame": 3,
+          "duration": 6,
+          "properties": {
+            "hit_type": "Ground",
+            "strength": "Weak",
+            "hitstop": 7,
+            "hitstun": 1,
+            "blockstun": 1,
+            "knockback": 3000
+          },
+          "value": {
+            "top": 17000,
+            "bottom": 3000,
+            "left": 39000,
+            "right": 74000
+          }
+        }
+      ],
       "modifiers": null
     },
     {

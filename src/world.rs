@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-#[derive(Component, Default, Clone, Copy, Debug)]
+#[derive(Component, Default, Clone, Copy, Debug, PartialEq)]
 pub enum Name {
     #[default]
     Ken,
@@ -72,11 +72,11 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     let origin = data.origin;
     world
         .entity_named("Player 2")
+        .set(name)
         .set(player)
         .add::<Input>()
         .add::<InputBuffer>()
         .set(Physics::new((304 * 1000, 0), true))
-        .set(name)
         .set(StateMachine::new(player, name, data))
         .set(ActionData::new(name))
         .set(Animator::new("St Idle".into(), 10, origin))
