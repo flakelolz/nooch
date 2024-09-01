@@ -215,7 +215,5 @@ impl InputBuffer {
         false
     }
 
-    pub fn motion_timed(&self, motion: Motions, button: Buttons, range: usize, left: bool) {
-
-    }
+    pub fn motion_timed(&self, motion: Motions, button: Buttons, range: usize, left: bool) {}
 }

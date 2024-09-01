@@ -91,7 +91,6 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     hitboxes(ui, current, editor);
                                     pushboxes(ui, current, editor, state);
 
-
                                     tab_token.end();
                                 }
 

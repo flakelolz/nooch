@@ -1,5 +1,10 @@
 use crate::prelude::*;
-pub fn pushboxes(ui: &imgui::Ui, current: &mut Action, editor: &mut EditorData, state: &mut StateMachine) {
+pub fn pushboxes(
+    ui: &imgui::Ui,
+    current: &mut Action,
+    editor: &mut EditorData,
+    state: &mut StateMachine,
+) {
     let token = ui.tab_item("Pushbox");
     if let Some(token) = token {
         if let Some(pushboxes) = &mut current.pushboxes {

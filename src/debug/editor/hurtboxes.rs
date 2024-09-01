@@ -1,9 +1,5 @@
 use crate::prelude::*;
-pub fn hurtboxes(
-    ui: &imgui::Ui,
-    current: &mut Action,
-    editor: &mut EditorData,
-) {
+pub fn hurtboxes(ui: &imgui::Ui, current: &mut Action, editor: &mut EditorData) {
     let token = ui.tab_item("Hurtboxes");
     if let Some(token) = token {
         if let Some(hurtboxes) = &mut current.hurtboxes {
