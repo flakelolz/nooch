@@ -306,7 +306,7 @@
           "properties": {
             "hit_type": "Ground",
             "strength": "Mid",
-            "hitstop": 8,
+            "hitstop": 9,
             "hitstun": 17,
             "blockstun": 12,
             "knockback": 9500
@@ -922,7 +922,7 @@
     },
     {
       "name": "Rxn UpperMid",
-      "total": 0,
+      "total": 15,
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,

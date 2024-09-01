@@ -70,7 +70,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     return;
                                 };
                                 let combo =
-                                    ui.begin_combo(" ", editor.names[editor.index].as_str());
+                                    ui.begin_combo("State", editor.names[editor.index].as_str());
                                 if let Some(token) = combo {
                                     for (i, name) in editor.names.iter().enumerate() {
                                         if ui
@@ -83,7 +83,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     }
                                     token.end();
                                 }
-                                ui.input_scalar("Total", &mut current.total).step(1).build();
+                                ui.input_scalar("Duration", &mut current.total).step(1).build();
                                 ui.checkbox("Looping", &mut current.looping);
 
                                 let tab = ui.tab_bar("boxes");

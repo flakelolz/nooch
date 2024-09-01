@@ -65,7 +65,9 @@ pub fn update_state(world: &mut World) {
         match data.get(state.current.name()) {
             Some(action) => {
                 state.ctx.total = action.total;
-                state.ctx.elapsed += 1;
+                if state.ctx.reaction.hitstop == 0 {
+                    state.ctx.elapsed += 1;
+                }
 
                 if state.ctx.elapsed > action.total && action.looping {
                     state.ctx.elapsed = 1;

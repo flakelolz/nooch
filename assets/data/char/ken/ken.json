@@ -2616,7 +2616,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 224 },
     "sourceSize": { "w": 384, "h": 224 },
-    "duration": 1
+    "duration": 32
    },
    {
     "filename": "'ken #Rxn UpperMid 291.aseprite'",
@@ -2625,7 +2625,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 224 },
     "sourceSize": { "w": 384, "h": 224 },
-    "duration": 1
+    "duration": 128
    },
    {
     "filename": "'ken #Rxn UpperMid 292.aseprite'",
@@ -2634,7 +2634,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 224 },
     "sourceSize": { "w": 384, "h": 224 },
-    "duration": 1
+    "duration": 32
    },
    {
     "filename": "'ken #Rxn UpperMid 293.aseprite'",
@@ -2643,7 +2643,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 224 },
     "sourceSize": { "w": 384, "h": 224 },
-    "duration": 1
+    "duration": 48
    },
    {
     "filename": "'ken #Rxn UpperStrong 294.aseprite'",

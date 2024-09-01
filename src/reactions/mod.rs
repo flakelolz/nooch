@@ -36,6 +36,7 @@ pub fn reactions(world: &mut World) {
                             };
 
                             b_state.ctx.reaction.knockback = knockback;
+                            a_state.ctx.reaction.hitstop = event.properties.hitstop;
                             b_state.ctx.reaction.hitstop = event.properties.hitstop;
                             b_state.ctx.reaction.hitstun = event.properties.hitstun;
 
