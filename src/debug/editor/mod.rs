@@ -19,7 +19,6 @@ pub struct EditorData {
     pub hit_index: usize,
     pub default_pushbox: Option<Boxes>,
     pub actions: Option<IndexMap<String, Action>>,
-    pub p2: Option<IndexMap<String, Action>>,
 }
 
 impl EditorData {
@@ -32,7 +31,6 @@ impl EditorData {
             hit_index: 0,
             default_pushbox: None,
             actions: None,
-            p2: None,
         }
     }
 }
@@ -60,26 +58,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                     .position([1., 1.], imgui::Condition::FirstUseEver)
                     .bg_alpha(0.5)
                     .build(|| {
-                        data_q.run(|mut it| {
-                            // Synchronize data for both players if they're the same character
-                            while it.next() {
-                                let mut state = it.field::<StateMachine>(0).unwrap();
-                                let (p1, p2) = state.split_at_mut(1);
-                                if let Some(state1) = p1.get_mut(0) {
-                                    if let Some(state2) = p2.get_mut(0) {
-                                        if state1.ctx.name == state2.ctx.name {
-                                            let mut data = it.field::<ActionData>(1).unwrap();
-                                            let (d1, d2) = data.split_at_mut(1);
-                                            if let Some(data1) = d1.get_mut(0) {
-                                                if let Some(data2) = d2.get_mut(0) {
-                                                    data2.clone_from(data1);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                        synchronize_data(&data_q);
                         data_q.each(|(state, actions, player)| {
                             if let Player::One = player {
                                 if editor.actions.is_none() {
@@ -126,6 +105,29 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                         });
                     });
             });
+        }
+    });
+}
+
+/// Synchronize data for both players if they're the same character
+fn synchronize_data(query: &Query<(&mut StateMachine, &mut ActionData, &Player)>) {
+    query.run(|mut it| {
+        while it.next() {
+            let mut state = it.field::<StateMachine>(0).unwrap();
+            let (p1, p2) = state.split_at_mut(1);
+            if let Some(state1) = p1.get_mut(0) {
+                if let Some(state2) = p2.get_mut(0) {
+                    if state1.ctx.name == state2.ctx.name {
+                        let mut data = it.field::<ActionData>(1).unwrap();
+                        let (d1, d2) = data.split_at_mut(1);
+                        if let Some(data1) = d1.get_mut(0) {
+                            if let Some(data2) = d2.get_mut(0) {
+                                data2.clone_from(data1);
+                            }
+                        }
+                    }
+                }
+            }
         }
     });
 }
