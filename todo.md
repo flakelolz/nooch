@@ -37,8 +37,9 @@
 - [ ] Reaction system
 - [ ] Implement blocking
 - [ ] Implement all hit reaction states
-- [ ] Make an editor for character data
-- [ ] Be able to see changes instantly while paused
+- [x] Make an editor for character data
+- [x] Be able to see changes instantly while paused
+- [ ] synchronize changes between both players if they're the same character
 - [x] Change font
 - [ ] Push logic
 - [ ] walls
