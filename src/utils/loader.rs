@@ -69,7 +69,7 @@ pub fn update_action_durations(actor: &str) {
         .open(path.clone())
         .unwrap();
 
-    let mut data: Actions = serde_json::from_reader(&file).unwrap();
+    let mut data: CharacterFile = serde_json::from_reader(&file).unwrap();
     let anim = load_animation_data(actor);
 
     println!("Updating {} action data...", actor);
@@ -142,4 +142,35 @@ pub fn handle_arguments() {
         update_action_durations("ken");
         std::process::exit(0);
     }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CharacterFile {
+    pub name: String,
+    pub max_health: i32,
+    pub forward_walk: i32,
+    pub backward_walk: i32,
+    pub jump_velocity: i32,
+    pub jump_deceleration: i32,
+    pub jump_forward: i32,
+    pub jump_backward: i32,
+    pub origin: Vec2,
+    pub pushbox: Boxes,
+    pub actions: Vec<Action>,
+}
+
+pub fn save_action_data(action: &ActionData, character: &CharacterData) {
+    let actor = &character.name;
+    let path = format!("assets/data/char/{}/data.json", actor);
+    let file = std::fs::File::options()
+        .read(true)
+        .write(true)
+        .open(path.clone())
+        .unwrap();
+    let mut data: CharacterFile = serde_json::from_reader(&file).unwrap();
+    data.actions = action.to_vec();
+
+    let mut file = std::fs::File::create(path).unwrap();
+    file.write_all(to_string_pretty(&data).unwrap().as_bytes())
+        .unwrap();
 }
