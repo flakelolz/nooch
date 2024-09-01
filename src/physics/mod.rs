@@ -144,25 +144,23 @@ pub fn update_physics(world: &mut World) {
             for i in 0..state.len() {
                 let reaction = &mut state[i].ctx.reaction;
 
-                if reaction.hitstop == 0 {
-                    if reaction.knockback != 0 {
-                        if !physics[i].try_add_x_position(reaction.knockback) {
-                            let j = if i == 0 { 1 } else { 0 };
-                            physics[j].try_add_x_position(-reaction.knockback);
-                        }
+                if reaction.hitstop == 0 && reaction.knockback != 0 {
+                    if !physics[i].try_add_x_position(reaction.knockback) {
+                        let j = if i == 0 { 1 } else { 0 };
+                        physics[j].try_add_x_position(-reaction.knockback);
+                    }
 
-                        // Decelerate
-                        if reaction.knockback > 0 {
-                            reaction.knockback -= DECELERATION;
-                        }
+                    // Decelerate
+                    if reaction.knockback > 0 {
+                        reaction.knockback -= DECELERATION;
+                    }
 
-                        if reaction.knockback < 0 {
-                            reaction.knockback += DECELERATION;
-                        }
+                    if reaction.knockback < 0 {
+                        reaction.knockback += DECELERATION;
+                    }
 
-                        if reaction.knockback.abs() < THRESHOLD {
-                            reaction.knockback = 0;
-                        }
+                    if reaction.knockback.abs() < THRESHOLD {
+                        reaction.knockback = 0;
                     }
                 }
             }
