@@ -157,10 +157,76 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             ui.input_scalar("Start frame", &mut hitbox.start_frame)
                                                 .step(1)
                                                 .build();
-
                                             ui.input_scalar("Duration", &mut hitbox.duration)
                                                 .step(1)
                                                 .build();
+
+                                            let hit_combo = ui.begin_combo(
+                                                "Hit type",
+                                                hitbox.properties.hit_type.as_str(),
+                                            );
+                                            if let Some(token) = hit_combo {
+                                                let arr = [
+                                                    HitType::Ground,
+                                                    HitType::Air,
+                                                    HitType::Projectile,
+                                                ];
+                                                for kind in &arr {
+                                                    if ui
+                                                        .selectable_config(kind.as_str())
+                                                        .selected(
+                                                            *kind == hitbox.properties.hit_type,
+                                                        )
+                                                        .build()
+                                                    {
+                                                        hitbox.properties.hit_type = *kind;
+                                                    }
+                                                }
+                                                token.end();
+                                            }
+                                            let strength_combo = ui.begin_combo(
+                                                "Strength",
+                                                hitbox.properties.strength.as_str(),
+                                            );
+                                            if let Some(token) = strength_combo {
+                                                let arr = [
+                                                    Strength::Weak,
+                                                    Strength::Mid,
+                                                    Strength::Strong,
+                                                    Strength::FrontSpin,
+                                                    Strength::BackSpin,
+                                                ];
+                                                for kind in &arr {
+                                                    if ui
+                                                        .selectable_config(kind.as_str())
+                                                        .selected(
+                                                            *kind == hitbox.properties.strength,
+                                                        )
+                                                        .build()
+                                                    {
+                                                        hitbox.properties.strength = *kind;
+                                                    }
+                                                }
+                                                token.end();
+                                            }
+                                            ui.input_scalar(
+                                                "Hitstop",
+                                                &mut hitbox.properties.hitstop,
+                                            )
+                                            .step(1)
+                                            .build();
+                                            ui.input_scalar(
+                                                "Hitstun",
+                                                &mut hitbox.properties.hitstun,
+                                            )
+                                            .step(1)
+                                            .build();
+                                            ui.input_scalar(
+                                                "Blockstun",
+                                                &mut hitbox.properties.blockstun,
+                                            )
+                                            .step(1)
+                                            .build();
                                             imgui::Drag::new("Knockback")
                                                 .speed(100.)
                                                 .build(ui, &mut hitbox.properties.knockback);
@@ -226,7 +292,6 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                             ui.input_scalar("Duration", &mut pushbox.duration)
                                                 .step(1)
                                                 .build();
-
 
                                             let mut bounds = [
                                                 pushbox.value.left,
@@ -347,4 +412,28 @@ struct CharacterFile {
     pub origin: Vec2,
     pub pushbox: Boxes,
     pub actions: Vec<Action>,
+}
+
+impl HitType {
+    pub fn as_str(&self) -> &str {
+        match self {
+            HitType::Ground => "Ground",
+            HitType::Air => "Air",
+            HitType::Throw => "Throw",
+            HitType::Projectile => "Projectile",
+        }
+    }
+}
+
+impl Strength {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Strength::Weak => "Weak",
+            Strength::Mid => "Mid",
+            Strength::Strong => "Strong",
+            Strength::Rising => "Rising",
+            Strength::FrontSpin => "FrontSpin",
+            Strength::BackSpin => "BackSpin",
+        }
+    }
 }
