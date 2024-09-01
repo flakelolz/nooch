@@ -93,21 +93,22 @@ pub fn actor_animation(d: &mut impl RaylibDraw, world: &World) {
     let mut buffer: Vec<Draw> = Vec::new();
 
     let query = world
-        .query_named::<(&mut Animator, &Physics, &AnimationData)>("Animate Player")
+        .query_named::<(&mut Animator, &Physics, &AnimationData, &StateMachine)>("Animate Player")
         .set_cached()
         .build();
 
-    query.each(|(animator, physics, data)| {
+    query.each(|(animator, physics, data, state)| {
         // Find keyframe
         let Some(keyframes) = data.get(&animator.current) else {
             return;
         };
         let frame = &keyframes[animator.index];
+        let reaction = &state.ctx.reaction;
 
         // Construct Draw command
         let pos_x = physics.position.x;
         let pos_y = -physics.position.y;
-        let draw = Draw {
+        let mut draw = Draw {
             x: frame.x,
             y: frame.y,
             w: frame.w,
@@ -124,7 +125,9 @@ pub fn actor_animation(d: &mut impl RaylibDraw, world: &World) {
         // Update animator
         animator.duration = frame.duration;
 
-        animator.tick += 1;
+        if reaction.hitstop == 0 {
+            animator.tick += 1;
+        }
 
         if animator.tick >= animator.duration {
             animator.tick = 0;
@@ -135,14 +138,19 @@ pub fn actor_animation(d: &mut impl RaylibDraw, world: &World) {
             }
         }
 
+        if reaction.hitstop > 0 && (reaction.hitstun > 0 || reaction.blockstun > 0) {
+            let hitshake_dist: i32 = 2;
+            let hitshake = -(hitshake_dist / 2) + hitshake_dist * (reaction.hitstop as i32 % 2);
+            draw.x += hitshake as f32;
+        }
         // Add to buffer
         buffer.push(draw);
     });
 
-    draw_actor(d, buffer, world);
+    draw_actor(d, &mut buffer, world);
 }
 
-fn draw_actor(d: &mut impl RaylibDraw, mut commands: Vec<Draw>, world: &World) {
+fn draw_actor(d: &mut impl RaylibDraw, commands: &mut Vec<Draw>, world: &World) {
     world.get::<&Assets>(|assets| {
         let Some(first) = commands.first() else {
             return;
@@ -153,7 +161,7 @@ fn draw_actor(d: &mut impl RaylibDraw, mut commands: Vec<Draw>, world: &World) {
         };
 
         commands.sort_by(|a, b| a.layer.cmp(&b.layer));
-        for command in &commands {
+        for command in commands {
             let (screen_x, screen_y) = pos_to_screen(command.pos);
             let (width, height) = (command.w, command.h);
 

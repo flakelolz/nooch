@@ -178,7 +178,7 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
 pub fn reset_physics(world: &mut World, rl: &mut RaylibHandle) {
     let query = world.query::<(&mut Physics, &Player)>().build();
     query.each(|(physics, player)| {
-        if rl.is_key_pressed(KeyboardKey::KEY_BACKSPACE) {
+        if rl.is_key_pressed(KeyboardKey::KEY_F2) {
             match player {
                 Player::One => {
                     *physics = Physics::new((112 * 1000, 0), false);

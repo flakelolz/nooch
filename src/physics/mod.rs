@@ -1,5 +1,8 @@
 use crate::prelude::*;
 
+const DECELERATION: i32 = 1000;
+const THRESHOLD: i32 = 1100;
+
 #[derive(Component, Default, Clone, Copy, Debug)]
 pub struct Physics {
     pub position: IVec2,
@@ -119,7 +122,7 @@ pub fn update_physics(world: &mut World) {
     });
 
     let query = world
-        .query_named::<&mut Physics>("Update physics")
+        .query_named::<&mut Physics>("Update position with velocity")
         .set_cached()
         .build();
     query.each(|physics| {
@@ -127,6 +130,43 @@ pub fn update_physics(world: &mut World) {
         physics.try_add_x_position(physics.velocity.x);
         physics.position.y += physics.velocity.y;
         physics.velocity += physics.acceleration;
+    });
+
+    let facing_q = world
+        .query_named::<(&mut Physics, &mut StateMachine, &Player)>("Apply knockback")
+        .set_cached()
+        .build();
+    facing_q.run(|mut it| {
+        while it.next() {
+            let mut physics = it.field::<Physics>(0).unwrap();
+            let mut state = it.field::<StateMachine>(1).unwrap();
+
+            for i in 0..state.len() {
+                let reaction = &mut state[i].ctx.reaction;
+
+                if reaction.hitstop == 0 {
+                    if reaction.knockback != 0 {
+                        if !physics[i].try_add_x_position(reaction.knockback) {
+                            let j = if i == 0 { 1 } else { 0 };
+                            physics[j].try_add_x_position(-reaction.knockback);
+                        }
+
+                        // Decelerate
+                        if reaction.knockback > 0 {
+                            reaction.knockback -= DECELERATION;
+                        }
+
+                        if reaction.knockback < 0 {
+                            reaction.knockback += DECELERATION;
+                        }
+
+                        if reaction.knockback.abs() < THRESHOLD {
+                            reaction.knockback = 0;
+                        }
+                    }
+                }
+            }
+        }
     });
 }
 

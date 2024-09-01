@@ -67,12 +67,13 @@
           "invul": "None",
           "value": {
             "top": -26000,
-            "bottom": -69000,
+            "bottom": -70000,
             "left": -31000,
             "right": 30000
           }
         }
       ],
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -81,6 +82,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": null,
         "cancels": [
@@ -103,6 +105,7 @@
       "looping": true,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -111,6 +114,7 @@
       "looping": true,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -119,6 +123,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -218,6 +223,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -265,6 +271,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -283,7 +290,7 @@
             "hitstop": 8,
             "hitstun": 17,
             "blockstun": 12,
-            "knockback": 6000
+            "knockback": 9500
           },
           "value": {
             "top": 15000,
@@ -301,6 +308,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -362,6 +370,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -370,6 +379,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -417,6 +427,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -492,6 +503,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -500,6 +512,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -508,6 +521,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -516,6 +530,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": null,
         "cancels": [
@@ -538,6 +553,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -546,6 +562,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -554,6 +571,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -562,6 +580,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -570,6 +589,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -624,6 +644,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": [
           {
@@ -706,6 +727,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -725,6 +747,7 @@
         }
       ],
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -744,6 +767,7 @@
         }
       ],
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -763,6 +787,7 @@
         }
       ],
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -771,6 +796,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": {
         "positions": null,
         "cancels": [
@@ -809,6 +835,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -817,6 +844,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -825,6 +853,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -833,6 +862,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -841,6 +871,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -849,6 +880,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -857,6 +889,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -865,6 +898,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     },
     {
@@ -873,6 +907,7 @@
       "looping": false,
       "pushboxes": null,
       "hurtboxes": null,
+      "hitboxes": null,
       "modifiers": null
     }
   ]

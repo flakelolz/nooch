@@ -5,6 +5,7 @@ mod drawing;
 mod game;
 mod input;
 mod physics;
+mod reactions;
 mod state_machine;
 mod utils;
 mod world;
@@ -16,6 +17,7 @@ mod prelude {
     pub use crate::drawing::*;
     pub use crate::input::*;
     pub use crate::physics::*;
+    pub use crate::reactions::*;
     pub use crate::state_machine::*;
     pub use crate::utils::*;
     pub use crate::world::*;

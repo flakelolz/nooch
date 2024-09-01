@@ -26,12 +26,12 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
 
     while !rl.window_should_close() {
         let mut advance = false;
-        if rl.is_key_pressed(KeyboardKey::KEY_ENTER)
+        if rl.is_key_pressed(KeyboardKey::KEY_INSERT)
             || rl.is_gamepad_button_pressed(0, GamepadButton::GAMEPAD_BUTTON_MIDDLE_RIGHT)
         {
             paused = !paused;
             println!("Paused");
-        } else if rl.is_key_pressed(KeyboardKey::KEY_BACKSLASH)
+        } else if rl.is_key_pressed(KeyboardKey::KEY_DELETE)
             || rl.is_gamepad_button_pressed(0, GamepadButton::GAMEPAD_BUTTON_MIDDLE_LEFT)
         {
             advance = true;
@@ -44,6 +44,7 @@ pub fn game(rl: &mut RaylibHandle, thread: &RaylibThread) {
             update_physics(&mut world);
             update_state(&mut world);
             collisions(&mut world);
+            reactions(&mut world);
         }
 
         reset_physics(&mut world, rl);
