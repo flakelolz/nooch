@@ -39,7 +39,7 @@
 - [ ] Implement all hit reaction states
 - [x] Make an editor for character data
 - [x] Be able to see changes instantly while paused
-- [ ] synchronize changes between both players if they're the same character
+- [x] synchronize changes between both players if they're the same character
 - [x] Change font
 - [ ] Push logic
 - [ ] walls
