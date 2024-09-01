@@ -30,20 +30,20 @@
 - [x] Dash lockout after walking
 - [ ] Fix attack input buffer for chain attacks
 - [x] Implement jump states
-- [ ] Dash lockout
+- [x] Dash lockout
 - [ ] Screen size options
 - [x] Implement flipping logic
-- [ ] Collision system
-- [ ] Reaction system
+- [x] Collision system
+- [x] Reaction system
 - [ ] Implement blocking
 - [ ] Implement all hit reaction states
 - [x] Make an editor for character data
 - [x] Be able to see changes instantly while paused
 - [x] synchronize changes between both players if they're the same character
 - [x] Change font
-- [ ] Push logic
-- [ ] walls
-- [ ] Apply knock-back to attacker when defender is cornered
+- [x] Push logic
+- [x] walls
+- [x] Apply knock-back to attacker when defender is cornered
 - [ ] Pull character on cross-up hit
 - [ ] Background
 - [ ] Camera
