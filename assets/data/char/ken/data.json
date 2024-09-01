@@ -893,6 +893,33 @@
       "modifiers": null
     },
     {
+      "name": "Rxn UpperWeak",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": null,
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn UpperMid",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": null,
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
+      "name": "Rxn UpperStrong",
+      "total": 0,
+      "looping": false,
+      "pushboxes": null,
+      "hurtboxes": null,
+      "hitboxes": null,
+      "modifiers": null
+    },
+    {
       "name": "Ken Hadouken",
       "total": 42,
       "looping": false,

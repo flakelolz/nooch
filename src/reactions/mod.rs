@@ -38,6 +38,21 @@ pub fn reactions(world: &mut World) {
                             b_state.ctx.reaction.knockback = knockback;
                             b_state.ctx.reaction.hitstop = event.properties.hitstop;
                             b_state.ctx.reaction.hitstun = event.properties.hitstun;
+
+                            match event.height {
+                                Height::Upper => {
+                                    match event.properties.strength {
+                                        Strength::Weak => b_state.ctx.next = Some(Box::new(reacting::UpperWeak)),
+                                        Strength::Mid => b_state.ctx.next = Some(Box::new(reacting::UpperMid)),
+                                        Strength::Strong => b_state.ctx.next = Some(Box::new(reacting::UpperStrong)),
+                                        Strength::Rising => todo!(),
+                                        Strength::FrontSpin => todo!(),
+                                        Strength::BackSpin => todo!(),
+                                    }
+                                }
+                                Height::Lower => todo!(),
+                            }
+
                         });
                 });
         }

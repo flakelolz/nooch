@@ -1,11 +1,11 @@
 use crate::prelude::*;
 
 pub fn common_standing_attack_transitions(ctx: &mut Context) {
-    // // Kara-cancel
+    // Kara-cancel
     if ctx.elapsed == 2 && specials_transitions(ctx) {
         return;
     }
-    // // Base case
+    // Base case
     if ctx.elapsed > ctx.total {
         // Transitions
         if turn_transition(ctx) {
