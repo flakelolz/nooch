@@ -42,6 +42,7 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     world.add::<DebugUI>();
     world.add::<Collisions>();
     world.add::<HitEvents>();
+    world.add::<Animation>();
 
     // Player 1
     let name = Name::Ken;
@@ -50,7 +51,6 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
     let action_data = ActionData::new(name);
     let origin = character_data.origin;
     let action_names = action_data.keys().cloned().collect::<Vec<_>>();
-    world.set(EditorData::new(action_names));
     world
         .entity_named("Player 1")
         .set(name)
@@ -62,6 +62,8 @@ pub fn setup(world: &mut World, rl: &mut RaylibHandle, thread: &RaylibThread) {
         .set(action_data)
         .set(Animator::new("St Idle".into(), 11, origin))
         .set(AnimationData::new(name));
+
+    world.set(EditorData::new(action_names));
 
     // Player 2
     let name = Name::Ken;

@@ -1,5 +1,20 @@
 use crate::prelude::*;
 
+#[derive(Component, Default)]
+pub struct Animation(pub Vec<Draw>);
+
+impl std::ops::Deref for Animation {
+    type Target = Vec<Draw>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+impl std::ops::DerefMut for Animation {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
 #[derive(Component)]
 pub struct AnimationData {
     /// Actor's name
@@ -75,7 +90,7 @@ pub struct Keyframe {
     pub duration: u32,
 }
 
-struct Draw {
+pub struct Draw {
     x: f32,
     y: f32,
     w: f32,
@@ -90,64 +105,68 @@ struct Draw {
 }
 
 pub fn actor_animation(d: &mut impl RaylibDraw, world: &World) {
-    let mut buffer: Vec<Draw> = Vec::new();
+    let animation_q = world
+        .query_named::<&mut Animation>("Animation buffer")
+        .set_cached()
+        .build();
 
     let query = world
         .query_named::<(&mut Animator, &Physics, &AnimationData, &StateMachine)>("Animate Player")
         .set_cached()
         .build();
+    animation_q.each(|animation| {
+        query.each(|(animator, physics, data, state)| {
+            // Find keyframe
+            let Some(keyframes) = data.get(&animator.current) else {
+                return;
+            };
+            let frame = &keyframes[animator.index];
+            let reaction = &state.ctx.reaction;
 
-    query.each(|(animator, physics, data, state)| {
-        // Find keyframe
-        let Some(keyframes) = data.get(&animator.current) else {
-            return;
-        };
-        let frame = &keyframes[animator.index];
-        let reaction = &state.ctx.reaction;
+            // Construct Draw command
+            let pos_x = physics.position.x;
+            let pos_y = -physics.position.y;
+            let mut draw = Draw {
+                x: frame.x,
+                y: frame.y,
+                w: frame.w,
+                h: frame.h,
+                flip: physics.facing_left,
+                w_scale: animator.w_scale,
+                h_scale: animator.h_scale,
+                origin: animator.origin,
+                layer: animator.layer,
+                pos: IVec2::new(pos_x, pos_y),
+                name: data.name(),
+            };
 
-        // Construct Draw command
-        let pos_x = physics.position.x;
-        let pos_y = -physics.position.y;
-        let mut draw = Draw {
-            x: frame.x,
-            y: frame.y,
-            w: frame.w,
-            h: frame.h,
-            flip: physics.facing_left,
-            w_scale: animator.w_scale,
-            h_scale: animator.h_scale,
-            origin: animator.origin,
-            layer: animator.layer,
-            pos: IVec2::new(pos_x, pos_y),
-            name: data.name(),
-        };
+            // Update animator
+            animator.duration = frame.duration;
 
-        // Update animator
-        animator.duration = frame.duration;
-
-        if reaction.hitstop == 0 {
-            animator.tick += 1;
-        }
-
-        if animator.tick >= animator.duration {
-            animator.tick = 0;
-            animator.index += 1;
-
-            if animator.index >= keyframes.len() {
-                animator.index = 0;
+            if reaction.hitstop == 0 {
+                animator.tick += 1;
             }
-        }
 
-        if reaction.hitstop > 0 && (reaction.hitstun > 0 || reaction.blockstun > 0) {
-            let hitshake_dist: i32 = 2;
-            let hitshake = -(hitshake_dist / 2) + hitshake_dist * (reaction.hitstop as i32 % 2);
-            draw.x += hitshake as f32;
-        }
-        // Add to buffer
-        buffer.push(draw);
+            if animator.tick >= animator.duration {
+                animator.tick = 0;
+                animator.index += 1;
+
+                if animator.index >= keyframes.len() {
+                    animator.index = 0;
+                }
+            }
+
+            if reaction.hitstop > 0 && (reaction.hitstun > 0 || reaction.blockstun > 0) {
+                let hitshake_dist: i32 = 2;
+                let hitshake = -(hitshake_dist / 2) + hitshake_dist * (reaction.hitstop as i32 % 2);
+                draw.x += hitshake as f32;
+            }
+            // Add to buffer
+            animation.push(draw);
+        });
+        draw_actor(d, animation, world);
+        animation.clear();
     });
-
-    draw_actor(d, &mut buffer, world);
 }
 
 fn draw_actor(d: &mut impl RaylibDraw, commands: &mut Vec<Draw>, world: &World) {
