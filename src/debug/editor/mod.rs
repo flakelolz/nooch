@@ -19,6 +19,7 @@ pub struct EditorData {
     pub hit_index: usize,
     pub default_pushbox: Option<Boxes>,
     pub actions: Option<IndexMap<String, Action>>,
+    pub unsaved: bool,
 }
 
 impl EditorData {
@@ -31,6 +32,7 @@ impl EditorData {
             hit_index: 0,
             default_pushbox: None,
             actions: None,
+            unsaved: false,
         }
     }
 }
@@ -54,6 +56,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
         if debug.editor {
             editor_q.each(|editor| {
                 ui.window("Editor")
+                    .unsaved_document(editor.unsaved)
                     .size([size_x, size_y], imgui::Condition::FirstUseEver)
                     .position([1., 1.], imgui::Condition::FirstUseEver)
                     .bg_alpha(0.5)
@@ -64,6 +67,17 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                 if editor.actions.is_none() {
                                     editor.actions.replace(actions.clone());
                                 }
+
+                                for name in &editor.names {
+                                    if let Some(editor_actions) = &editor.actions {
+                                        if editor_actions.get(name).unwrap()
+                                            != actions.get(name).unwrap()
+                                        {
+                                            editor.unsaved = true;
+                                        }
+                                    }
+                                }
+
                                 let current_state =
                                     actions.get_mut(editor.names[editor.index].as_str());
                                 let Some(current) = current_state else {
@@ -83,7 +97,9 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
                                     }
                                     token.end();
                                 }
-                                ui.input_scalar("Duration", &mut current.total).step(1).build();
+                                ui.input_scalar("Duration", &mut current.total)
+                                    .step(1)
+                                    .build();
                                 ui.checkbox("Looping", &mut current.looping);
 
                                 let tab = ui.tab_bar("boxes");
@@ -97,6 +113,7 @@ pub fn editor(world: &mut World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHand
 
                                 if ui.button("Save") {
                                     save_action_data(actions, &state.ctx.data);
+                                    editor.unsaved = false;
                                 }
                                 if debug.demo {
                                     ui.show_demo_window(&mut debug.demo);

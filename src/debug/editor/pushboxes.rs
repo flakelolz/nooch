@@ -39,6 +39,7 @@ pub fn pushboxes(
                     if let Some(old) = old {
                         if let Some(pushboxes) = &old.pushboxes {
                             pushbox.value = pushboxes[editor.push_index].value;
+                            editor.unsaved = false;
                         }
                     }
                 }

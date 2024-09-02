@@ -35,6 +35,7 @@ pub fn hurtboxes(ui: &imgui::Ui, current: &mut Action, editor: &mut EditorData) 
                     if let Some(old) = old {
                         if let Some(hurtboxes) = &old.hurtboxes {
                             hurtbox.value = hurtboxes[editor.hurt_index].value;
+                            editor.unsaved = false;
                         }
                     }
                 }

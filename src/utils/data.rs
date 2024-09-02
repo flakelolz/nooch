@@ -46,7 +46,7 @@ pub struct Actions {
     pub actions: Vec<Action>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Action {
     pub name: String,
     pub total: u32,
@@ -57,7 +57,7 @@ pub struct Action {
     pub modifiers: Option<Modifiers>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Modifiers {
     pub positions: Option<Vec<PositionModifier>>,
     pub cancels: Option<Vec<CancelModifier>>,
@@ -65,13 +65,13 @@ pub struct Modifiers {
     // pub meter: Option<MeterModifier>,
 }
 
-#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq)]
 pub struct PositionModifier {
     pub on_frame: u32,
     pub value: IVec2,
 }
 
-#[derive(Debug, Clone, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Default, Deserialize, Serialize, PartialEq)]
 pub struct CancelModifier {
     pub on: Option<Vec<CollisionType>>,
     pub after_frame: u32,
@@ -79,7 +79,7 @@ pub struct CancelModifier {
     pub states: Vec<States>,
 }
 
-#[derive(Debug, Clone, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Default, Deserialize, Serialize, PartialEq)]
 pub enum CollisionType {
     #[default]
     Whiff,
@@ -88,14 +88,14 @@ pub enum CollisionType {
     Parry,
 }
 
-#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, PartialEq)]
 pub struct Pushbox {
     pub start_frame: u32,
     pub duration: u32,
     pub value: Boxes,
 }
 
-#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, PartialEq)]
 pub struct Hurtbox {
     pub start_frame: u32,
     pub duration: u32,
@@ -104,14 +104,14 @@ pub struct Hurtbox {
     pub value: Boxes,
 }
 
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, Default, Eq, Deserialize, Serialize, PartialEq)]
 pub enum Height {
     #[default]
     Upper,
     Lower,
 }
 
-#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, PartialEq)]
 pub enum Invulnerability {
     #[default]
     None,
@@ -122,7 +122,7 @@ pub enum Invulnerability {
     All,
 }
 
-#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, PartialEq)]
 pub struct Hitbox {
     pub start_frame: u32,
     pub duration: u32,
@@ -162,7 +162,7 @@ pub enum Strength {
     // Launch,
 }
 
-#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, PartialEq)]
 pub struct Boxes {
     pub top: i32,
     pub bottom: i32,

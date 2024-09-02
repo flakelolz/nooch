@@ -81,6 +81,7 @@ pub fn hitboxes(ui: &imgui::Ui, current: &mut Action, editor: &mut EditorData) {
                     if let Some(old) = old {
                         if let Some(hitboxes) = &old.hitboxes {
                             hitbox.value = hitboxes[editor.hit_index].value;
+                            editor.unsaved = false;
                         }
                     }
                 }
