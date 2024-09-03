@@ -5,34 +5,34 @@ impl State for Idle {
     fn name(&self) -> &'static str {
         "St Idle"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St Idle enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         // Apply physics
-        ctx.physics.velocity.x = 0;
+        physics.velocity.x = 0;
         // Transitions
-        if turn_transition(ctx) {
+        if turn_transition(ctx, buffer, physics) {
             return;
         }
-        if jump_transitions(ctx) {
+        if jump_transitions(ctx, buffer, physics) {
             return;
         }
-        if specials_transitions(ctx) {
+        if specials_transitions(ctx, buffer, physics) {
             return;
         }
-        if normals_transitions(ctx) {
+        if normals_transitions(ctx, buffer, physics) {
             return;
         }
-        if crouch_transition(ctx) {
+        if crouch_transition(ctx, buffer, physics) {
             return;
         }
-        if dash_transitions(ctx) {
+        if dash_transitions(ctx, buffer, physics) {
             return;
         }
-        walk_transition(ctx);
+        walk_transition(ctx, buffer, physics);
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St Idle exit", ctx.player);
     }
 }
@@ -42,35 +42,35 @@ impl State for Turn {
     fn name(&self) -> &'static str {
         "St Turn"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St Turn enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         // Transitions
         if ctx.elapsed > ctx.total {
-            if jump_transitions(ctx) {
+            if jump_transitions(ctx, buffer, physics) {
                 return;
             }
-            if specials_transitions(ctx) {
+            if specials_transitions(ctx, buffer, physics) {
                 return;
             }
-            if normals_transitions(ctx) {
+            if normals_transitions(ctx, buffer, physics) {
                 return;
             }
-            if crouch_transition(ctx) {
+            if crouch_transition(ctx, buffer, physics) {
                 return;
             }
-            if dash_transitions(ctx) {
+            if dash_transitions(ctx, buffer, physics) {
                 return;
             }
-            if walk_transition(ctx) {
+            if walk_transition(ctx, buffer, physics) {
                 return;
             }
             // Return to idle
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St Turn exit", ctx.player);
     }
 }
@@ -80,41 +80,41 @@ impl State for WalkForward {
     fn name(&self) -> &'static str {
         "St WalkForward"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, physics: &mut Physics) {
         println!("{} -> St WalkForward enter", ctx.player);
         // FIX: Find a way to move on the first frame
-        ctx.physics.set_forward_velocity(ctx.data.forward_walk);
+        physics.set_forward_velocity(ctx.data.forward_walk);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         // Special case for walking
-        ctx.physics.set_forward_velocity(ctx.data.forward_walk);
+        physics.set_forward_velocity(ctx.data.forward_walk);
         // Transitions
-        if turn_transition(ctx) {
+        if turn_transition(ctx, buffer, physics) {
             return;
         }
-        if jump_transitions(ctx) {
+        if jump_transitions(ctx, buffer, physics) {
             return;
         }
-        if specials_transitions(ctx) {
+        if specials_transitions(ctx, buffer, physics) {
             return;
         }
-        if normals_transitions(ctx) {
+        if normals_transitions(ctx, buffer, physics) {
             return;
         }
-        if crouch_transition(ctx) {
+        if crouch_transition(ctx, buffer, physics) {
             return;
         }
-        if dash_transitions(ctx) {
+        if dash_transitions(ctx, buffer, physics) {
             return;
         }
         // Base case & return to idle
-        if !ctx.buffer.forward() {
+        if !buffer.forward() {
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, physics: &mut Physics) {
         // If velocity was applied earlier in the state, remove it
-        ctx.physics.velocity.x = 0;
+        physics.velocity.x = 0;
         println!("{} -> St WalkForward exit", ctx.player);
     }
 }
@@ -124,40 +124,40 @@ impl State for WalkBackward {
     fn name(&self) -> &'static str {
         "St WalkBackward"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, physics: &mut Physics) {
         println!("{} -> St WalkBackward enter", ctx.player);
-        ctx.physics.set_backward_velocity(ctx.data.backward_walk);
+        physics.set_backward_velocity(ctx.data.backward_walk);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         // Special case for walking
-        ctx.physics.set_backward_velocity(ctx.data.backward_walk);
+        physics.set_backward_velocity(ctx.data.backward_walk);
         // Transitions
-        if turn_transition(ctx) {
+        if turn_transition(ctx, buffer, physics) {
             return;
         }
-        if jump_transitions(ctx) {
+        if jump_transitions(ctx, buffer, physics) {
             return;
         }
-        if specials_transitions(ctx) {
+        if specials_transitions(ctx, buffer, physics) {
             return;
         }
-        if normals_transitions(ctx) {
+        if normals_transitions(ctx, buffer, physics) {
             return;
         }
-        if crouch_transition(ctx) {
+        if crouch_transition(ctx, buffer, physics) {
             return;
         }
-        if dash_transitions(ctx) {
+        if dash_transitions(ctx, buffer, physics) {
             return;
         }
         // Base case & return to idle
-        if !ctx.buffer.backward() {
+        if !buffer.backward() {
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, physics: &mut Physics) {
         // If velocity was applied earlier in the state, remove it
-        ctx.physics.velocity.x = 0;
+        physics.velocity.x = 0;
         println!("{} -> St WalkBackward exit", ctx.player);
     }
 }
@@ -167,38 +167,38 @@ impl State for DashForward {
     fn name(&self) -> &'static str {
         "St DashForward"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St DashForward enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         // Transitions
         if ctx.elapsed > ctx.total {
-            if turn_transition(ctx) {
+            if turn_transition(ctx, buffer, physics) {
                 return;
             }
-            if jump_transitions(ctx) {
+            if jump_transitions(ctx, buffer, physics) {
                 return;
             }
-            if specials_transitions(ctx) {
+            if specials_transitions(ctx, buffer, physics) {
                 return;
             }
-            if normals_transitions(ctx) {
+            if normals_transitions(ctx, buffer, physics) {
                 return;
             }
-            if crouch_transition(ctx) {
+            if crouch_transition(ctx, buffer, physics) {
                 return;
             }
-            if dash_transitions(ctx) {
+            if dash_transitions(ctx, buffer, physics) {
                 return;
             }
-            if walk_transition(ctx) {
+            if walk_transition(ctx, buffer, physics) {
                 return;
             }
             // Return to idle
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St DashForward exit", ctx.player);
     }
 }
@@ -208,38 +208,38 @@ impl State for DashBackward {
     fn name(&self) -> &'static str {
         "St DashBackward"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St DashBackward enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         // Transitions
         if ctx.elapsed > ctx.total {
-            if turn_transition(ctx) {
+            if turn_transition(ctx, buffer, physics) {
                 return;
             }
-            if jump_transitions(ctx) {
+            if jump_transitions(ctx, buffer, physics) {
                 return;
             }
-            if specials_transitions(ctx) {
+            if specials_transitions(ctx, buffer, physics) {
                 return;
             }
-            if normals_transitions(ctx) {
+            if normals_transitions(ctx, buffer, physics) {
                 return;
             }
-            if crouch_transition(ctx) {
+            if crouch_transition(ctx, buffer, physics) {
                 return;
             }
-            if dash_transitions(ctx) {
+            if dash_transitions(ctx, buffer, physics) {
                 return;
             }
-            if walk_transition(ctx) {
+            if walk_transition(ctx, buffer, physics) {
                 return;
             }
             // Return to idle
             ctx.next = Some(Box::new(standing::Idle));
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St DashBackward exit", ctx.player);
     }
 }
@@ -249,15 +249,15 @@ impl State for LightPunch {
     fn name(&self) -> &'static str {
         "St LightPunch"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St LightPunch enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St LightPunch exit", ctx.player);
     }
 }
@@ -267,15 +267,15 @@ impl State for MediumPunch {
     fn name(&self) -> &'static str {
         "St MediumPunch"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St MediumPunch enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St MediumPunch exit", ctx.player);
     }
 }
@@ -285,15 +285,15 @@ impl State for HeavyPunch {
     fn name(&self) -> &'static str {
         "St HeavyPunch"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St HeavyPunch enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St HeavyPunch exit", ctx.player);
     }
 }
@@ -303,15 +303,15 @@ impl State for LightKick {
     fn name(&self) -> &'static str {
         "St LightKick"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St LightKick enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St LightKick exit", ctx.player);
     }
 }
@@ -321,15 +321,15 @@ impl State for MediumKick {
     fn name(&self) -> &'static str {
         "St MediumKick"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St MediumKick enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St MediumKick exit", ctx.player);
     }
 }
@@ -339,15 +339,15 @@ impl State for HeavyKick {
     fn name(&self) -> &'static str {
         "St HeavyKick"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St HeavyKick enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> St HeavyKick exit", ctx.player);
     }
 }

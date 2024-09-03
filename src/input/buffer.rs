@@ -4,7 +4,7 @@ use crate::{physics, prelude::*};
 const BUFFER_SIZE: usize = 50;
 
 #[derive(Component, Debug, Clone, Copy)]
-pub struct InputBuffer {
+pub struct Buffer {
     pub index: usize,
     pub buffer: [Input; BUFFER_SIZE],
     pub held: Held,
@@ -13,7 +13,7 @@ pub struct InputBuffer {
     pub cancels: usize,
 }
 
-impl Default for InputBuffer {
+impl Default for Buffer {
     fn default() -> Self {
         Self {
             index: BUFFER_SIZE - 1,
@@ -26,7 +26,7 @@ impl Default for InputBuffer {
     }
 }
 
-impl InputBuffer {
+impl Buffer {
     /// Moves the index forward and then adds the new input to the buffer
     pub fn update_buffer(&mut self, input: &Input) {
         self.index = (self.index + 1) % self.buffer.len();

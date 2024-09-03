@@ -62,7 +62,7 @@ pub fn translate_dir(dir: u8) -> Buttons {
     }
 }
 
-impl InputBuffer {
+impl Buffer {
     /// Checks if a button has been pressed for motion inputs
     pub fn check_input_strict(&self, button: &Buttons, current: &Input) -> bool {
         let forward;

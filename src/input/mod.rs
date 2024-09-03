@@ -91,7 +91,7 @@ pub fn update_input(world: &mut World, rl: &RaylibHandle) {
 
 pub fn update_buffer(world: &mut World) {
     let query = world
-        .query_named::<(&Input, &mut InputBuffer)>("Update Buffer")
+        .query_named::<(&Input, &mut Buffer)>("Update Buffer")
         .set_cached()
         .build();
 

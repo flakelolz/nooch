@@ -92,13 +92,13 @@ impl Physics {
 
 pub fn update_physics(world: &mut World) {
     let facing_q = world
-        .query_named::<(&mut Physics, &mut InputBuffer, &Player)>("Update facing direction")
+        .query_named::<(&mut Physics, &mut Buffer, &Player)>("Update facing direction")
         .set_cached()
         .build();
     facing_q.run(|mut it| {
         while it.next() {
             let mut physics = it.field::<Physics>(0).unwrap();
-            let mut buffer = it.field::<InputBuffer>(1).unwrap();
+            let mut buffer = it.field::<Buffer>(1).unwrap();
             let (p1, p2) = physics.split_at_mut(1);
             if let Some(p1) = p1.get_mut(0) {
                 if let Some(p2) = p2.get_mut(0) {
@@ -170,7 +170,7 @@ pub fn update_physics(world: &mut World) {
 
 /// Conditionally flip the character to face the opponent if not already facing them.
 // NOTE: This change can and will happen in the middle of a state, before the physics update
-pub fn face_opponent(physics: &mut Physics, buffer: &mut InputBuffer) -> bool {
+pub fn face_opponent(physics: &mut Physics, buffer: &mut Buffer) -> bool {
     if !physics.facing_opponent {
         physics.facing_left = !physics.facing_left;
         *buffer.current_mut() ^= Buttons::FacingLeft;

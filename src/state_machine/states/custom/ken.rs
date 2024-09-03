@@ -10,34 +10,34 @@ pub enum Ken {
 }
 
 impl Ken {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) -> bool {
         match self {
             Ken::Normals => {
-                // if Normals::HeavyPunch.set(ctx) {
+                // if Normals::HeavyPunch.set(ctx, buffer, physics) {
                 //     return true;
                 // }
-                // if Normals::MediumPunch.set(ctx) {
+                // if Normals::MediumPunch.set(ctx, buffer, physics) {
                 //     return true;
                 // }
-                // if Normals::LightPunch.set(ctx) {
+                // if Normals::LightPunch.set(ctx, buffer, physics) {
                 //     return true;
                 // }
                 false
             }
             Ken::HeavyPunch => {
-                if Normals::HeavyPunch.set(ctx) {
+                if Normals::HeavyPunch.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
             Ken::MediumPunch => {
-                if Normals::MediumPunch.set(ctx) {
+                if Normals::MediumPunch.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
             Ken::LightPunch => {
-                if Normals::LightPunch.set(ctx) {
+                if Normals::LightPunch.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
@@ -46,18 +46,18 @@ impl Ken {
                 // Priority Hadouken with half-circle motion
                 {
                     let hcf = [4, 1, 2, 3, 6];
-                    if ctx.buffer.buffered(Buttons::Punches, ctx.buffer.cancels)
-                        && ctx.buffer.motion_custom(&hcf, Buttons::Punches, 9)
+                    if buffer.buffered(Buttons::Punches, buffer.cancels)
+                        && buffer.motion_custom(&hcf, Buttons::Punches, 9)
                     {
                         println!("Priority!!!");
                         ctx.next.replace(Box::new(ken::Hadouken));
                         return true;
                     }
                 }
-                if Specials::Shoryuken.set(ctx) {
+                if Specials::Shoryuken.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Specials::Hadouken.set(ctx) {
+                if Specials::Hadouken.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
@@ -77,11 +77,11 @@ pub enum Normals {
 }
 
 impl Normals {
-    pub fn set(&self, ctx: &mut Context) -> bool {
-        // let distance = world_to_screen_num(ctx.physics.distance as i32);
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, _physics: &mut Physics) -> bool {
+        // let distance = world_to_screen_num(physics.distance as i32);
         match self {
             Normals::LightPunch => {
-                if ctx.buffer.buffered(Buttons::Lp, ctx.buffer.attack)
+                if buffer.buffered(Buttons::Lp, buffer.attack)
                 // && distance < 35
                 {
                     ctx.next.replace(Box::new(ken::LightPunch));
@@ -90,7 +90,7 @@ impl Normals {
                 false
             }
             Normals::MediumPunch => {
-                if ctx.buffer.buffered(Buttons::Mp, ctx.buffer.attack)
+                if buffer.buffered(Buttons::Mp, buffer.attack)
                 // && distance < 40
                 {
                     ctx.next.replace(Box::new(ken::MediumPunch));
@@ -99,7 +99,7 @@ impl Normals {
                 false
             }
             Normals::HeavyPunch => {
-                if ctx.buffer.buffered(Buttons::Hp, ctx.buffer.attack)
+                if buffer.buffered(Buttons::Hp, buffer.attack)
                 // && distance < 48
                 {
                     ctx.next.replace(Box::new(ken::HeavyPunch));
@@ -121,12 +121,12 @@ pub enum Specials {
 }
 
 impl Specials {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) -> bool {
         match self {
             Specials::Hadouken => {
-                if ctx.buffer.buffered(Buttons::Punches, ctx.buffer.cancels)
-                    && ctx.buffer.motion(Motions::Qcf, Buttons::Punches, 9)
-                    && !ctx.physics.airborne
+                if buffer.buffered(Buttons::Punches, buffer.cancels)
+                    && buffer.motion(Motions::Qcf, Buttons::Punches, 9)
+                    && !physics.airborne
                 {
                     ctx.next.replace(Box::new(ken::Hadouken));
                     return true;
@@ -134,9 +134,9 @@ impl Specials {
                 false
             }
             Specials::Shoryuken => {
-                if ctx.buffer.motion(Motions::Dpf, Buttons::Lp, 9)
-                    && ctx.buffer.buffered(Buttons::Lp, 20)
-                    && !ctx.physics.airborne
+                if buffer.motion(Motions::Dpf, Buttons::Lp, 9)
+                    && buffer.buffered(Buttons::Lp, 20)
+                    && !physics.airborne
                 {
                     ctx.next.replace(Box::new(ShoryukenL));
                     return true;
@@ -152,15 +152,15 @@ impl State for LightPunch {
     fn name(&self) -> &'static str {
         "Cl LightPunch"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Cl LightPunch enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Cl LightPunch exit", ctx.player);
     }
 }
@@ -170,15 +170,15 @@ impl State for MediumPunch {
     fn name(&self) -> &'static str {
         "Cl HeavyPunch"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Cl HeavyPunch enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Cl HeavyPunch exit", ctx.player);
     }
 }
@@ -188,15 +188,15 @@ impl State for HeavyPunch {
     fn name(&self) -> &'static str {
         "Cl HeavyPunch"
     }
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Cl HeavyPunch enter", ctx.player);
     }
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Cl HeavyPunch exit", ctx.player);
     }
 }
@@ -207,18 +207,18 @@ impl State for Hadouken {
         "Ken Hadouken"
     }
 
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         println!("{} -> Ken Hadouken enter", ctx.player);
         // TODO: Set how fast a fireball is going to move based on the button currently pressed
         println!(
             "lp: {}, mp: {}, hp: {}",
-            ctx.buffer.pressed(Buttons::Lp),
-            ctx.buffer.pressed(Buttons::Mp),
-            ctx.buffer.pressed(Buttons::Hp)
+            buffer.pressed(Buttons::Lp),
+            buffer.pressed(Buttons::Mp),
+            buffer.pressed(Buttons::Hp)
         );
         let offset = IVec2 {
             x: {
-                if ctx.physics.facing_left {
+                if physics.facing_left {
                     -70000
                 } else {
                     70000
@@ -227,19 +227,19 @@ impl State for Hadouken {
             y: 0,
         };
         let mut physics = Physics {
-            position: ctx.physics.position + offset,
-            facing_left: ctx.physics.facing_left,
-            facing_opponent: ctx.physics.facing_opponent,
+            position: physics.position + offset,
+            facing_left: physics.facing_left,
+            facing_opponent: physics.facing_opponent,
             ..Default::default()
         };
 
-        if ctx.buffer.pressed(Buttons::Lp) {
+        if buffer.pressed(Buttons::Lp) {
             physics.set_forward_velocity(3000);
         }
-        if ctx.buffer.pressed(Buttons::Mp) {
+        if buffer.pressed(Buttons::Mp) {
             physics.set_forward_velocity(4000);
         }
-        if ctx.buffer.pressed(Buttons::Hp) {
+        if buffer.pressed(Buttons::Hp) {
             physics.set_forward_velocity(5000);
         }
         // _context.spawn.replace(Projectile {
@@ -251,13 +251,13 @@ impl State for Hadouken {
         // });
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
 
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Ken Hadouken exit", ctx.player);
     }
 }
@@ -268,43 +268,43 @@ impl State for ShoryukenL {
         "Ken ShoryukenL"
     }
 
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Ken ShoryukenL enter", ctx.player);
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
         if ctx.elapsed == 3
         // && ctx.reaction.hitstop == 0
         {
-            ctx.physics.position.x += 5000;
+            physics.position.x += 5000;
         }
         if ctx.elapsed == 5 {
-            ctx.physics.velocity.y = 9000;
-            ctx.physics.acceleration.y = -750;
-            ctx.physics.set_forward_velocity(1000);
-            ctx.physics.airborne = true;
+            physics.velocity.y = 9000;
+            physics.acceleration.y = -750;
+            physics.set_forward_velocity(1000);
+            physics.airborne = true;
         }
 
         if ctx.elapsed > 14 {
-            ctx.physics.velocity.x = 0;
+            physics.velocity.x = 0;
         }
 
         if ctx.elapsed > 29 {
-            ctx.physics.position.y = 0;
-            ctx.physics.velocity = IVec2::ZERO;
-            ctx.physics.acceleration.y = 0;
-            ctx.physics.airborne = false;
+            physics.position.y = 0;
+            physics.velocity = IVec2::ZERO;
+            physics.acceleration.y = 0;
+            physics.airborne = false;
         }
         if ctx.elapsed == 30 {
-            ctx.physics.position.x += 4000;
+            physics.position.x += 4000;
         }
 
         if ctx.elapsed > ctx.total {
-            common_standing_attack_transitions(ctx);
+            common_standing_attack_transitions(ctx, buffer, physics);
         }
     }
 
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("{} -> Ken ShoryukenL exit", ctx.player);
     }
 }

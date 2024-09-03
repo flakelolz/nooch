@@ -40,28 +40,17 @@ pub struct Modifier {
 
 pub trait State {
     fn name(&self) -> &'static str;
-    fn on_enter(&mut self, ctx: &mut Context);
-    fn on_update(&mut self, ctx: &mut Context);
-    fn on_exit(&mut self, ctx: &mut Context);
+    fn on_enter(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics);
+    fn on_exit(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics);
 }
 
 pub fn update_state(world: &mut World) {
-    // Update copies of input and physics on the context
-    let context_q = world
-        .query_named::<(&mut StateMachine, &InputBuffer, &Physics)>("Update Context")
-        .set_cached()
-        .build();
-    context_q.each(|(state, buffer, physics)| {
-        state.ctx.buffer = *buffer;
-        state.ctx.physics = *physics;
-    });
-
-    // Update state machine
     let query = world
-        .query_named::<(&mut StateMachine, &ActionData)>("Update State")
+        .query_named::<(&mut StateMachine, &ActionData, &mut Buffer, &mut Physics)>("Update State")
         .set_cached()
         .build();
-    query.each(|(state, data)| {
+    query.each(|(state, data, buffer, physics)| {
         match data.get(state.current.name()) {
             Some(action) => {
                 state.ctx.total = action.total;
@@ -79,20 +68,10 @@ pub fn update_state(world: &mut World) {
             }
         }
 
-        state.ctx.locks.dash_lockout(&state.ctx.buffer, 6);
-        state.current.on_update(&mut state.ctx);
+        state.ctx.locks.dash_lockout(buffer, 6);
+        state.current.on_update(&mut state.ctx, buffer, physics);
     });
 
     handle_transitions(world);
     handle_modifiers(world);
-
-    // Update the original input and physics after being set on the context
-    let context_q = world
-        .query_named::<(&StateMachine, &mut InputBuffer, &mut Physics)>("Update from Context")
-        .set_cached()
-        .build();
-    context_q.each(|(state, buffer, physics)| {
-        *buffer = state.ctx.buffer;
-        *physics = state.ctx.physics;
-    });
 }

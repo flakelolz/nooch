@@ -6,15 +6,15 @@ impl State for UpperWeak {
         "Rxn UpperWeak"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperWeak on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperWeak on_exit");
     }
 }
@@ -25,15 +25,15 @@ impl State for UpperMid {
         "Rxn UpperMid"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperMid on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperMid on_exit");
     }
 }
@@ -44,15 +44,15 @@ impl State for UpperStrong {
         "Rxn UpperStrong"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperStrong on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperStrong on_exit");
     }
 }
@@ -63,15 +63,15 @@ impl State for UpperRising {
         "Rxn UpperRising"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperRising on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn UpperRising on_exit");
     }
 }
@@ -82,15 +82,15 @@ impl State for FrontSpin {
         "Rxn FrontSpin"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn FrontSpin on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn FrontSpin on_exit");
     }
 }
@@ -101,15 +101,15 @@ impl State for BackSpin {
         "Rxn BackSpin"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn BackSpin on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn BackSpin on_exit");
     }
 }
@@ -120,15 +120,15 @@ impl State for LowerWeak {
         "Rxn LowerWeak"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerWeak on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerWeak on_exit");
     }
 }
@@ -139,15 +139,15 @@ impl State for LowerMid {
         "Rxn LowerMid"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerMid on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerMid on_exit");
     }
 }
@@ -158,15 +158,15 @@ impl State for LowerStrong {
         "Rxn LowerStrong"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerStrong on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerStrong on_exit");
     }
 }
@@ -177,15 +177,15 @@ impl State for LowerRising {
         "Rxn LowerRising"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerRising on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn LowerRising on_exit");
     }
 }
@@ -196,15 +196,15 @@ impl State for CrouchWeak {
         "Rxn CrouchWeak"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn CrouchWeak on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        // common_crouching_reaction_transitions(context, buffer, physics);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_crouching_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn CrouchWeak on_exit");
     }
 }
@@ -215,15 +215,15 @@ impl State for CrouchMid {
         "Rxn CrouchMid"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn CrouchMid on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        // common_crouching_reaction_transitions(context, buffer, physics);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_crouching_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn CrouchMid on_exit");
     }
 }
@@ -234,15 +234,15 @@ impl State for CrouchStrong {
         "Rxn CrouchStrong"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn CrouchStrong on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        // common_crouching_reaction_transitions(context, buffer, physics);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_crouching_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn CrouchStrong on_exit");
     }
 }
@@ -253,15 +253,15 @@ impl State for GrdStandPre {
         "Rxn GrdStandPre"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdStandPre on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdStandPre on_exit");
     }
 }
@@ -272,16 +272,16 @@ impl State for GrdStandEnd {
         "Rxn GrdStandEnd"
     }
 
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdStandEnd on_enter");
         // context.ctx.reaction.blocking = true;
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        common_standing_reaction_transitions(ctx);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_standing_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdStandEnd on_exit");
         // context.ctx.reaction.blocking = false;
     }
@@ -293,15 +293,15 @@ impl State for GrdCrouchPre {
         "Rxn GrdCrouchPre"
     }
 
-    fn on_enter(&mut self, _ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdCrouchPre on_enter");
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        // common_crouching_reaction_transitions(context, buffer, physics);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_crouching_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, _ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdCrouchPre on_exit");
     }
 }
@@ -312,16 +312,16 @@ impl State for GrdCrouchEnd {
         "Rxn GrdCrouchEnd"
     }
 
-    fn on_enter(&mut self, ctx: &mut Context) {
+    fn on_enter(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdCrouchEnd on_enter");
         // context.ctx.reaction.blocking = true;
     }
 
-    fn on_update(&mut self, ctx: &mut Context) {
-        // common_crouching_reaction_transitions(context, buffer, physics);
+    fn on_update(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) {
+        common_crouching_reaction_transitions(ctx, buffer, physics);
     }
 
-    fn on_exit(&mut self, ctx: &mut Context) {
+    fn on_exit(&self, _ctx: &mut Context, _buffer: &mut Buffer, _physics: &mut Physics) {
         println!("Rxn GrdCrouchEnd on_exit");
         // context.ctx.reaction.blocking = false;
     }

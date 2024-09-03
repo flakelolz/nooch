@@ -8,7 +8,7 @@ pub enum Dashes {
     ForcedBackward,
 }
 
-impl InputBuffer {
+impl Buffer {
     pub fn dashed(&self, dash: Dashes, mut limit: usize) -> bool {
         if limit > (self.buffer.len() + self.index) {
             limit = self.buffer.len() + self.index;

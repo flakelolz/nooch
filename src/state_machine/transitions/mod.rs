@@ -24,17 +24,19 @@ pub fn handle_transitions(world: &mut World) {
     });
 
     let query = world
-        .query_named::<(&mut StateMachine, &ActionData)>("Handle transitions")
+        .query_named::<(&mut StateMachine, &ActionData, &mut Buffer, &mut Physics)>(
+            "Handle transitions",
+        )
         .set_cached()
         .build();
-    query.each(|(state, data)| {
+    query.each(|(state, data, buffer, physics)| {
         if let Some(next) = state.ctx.next.take() {
             // State transition
-            state.current.on_exit(&mut state.ctx);
+            state.current.on_exit(&mut state.ctx, buffer, physics);
             state.current = next;
             state.ctx.elapsed = 1;
             state.ctx.reaction.has_hit = false;
-            state.current.on_enter(&mut state.ctx);
+            state.current.on_enter(&mut state.ctx, buffer, physics);
 
             if let Some(action) = data.get(state.current.name()) {
                 state.ctx.total = action.total;

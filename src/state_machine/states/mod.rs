@@ -16,13 +16,13 @@ pub enum States {
 }
 
 impl States {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) -> bool {
         match self {
-            States::Group(states) => states.set(ctx),
-            States::Standing(states) => states.set(ctx),
-            States::Crouching(states) => states.set(ctx),
-            States::Jumping(states) => states.set(ctx),
-            States::Ken(states) => states.set(ctx),
+            States::Group(states) => states.set(ctx, buffer, physics),
+            States::Standing(states) => states.set(ctx, buffer, physics),
+            States::Crouching(states) => states.set(ctx, buffer, physics),
+            States::Jumping(states) => states.set(ctx, buffer, physics),
+            States::Ken(states) => states.set(ctx, buffer, physics),
         }
     }
 }
@@ -54,22 +54,22 @@ pub enum Group {
 }
 
 impl Group {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) -> bool {
         match self {
             Group::All => {
-                if Group::Specials.set(ctx) {
+                if Group::Specials.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Group::CusNormals.set(ctx) {
+                if Group::CusNormals.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Group::Normals.set(ctx) {
+                if Group::Normals.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Group::Jumps.set(ctx) {
+                if Group::Jumps.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Group::Movement.set(ctx) {
+                if Group::Movement.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
@@ -77,7 +77,7 @@ impl Group {
             Group::Specials => {
                 match ctx.name {
                     Name::Ken => {
-                        if States::Ken(ken::Ken::Specials).set(ctx) {
+                        if States::Ken(ken::Ken::Specials).set(ctx, buffer, physics) {
                             return true;
                         }
                     }
@@ -88,7 +88,7 @@ impl Group {
             Group::CusNormals => {
                 match ctx.name {
                     Name::Ken => {
-                        if States::Ken(ken::Ken::Normals).set(ctx) {
+                        if States::Ken(ken::Ken::Normals).set(ctx, buffer, physics) {
                             return true;
                         }
                     }
@@ -97,127 +97,127 @@ impl Group {
                 false
             }
             Group::Normals => {
-                if Group::CrNormals.set(ctx) {
+                if Group::CrNormals.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Group::CusNormals.set(ctx) {
+                if Group::CusNormals.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Group::StNormals.set(ctx) {
+                if Group::StNormals.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
 
             Group::StNormals => {
-                if Standing::HeavyKick.set(ctx) {
+                if Standing::HeavyKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::HeavyPunch.set(ctx) {
+                if Standing::HeavyPunch.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::MediumKick.set(ctx) {
+                if Standing::MediumKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::MediumPunch.set(ctx) {
+                if Standing::MediumPunch.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::LightKick.set(ctx) {
+                if Standing::LightKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::LightPunch.set(ctx) {
+                if Standing::LightPunch.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
 
             Group::CrNormals => {
-                if Crouching::HeavyKick.set(ctx) {
+                if Crouching::HeavyKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Crouching::HeavyPunch.set(ctx) {
+                if Crouching::HeavyPunch.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Crouching::MediumKick.set(ctx) {
+                if Crouching::MediumKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Crouching::MediumPunch.set(ctx) {
+                if Crouching::MediumPunch.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Crouching::LightKick.set(ctx) {
+                if Crouching::LightKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Crouching::LightPunch.set(ctx) {
+                if Crouching::LightPunch.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
             Group::AirNormals => {
-                if Jumping::HeavyKick.set(ctx) {
+                if Jumping::HeavyKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::HeavyPunch.set(ctx) {
+                if Jumping::HeavyPunch.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::MediumKick.set(ctx) {
+                if Jumping::MediumKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::MediumPunch.set(ctx) {
+                if Jumping::MediumPunch.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::LightKick.set(ctx) {
+                if Jumping::LightKick.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::LightPunch.set(ctx) {
+                if Jumping::LightPunch.set(ctx, buffer, physics) {
                     return true;
                 }
 
                 false
             }
             Group::Movement => {
-                if Standing::DashForward.set(ctx) {
+                if Standing::DashForward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::DashBackward.set(ctx) {
+                if Standing::DashBackward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::WalkForward.set(ctx) {
+                if Standing::WalkForward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::WalkBackward.set(ctx) {
+                if Standing::WalkBackward.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
             Group::Dashes => {
-                if Standing::DashForward.set(ctx) {
+                if Standing::DashForward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::DashBackward.set(ctx) {
+                if Standing::DashBackward.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
             Group::Walks => {
-                if Standing::WalkForward.set(ctx) {
+                if Standing::WalkForward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Standing::WalkBackward.set(ctx) {
+                if Standing::WalkBackward.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
             }
             Group::Jumps => {
-                if Jumping::Start.set(ctx) {
+                if Jumping::Start.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::Forward.set(ctx) {
+                if Jumping::Forward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::Backward.set(ctx) {
+                if Jumping::Backward.set(ctx, buffer, physics) {
                     return true;
                 }
-                if Jumping::Neutral.set(ctx) {
+                if Jumping::Neutral.set(ctx, buffer, physics) {
                     return true;
                 }
                 false
@@ -241,73 +241,73 @@ pub enum Standing {
 }
 
 impl Standing {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, _physics: &mut Physics) -> bool {
         match self {
             Standing::LightPunch => {
-                if ctx.buffer.buffered(Buttons::Lp, ctx.buffer.cancels) && !ctx.buffer.down() {
+                if buffer.buffered(Buttons::Lp, buffer.cancels) && !buffer.down() {
                     ctx.next.replace(Box::new(standing::LightPunch));
                     return true;
                 }
                 false
             }
             Standing::MediumPunch => {
-                if ctx.buffer.buffered(Buttons::Mp, ctx.buffer.attack) && !ctx.buffer.down() {
+                if buffer.buffered(Buttons::Mp, buffer.attack) && !buffer.down() {
                     ctx.next.replace(Box::new(standing::MediumPunch));
                     return true;
                 }
                 false
             }
             Standing::HeavyPunch => {
-                if ctx.buffer.buffered(Buttons::Hp, ctx.buffer.attack) && !ctx.buffer.down() {
+                if buffer.buffered(Buttons::Hp, buffer.attack) && !buffer.down() {
                     ctx.next.replace(Box::new(standing::HeavyPunch));
                     return true;
                 }
                 false
             }
             Standing::LightKick => {
-                if ctx.buffer.buffered(Buttons::Lk, ctx.buffer.cancels) && !ctx.buffer.down() {
+                if buffer.buffered(Buttons::Lk, buffer.cancels) && !buffer.down() {
                     ctx.next.replace(Box::new(standing::LightKick));
                     return true;
                 }
                 false
             }
             Standing::MediumKick => {
-                if ctx.buffer.buffered(Buttons::Mk, ctx.buffer.attack) && !ctx.buffer.down() {
+                if buffer.buffered(Buttons::Mk, buffer.attack) && !buffer.down() {
                     ctx.next.replace(Box::new(standing::MediumKick));
                     return true;
                 }
                 false
             }
             Standing::HeavyKick => {
-                if ctx.buffer.buffered(Buttons::Hk, ctx.buffer.attack) && !ctx.buffer.down() {
+                if buffer.buffered(Buttons::Hk, buffer.attack) && !buffer.down() {
                     ctx.next.replace(Box::new(standing::HeavyKick));
                     return true;
                 }
                 false
             }
             Standing::DashForward => {
-                if ctx.buffer.dashed(Dashes::Forward, ctx.buffer.dash) && ctx.locks.dash_f {
+                if buffer.dashed(Dashes::Forward, buffer.dash) && ctx.locks.dash_f {
                     ctx.next.replace(Box::new(standing::DashForward));
                     return true;
                 }
                 false
             }
             Standing::DashBackward => {
-                if ctx.buffer.dashed(Dashes::Backward, ctx.buffer.dash) && ctx.locks.dash_b {
+                if buffer.dashed(Dashes::Backward, buffer.dash) && ctx.locks.dash_b {
                     ctx.next.replace(Box::new(standing::DashBackward));
                     return true;
                 }
                 false
             }
             Standing::WalkForward => {
-                if ctx.buffer.forward() {
+                if buffer.forward() {
                     ctx.next.replace(Box::new(standing::WalkForward));
                     return true;
                 }
                 false
             }
             Standing::WalkBackward => {
-                if ctx.buffer.backward() {
+                if buffer.backward() {
                     ctx.next.replace(Box::new(standing::WalkBackward));
                     return true;
                 }
@@ -330,59 +330,59 @@ pub enum Crouching {
 }
 
 impl Crouching {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, _physics: &mut Physics) -> bool {
         match self {
             Crouching::Start => {
-                if ctx.buffer.down() {
+                if buffer.down() {
                     ctx.next.replace(Box::new(crouching::Start));
                     return true;
                 }
                 false
             }
             Crouching::End => {
-                if !ctx.buffer.down() {
+                if !buffer.down() {
                     ctx.next.replace(Box::new(crouching::End));
                     return true;
                 }
                 false
             }
             Crouching::LightPunch => {
-                if ctx.buffer.buffered(Buttons::Lp, ctx.buffer.cancels) && ctx.buffer.down() {
+                if buffer.buffered(Buttons::Lp, buffer.cancels) && buffer.down() {
                     ctx.next.replace(Box::new(crouching::LightPunch));
                     return true;
                 }
                 false
             }
             Crouching::MediumPunch => {
-                if ctx.buffer.buffered(Buttons::Mp, ctx.buffer.attack) && ctx.buffer.down() {
+                if buffer.buffered(Buttons::Mp, buffer.attack) && buffer.down() {
                     ctx.next.replace(Box::new(crouching::MediumPunch));
                     return true;
                 }
                 false
             }
             Crouching::HeavyPunch => {
-                if ctx.buffer.buffered(Buttons::Hp, ctx.buffer.attack) && ctx.buffer.down() {
+                if buffer.buffered(Buttons::Hp, buffer.attack) && buffer.down() {
                     ctx.next.replace(Box::new(crouching::HeavyPunch));
                     return true;
                 }
                 false
             }
             Crouching::LightKick => {
-                if ctx.buffer.buffered(Buttons::Lk, ctx.buffer.cancels) && ctx.buffer.down() {
+                if buffer.buffered(Buttons::Lk, buffer.cancels) && buffer.down() {
                     ctx.next.replace(Box::new(crouching::LightKick));
                     return true;
                 }
                 false
             }
             Crouching::MediumKick => {
-                if ctx.buffer.buffered(Buttons::Mk, ctx.buffer.attack) && ctx.buffer.down() {
+                if buffer.buffered(Buttons::Mk, buffer.attack) && buffer.down() {
                     ctx.next.replace(Box::new(crouching::MediumKick));
                     return true;
                 }
                 false
             }
             Crouching::HeavyKick => {
-                if ctx.buffer.buffered(Buttons::Hk, ctx.buffer.attack) && ctx.buffer.down() {
+                if buffer.buffered(Buttons::Hk, buffer.attack) && buffer.down() {
                     ctx.next.replace(Box::new(crouching::HeavyKick));
                     return true;
                 }
@@ -408,71 +408,71 @@ pub enum Jumping {
 }
 
 impl Jumping {
-    pub fn set(&self, ctx: &mut Context) -> bool {
+    pub fn set(&self, ctx: &mut Context, buffer: &mut Buffer, physics: &mut Physics) -> bool {
         match self {
             Jumping::Start => {
-                if ctx.buffer.up() && !ctx.physics.airborne {
-                    handle_jump_flags(ctx);
+                if buffer.up() && !physics.airborne {
+                    handle_jump_flags(ctx, buffer, physics);
                     ctx.next.replace(Box::new(jumping::Start));
                     return true;
                 }
             }
             Jumping::Neutral => {
-                if ctx.buffer.up() {
+                if buffer.up() {
                     ctx.next.replace(Box::new(jumping::Neutral));
                     return true;
                 }
             }
             Jumping::Forward => {
-                if ctx.buffer.up_forward() {
+                if buffer.up_forward() {
                     ctx.next.replace(Box::new(jumping::Forward));
                     return true;
                 }
             }
             Jumping::Backward => {
-                if ctx.buffer.up_backward() {
+                if buffer.up_backward() {
                     ctx.next.replace(Box::new(jumping::Backward));
                     return true;
                 }
             }
             Jumping::End => {
-                if !ctx.buffer.up() && ctx.physics.airborne {
+                if !buffer.up() && physics.airborne {
                     ctx.next.replace(Box::new(jumping::End));
                     return true;
                 }
             }
             Jumping::LightPunch => {
-                if ctx.buffer.buffered(Buttons::Lp, ctx.buffer.attack) && ctx.physics.airborne {
+                if buffer.buffered(Buttons::Lp, buffer.attack) && physics.airborne {
                     ctx.next.replace(Box::new(jumping::LightPunch));
                     return true;
                 }
             }
             Jumping::MediumPunch => {
-                if ctx.buffer.buffered(Buttons::Mp, ctx.buffer.attack) && ctx.physics.airborne {
+                if buffer.buffered(Buttons::Mp, buffer.attack) && physics.airborne {
                     ctx.next.replace(Box::new(jumping::MediumPunch));
                     return true;
                 }
             }
             Jumping::HeavyPunch => {
-                if ctx.buffer.buffered(Buttons::Hp, ctx.buffer.attack) && ctx.physics.airborne {
+                if buffer.buffered(Buttons::Hp, buffer.attack) && physics.airborne {
                     ctx.next.replace(Box::new(jumping::HeavyPunch));
                     return true;
                 }
             }
             Jumping::LightKick => {
-                if ctx.buffer.buffered(Buttons::Lk, ctx.buffer.attack) && ctx.physics.airborne {
+                if buffer.buffered(Buttons::Lk, buffer.attack) && physics.airborne {
                     ctx.next.replace(Box::new(jumping::LightKick));
                     return true;
                 }
             }
             Jumping::MediumKick => {
-                if ctx.buffer.buffered(Buttons::Mk, ctx.buffer.attack) && ctx.physics.airborne {
+                if buffer.buffered(Buttons::Mk, buffer.attack) && physics.airborne {
                     ctx.next.replace(Box::new(jumping::MediumKick));
                     return true;
                 }
             }
             Jumping::HeavyKick => {
-                if ctx.buffer.buffered(Buttons::Hk, ctx.buffer.attack) && ctx.physics.airborne {
+                if buffer.buffered(Buttons::Hk, buffer.attack) && physics.airborne {
                     ctx.next.replace(Box::new(jumping::HeavyKick));
                     return true;
                 }

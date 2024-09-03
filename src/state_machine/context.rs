@@ -9,8 +9,6 @@ pub struct Context {
     pub elapsed: u32,
     pub total: u32,
     pub reaction: Reaction,
-    pub buffer: InputBuffer,
-    pub physics: Physics,
     pub flags: Flags,
     pub locks: Locks,
 }
@@ -34,9 +32,9 @@ pub struct Reaction {
     /// Attacker's attack has made contact with hurtbox
     pub has_hit: bool,
     /// Attacker's attack was blocked
-    pub blocked: bool,
+    pub _blocked: bool,
     /// Attacker's attack can be canceled out of
-    pub can_cancel: bool,
+    pub _can_cancel: bool,
     /// Everyone's hitstop
     pub hitstop: u32,
     /// Everyone's hitstun
@@ -77,7 +75,7 @@ impl Default for Locks {
 }
 
 impl Locks {
-    pub fn dash_lockout(&mut self, buffer: &InputBuffer, time: u8) {
+    pub fn dash_lockout(&mut self, buffer: &Buffer, time: u8) {
         let forward = if buffer.current().facing_left() {
             buffer.held.l
         } else {
@@ -115,16 +113,16 @@ impl Locks {
 
 pub fn handle_modifiers(world: &mut World) {
     let query = world
-        .query_named::<&mut StateMachine>("Handle state modifiers")
+        .query_named::<(&mut StateMachine, &mut Buffer, &mut Physics)>("Handle state modifiers")
         .set_cached()
         .build();
-    query.each(|state| {
+    query.each(|(state, buffer, physics)| {
         if let Some(command) = &state.modifiers.commands {
             if let Some(positions) = &command.positions {
                 if let Some(position) = positions.get(state.modifiers.index) {
                     if position.on_frame == state.ctx.elapsed {
-                        state.ctx.physics.set_forward_position(position.value.x);
-                        state.ctx.physics.position.y = position.value.y;
+                        physics.set_forward_position(position.value.x);
+                        physics.position.y = position.value.y;
                         state.modifiers.index += 1;
                     }
                 }
@@ -140,8 +138,12 @@ pub fn handle_modifiers(world: &mut World) {
                                     for kind in collisions {
                                         match kind {
                                             CollisionType::Whiff => {
-                                                if transition.set(&mut state.ctx) {
-                                                    turn_transition(&mut state.ctx);
+                                                if transition.set(&mut state.ctx, buffer, physics) {
+                                                    turn_transition(
+                                                        &mut state.ctx,
+                                                        buffer,
+                                                        physics,
+                                                    );
                                                     return;
                                                 }
                                             }
@@ -152,9 +154,9 @@ pub fn handle_modifiers(world: &mut World) {
                                     }
                                 }
                                 None => {
-                                    if transition.set(&mut state.ctx) {
+                                    if transition.set(&mut state.ctx, buffer, physics) {
                                         println!("{} -> {:?}", state.ctx.player, transition);
-                                        turn_transition(&mut state.ctx);
+                                        turn_transition(&mut state.ctx, buffer, physics);
                                         return;
                                     }
                                 }

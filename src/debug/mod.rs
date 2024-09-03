@@ -143,7 +143,7 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
             .movable(false)
             .bg_alpha(0.5)
             .build(|| {
-                world.lookup("Player 1").get::<&InputBuffer>(|buffer| {
+                world.lookup("Player 1").get::<&Buffer>(|buffer| {
                     ui.text(format!("{:012b}", buffer.current()));
                 });
                 ui.separator();
@@ -165,7 +165,7 @@ pub fn debug(world: &World, ui: &mut &mut imgui::Ui, d: &mut RaylibDrawHandle) {
                         .no_decoration()
                         .always_auto_resize(true)
                         .build(|| {
-                            world.lookup("Player 1").get::<&InputBuffer>(|buffer| {
+                            world.lookup("Player 1").get::<&Buffer>(|buffer| {
                                 ui.text(format!("{}", buffer.held));
                                 ui.text(format!("{}", Wrapper(buffer.buffer)));
                             });
