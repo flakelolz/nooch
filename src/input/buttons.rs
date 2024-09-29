@@ -2,6 +2,7 @@ use crate::prelude::*;
 
 #[allow(dead_code)]
 #[derive(Component, Debug, PartialEq, Eq, Clone, Copy, Hash)]
+#[repr(u32)]
 pub enum Buttons {
     None = 0,
     /// Neutral
@@ -18,13 +19,13 @@ pub enum Buttons {
     /// Left
     L = 1 << 6,
     /// Up-left
-    UL = (Self::U as isize | Self::L as isize),
+    UL = (Self::U as u32 | Self::L as u32),
     /// Up-right
-    UR = (Self::U as isize | Self::R as isize),
+    UR = (Self::U as u32 | Self::R as u32),
     /// Down-left
-    DL = (Self::D as isize | Self::L as isize),
+    DL = (Self::D as u32 | Self::L as u32),
     /// Down-right
-    DR = (Self::D as isize | Self::R as isize),
+    DR = (Self::D as u32 | Self::R as u32),
     /// Light punch
     Lp = 1 << 7,
     /// Medium punch
@@ -38,20 +39,20 @@ pub enum Buttons {
     /// Heavy kick
     Hk = 1 << 12,
     /// Any punch
-    Punches = (Self::Lp as isize | Self::Mp as isize | Self::Hp as isize),
+    Punches = (Self::Lp as u32 | Self::Mp as u32 | Self::Hp as u32),
     /// Any kick
-    Kicks = (Self::Lk as isize | Self::Mk as isize | Self::Hk as isize),
+    Kicks = (Self::Lk as u32 | Self::Mk as u32 | Self::Hk as u32),
     /// Any attack
-    Attacks = (Self::Lp as isize
-        | Self::Mp as isize
-        | Self::Hp as isize
-        | Self::Lk as isize
-        | Self::Mk as isize
-        | Self::Hk as isize),
+    Attacks = (Self::Lp as u32
+        | Self::Mp as u32
+        | Self::Hp as u32
+        | Self::Lk as u32
+        | Self::Mk as u32
+        | Self::Hk as u32),
     /// Any direction
-    Direction = (Self::D as isize | Self::U as isize | Self::R as isize | Self::L as isize),
+    Direction = (Self::D as u32 | Self::U as u32 | Self::R as u32 | Self::L as u32),
     /// Any attack or direction
-    Any = (Self::Attacks as isize | Self::Direction as isize),
+    Any = (Self::Attacks as u32 | Self::Direction as u32),
 }
 
 impl Buttons {
